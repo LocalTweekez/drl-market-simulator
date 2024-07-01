@@ -6,10 +6,14 @@ if __name__ == "__main__":
     state = tradingenv.reset()
     print("Initial State:", state)
 
-    for _ in range(10):
+    c = 0
+    while True:
+        c += 1
         action = tradingenv.action_space.sample()  # Sample random action
-        print("ACTION: ", action[0])
-        state, reward, done, info = tradingenv.step(action[0])
-        tradingenv.render()
+        # print("ACTION: ", action[0])
+        state, reward, done, info = tradingenv.step(action)
+        # tradingenv.render()
+        if c % 1000 == 0:
+            print(f"{c}")
         if done:
             break
