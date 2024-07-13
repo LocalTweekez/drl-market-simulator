@@ -3,6 +3,7 @@ import datetime
 import tkinter as tk
 from tkinter.filedialog import askopenfilename
 import drl_modules.create_metadata
+import numpy as np
 
 def extract_data_windows(symbol: str,
                         date_from: datetime.datetime,
@@ -10,13 +11,18 @@ def extract_data_windows(symbol: str,
                         batch_size: int):
     import MetaTrader5 as mt5
 
-def extract_data():
+def get_csv_path_pandas():
     root = tk.Tk()
     root.withdraw()
     csvfile = askopenfilename(
         filetypes=[("CSV files", "*.csv")],
         title="Select dataset csv file."
     )
+    return csvfile
+
+def extract_data(csv_path=""):
+    csvfile = get_csv_path_pandas() if csv_path == "" else csv_path
+
     df = pd.read_csv(csvfile)
     
     # Expected columns order
@@ -32,6 +38,19 @@ def extract_data():
     df = df.sort_values(by='time').reset_index(drop=True)
     
     return df
+
+def extract_batched_data(df, batch_divider=10, csv_path=""):
+    if batch_divider < 4:
+        print("Batch divider must be at least 4 (the last two are for evaluation).")
+        quit()
+        
+    num_rows = len(df)
+    batch_size = int(np.ceil(num_rows / batch_divider))
+    indices = df.index
+    batches = [df.loc[indices[i * batch_size: min((i + 1) * batch_size, num_rows)]] for i in
+                    range(batch_divider)]
+    
+    return batches
 
 def convert_csv_format(input_csv_path, output_csv_path):
     df = pd.read_csv(input_csv_path)
@@ -61,4 +80,8 @@ def convert_csv_format(input_csv_path, output_csv_path):
 # Example usage in your module:
 if __name__ == "__main__":
     df = extract_data()
-    print(df.head())
+    batches = extract_batched_data(df)
+    start_part = 0
+
+    for i, part in enumerate(batches[start_part:], start=start_part):
+        print(part.head())
