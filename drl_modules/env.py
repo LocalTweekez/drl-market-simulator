@@ -144,6 +144,7 @@ class TradingEnv(gym.Env):
         self.positions = []
         self.symbol = symbol
         self.position_total = 0
+        self.total_reward = 0
         self.timeOpen = datetime.datetime.now()
 
     
@@ -153,6 +154,7 @@ class TradingEnv(gym.Env):
         self.done = False
         self.reward = 0
         self.position_total = 0
+        self.total_reward = 0
         self.timeOpen = datetime.datetime.now()
         self.info = {}
         self.positions = []
@@ -216,6 +218,7 @@ class TradingEnv(gym.Env):
         # Placeholder: Update the state with actual logic based on the action
         self.state = self._get_observation()
         self.reward = self._calculate_reward()
+        self.total_reward += self.reward
         self.done = self.t >= len(self.trade_env) - 1
         self.info = {
             "Step": self.t,
@@ -223,6 +226,7 @@ class TradingEnv(gym.Env):
             "Action": direction,
             "Position": self.trade_env['pType'][self.t],
             "Reward": self.reward,
+            "TotalReward": self.total_reward,
             "Done": self.done,
             "Wins": self.trade_env['eWins'][self.t],
             "Losses": self.trade_env['eLosses'][self.t],

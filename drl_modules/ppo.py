@@ -1,24 +1,65 @@
 import os
-from stable_baselines3 import PPO, DQN
+from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
-from stable_baselines3.common.vec_env import VecNormalize
-from drl_modules.env import TradingEnv
 from stable_baselines3.common.logger import configure
-from drl_modules.agent_render import render_loss_function
-from drl_modules.data_extract import extract_data, extract_batched_data
+from drl_modules.env import TradingEnv
 import pandas as pd
-import tkinter as tk
-from tkinter.filedialog import askopenfilename
 import numpy as np
 import time
-import drl_modules.policies as pl
+from stable_baselines3.common.callbacks import BaseCallback
+import tkinter as tk
+from tkinter.filedialog import askopenfilename
+
+from drl_modules.data_extract import extract_data, extract_batched_data
+
+class LoggingCallback(BaseCallback):
+    def __init__(self, log_dir, verbose=0):
+        super(LoggingCallback, self).__init__(verbose)
+        self.log_dir = log_dir
+        os.makedirs(log_dir, exist_ok=True)
+        self.log_step = os.path.join(log_dir, "sb3_log/step_log.txt")
+        self.log_rollout = os.path.join(log_dir, "sb3_log/rollout_log.txt")
+        self.step_count = 0
+        self.update_interval = 2048
+
+    def _on_step(self) -> bool:
+        self.step_count += 1
+        if self.step_count % self.update_interval == 0:
+            with open(self.log_step, "a") as f:
+                info = self.locals["infos"][0]  # Accessing the first env's info
+                log_info = (
+                    f"Step: {self.num_timesteps}, "
+                    f"Reward: {self.locals['rewards']}, "
+                    f"Info: {info}"
+                )
+                f.write(log_info + "\n")
+                print(log_info)  # For debugging purposes
+        return True
+
+    def _on_rollout_end(self) -> None:
+        with open(self.log_rollout, "a") as f:
+            info = self.locals["infos"][0]
+            log_info = (
+                f"Step: {self.num_timesteps}, "
+                f"Info: {info}"
+            )
+            f.write(log_info + "\n")
+        return True
 
 def make_env(env_id, reward_idx, df_path, symbol):
     def _init():
         return TradingEnv(reward_func_idx=reward_idx, dataset_path=df_path, symbol=symbol)
     return _init
 
-def ppo_run(dir, reward_func_idx, symbol: str, step_amount=0, df_path: str | pd.DataFrame = "", batch_idx=0, save_model_after_each_batch=False, vectorized_environments=4):
+def ppo_run(dir, 
+            reward_func_idx, 
+            symbol: str, 
+            step_amount=0, 
+            df_path: str | pd.DataFrame = "", 
+            batch_idx: int = 0, 
+            save_model_after_each_batch: bool = False, 
+            vectorized_environments: int = 4,
+            device: str = "cpu"):
     if step_amount == 0:
         training_steps = int(input("Enter the amount of training steps: "))
     else:
@@ -28,10 +69,8 @@ def ppo_run(dir, reward_func_idx, symbol: str, step_amount=0, df_path: str | pd.
                           dataset_path=df_path, symbol=symbol)
     
     base_env._get_env_details()
-    quit()
 
     if vectorized_environments > 0:
-        # Here we use a lambda to pass the function with the parameters
         vec_env = make_vec_env(lambda: make_env(None, reward_func_idx, df_path, symbol)(), n_envs=vectorized_environments)
         print("VECTORIZING ENVIRONMENTS (This could cause crashes!)")
 
@@ -39,17 +78,19 @@ def ppo_run(dir, reward_func_idx, symbol: str, step_amount=0, df_path: str | pd.
 
     tmp_path = dir
     new_logger = configure(tmp_path+"sb3_log/", ["stdout", "csv", "tensorboard"])
-    model = PPO("MultiInputPolicy", env, verbose=1, device="cpu")
+    model = PPO("MultiInputPolicy", env, verbose=1, device=device)
 
     model.set_logger(new_logger)
 
     if batch_idx > 0:
         try:
-            model.load(tmp_path+"../PPO_model", device="cpu")
+            model.load(tmp_path+"../PPO_model", device=device)
         except FileNotFoundError:
             print("File not found, training a new file instead")
 
-    model.learn(training_steps)
+    log_callback = LoggingCallback(log_dir=tmp_path)
+
+    model.learn(training_steps, callback=log_callback)
     model.save(tmp_path+"../PPO_model")
     if save_model_after_each_batch:
         model.save(tmp_path+f"PPO_model_batch_{batch_idx}")
@@ -66,7 +107,15 @@ def ppo_run(dir, reward_func_idx, symbol: str, step_amount=0, df_path: str | pd.
 
     base_env.render(save_directory=tmp_path)
 
-def ppo_eval(dir, episodes, reward_func_idx, symbol, model_path="", render_modulo=10, df_path: str | pd.DataFrame = ""):
+
+def ppo_eval(dir: str, 
+             episodes: int, 
+             reward_func_idx: int, 
+             symbol: str, 
+             model_path: str = "", 
+             render_modulo: str = 10, 
+             df_path: str | pd.DataFrame = "",
+             device: str = "cpu"):
     env = TradingEnv(reward_func_idx=reward_func_idx, symbol=symbol, dataset_path=df_path)
     
     tmp_path = dir+"evaluation/"
@@ -83,7 +132,7 @@ def ppo_eval(dir, episodes, reward_func_idx, symbol, model_path="", render_modul
         )
 
     try:
-        model.load(model_path, device="cpu")
+        model.load(model_path, device=device)
     except FileNotFoundError:
         print("File not found, please select a proper model for evaluation.")
         quit()
@@ -162,11 +211,13 @@ if __name__ == "__main__":
                 df_path=part,
                 batch_idx=i,
                 save_model_after_each_batch=True,
-                vectorized_environments=6)
+                vectorized_environments=6,
+                device="cuda")
                 
     eval_part = pd.concat(batches[-4:])
     ppo_eval(dir=res_path+f"evaluation/", 
              episodes=100, 
              reward_func_idx=0,
              render_modulo=1,
-             df_path=eval_part)
+             df_path=eval_part,
+             device="cuda")
