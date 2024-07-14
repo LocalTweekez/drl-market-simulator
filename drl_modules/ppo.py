@@ -11,6 +11,7 @@ import tkinter as tk
 from tkinter.filedialog import askopenfilename
 import numpy as np
 import time
+import drl_modules.policies as pl
 
 def make_env(env_id, reward_idx, df_path, symbol):
     def _init():
@@ -25,6 +26,9 @@ def ppo_run(dir, reward_func_idx, symbol: str, step_amount=0, df_path: str | pd.
 
     base_env = TradingEnv(reward_func_idx=reward_func_idx, 
                           dataset_path=df_path, symbol=symbol)
+    
+    base_env._get_env_details()
+    quit()
 
     if vectorized_environments > 0:
         # Here we use a lambda to pass the function with the parameters

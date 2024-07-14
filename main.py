@@ -1,7 +1,7 @@
 from drl_modules.env import TradingEnv
 from drl_modules.agent_render import render_loss_function
 from drl_modules.data_extract import extract_data, extract_batched_data
-from drl_modules.agents import ppo_run, ppo_eval
+from drl_modules.ppo import ppo_run, ppo_eval
 from drl_modules.rewards import RewardFunctions
 import os
 

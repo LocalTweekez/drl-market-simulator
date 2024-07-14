@@ -433,9 +433,30 @@ class TradingEnv(gym.Env):
         pos_df.to_csv(save_directory+"positions.csv", index=False)
         print("SAVED ALL POSITIONS")
 
+    def _get_env_details(self):
+        details = {
+            'Symbol': self.symbol,
+            'Initial Balance': self.init_balance,
+            'Risk Percentage': self.risk_percentage,
+            'Trading Fees': self.fees,
+            'Reward Function Index': self.reward_func_idx,
+            'Reward Function Name': self.reward_func_name,
+            'Batch Size': self.batch_size,
+            'Action Space': self.action_space,
+            'Observation Space': self.observation_space,
+            'Dataset Columns': list(self.df.columns),
+        }
+        
+        print("\nEnvironment Details:")
+        for key, value in details.items():
+            print(f"{key}: {value}")
+        print()
+
+        return details
 
 
-if __name__ == "__main__":
+
+def test():
     tradingenv = TradingEnv()
     state = tradingenv.reset()
     tmp_path= "../results/"
@@ -456,3 +477,8 @@ if __name__ == "__main__":
             break
     
     tradingenv.render(save_directory=tmp_path)
+
+
+if __name__ == "__main__":
+    env = TradingEnv(0, "EURUSD")
+    env._get_env_details()
