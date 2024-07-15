@@ -185,6 +185,6 @@ if __name__ == "__main__":
              episodes=100, 
              reward_func_idx=0,
              render_modulo=1,
-             model_path="PPO_model.zip",
+             model_path="PPO_model",
              df_path=eval_part,
              device="cuda")
