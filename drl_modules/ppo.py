@@ -6,45 +6,10 @@ from drl_modules.env import TradingEnv
 import pandas as pd
 import numpy as np
 import time
-from stable_baselines3.common.callbacks import BaseCallback
 import tkinter as tk
 from tkinter.filedialog import askopenfilename
-
+from drl_modules.callbacks import LoggingCallback, EventCallback
 from drl_modules.data_extract import extract_data, extract_batched_data
-
-class LoggingCallback(BaseCallback):
-    def __init__(self, log_dir, verbose=0):
-        super(LoggingCallback, self).__init__(verbose)
-        self.log_dir = log_dir
-        os.makedirs(log_dir, exist_ok=True)
-        self.log_step = os.path.join(log_dir, "sb3_log/step_log.txt")
-        self.log_rollout = os.path.join(log_dir, "sb3_log/rollout_log.txt")
-        self.step_count = 0
-        self.update_interval = 2048
-
-    def _on_step(self) -> bool:
-        self.step_count += 1
-        if self.step_count % self.update_interval == 0:
-            with open(self.log_step, "a") as f:
-                info = self.locals["infos"][0]  # Accessing the first env's info
-                log_info = (
-                    f"Step: {self.num_timesteps}, "
-                    f"Reward: {self.locals['rewards']}, "
-                    f"Info: {info}"
-                )
-                f.write(log_info + "\n")
-                print(log_info)  # For debugging purposes
-        return True
-
-    def _on_rollout_end(self) -> None:
-        with open(self.log_rollout, "a") as f:
-            info = self.locals["infos"][0]
-            log_info = (
-                f"Step: {self.num_timesteps}, "
-                f"Info: {info}"
-            )
-            f.write(log_info + "\n")
-        return True
 
 def make_env(env_id, reward_idx, df_path, symbol):
     def _init():
@@ -88,12 +53,13 @@ def ppo_run(dir,
         except FileNotFoundError:
             print("File not found, training a new file instead")
 
-    log_callback = LoggingCallback(log_dir=tmp_path)
+    log_callback = LoggingCallback(log_dir=tmp_path, dataset_size=base_env.df_size)
+    eval_callback = EventCallback(log_callback)
 
-    model.learn(training_steps, callback=log_callback)
-    model.save(tmp_path+"../PPO_model")
+    model.learn(total_timesteps=training_steps, callback=log_callback)
+    model.save(path=tmp_path+"PPO_model")
     if save_model_after_each_batch:
-        model.save(tmp_path+f"PPO_model_batch_{batch_idx}")
+        model.save(tmp_path+f"batch/PPO_model_batch_{batch_idx}")
 
     obs, _ = base_env.reset()
 
@@ -202,7 +168,7 @@ if __name__ == "__main__":
 
     start_part = last_found_part + 1 if last_found_part != -1 else 0
     print(f"Starting from part {start_part}")
-
+    
     for i, part in enumerate(batches[start_part:], start=start_part):
         print(f"Training on batch {i + 1}")
         ppo_run(dir=res_path+f"part{i}/", 
@@ -219,5 +185,6 @@ if __name__ == "__main__":
              episodes=100, 
              reward_func_idx=0,
              render_modulo=1,
+             model_path="PPO_model.zip",
              df_path=eval_part,
              device="cuda")

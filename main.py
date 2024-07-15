@@ -78,7 +78,7 @@ def single_batch(reward_idx):
                 episodes=100, 
                 reward_func_idx=reward_idx,
                 symbol=symbol,
-                model_path=res_path+"PPO_model_batch_0",
+                model_path=res_path+"PPO_model",
                 render_modulo=1,
                 df_path=df)
 

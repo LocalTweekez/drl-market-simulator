@@ -140,12 +140,13 @@ class TradingEnv(gym.Env):
 
         # Environment parameters init
         self.t = self.batch_size  # Initialize t to batch_size
-        self.reset()
+        self.df_size = len(self.df)
         self.positions = []
         self.symbol = symbol
         self.position_total = 0
         self.total_reward = 0
         self.timeOpen = datetime.datetime.now()
+        self.reset()
 
     
     def reset(self, seed=None):
@@ -440,6 +441,7 @@ class TradingEnv(gym.Env):
     def _get_env_details(self):
         details = {
             'Symbol': self.symbol,
+            'Dataset Size': self.df_size,
             'Initial Balance': self.init_balance,
             'Risk Percentage': self.risk_percentage,
             'Trading Fees': self.fees,

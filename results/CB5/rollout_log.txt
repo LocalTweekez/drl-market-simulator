@@ -1,0 +1,4 @@
+Step: 2048, Info: {'Step': 987, 'Balance': 7357.549999999997, 'Action': -1.0, 'Position': 0, 'Reward': -0.0009192973689356843, 'TotalReward': -0.25681264070731114, 'Done': False, 'Wins': 86, 'Losses': 103, 'TotalTrades': 189, 'TimeLimit.truncated': False}
+Step: 4096, Info: {'Step': 893, 'Balance': 5859.110000000002, 'Action': -1.0, 'Position': 0, 'Reward': 0.05474527452745266, 'TotalReward': -0.48008628496849, 'Done': False, 'Wins': 73, 'Losses': 91, 'TotalTrades': 164, 'TimeLimit.truncated': False}
+Step: 6144, Info: {'Step': 799, 'Balance': 8029.75, 'Action': -0.21251707, 'Position': 1, 'Reward': 0.0, 'TotalReward': -0.16319297080582354, 'Done': False, 'Wins': 67, 'Losses': 77, 'TotalTrades': 144, 'TimeLimit.truncated': False}
+Step: 8192, Info: {'Step': 705, 'Balance': 11605.130000000005, 'Action': 0.5066776, 'Position': 1, 'Reward': 0.0, 'TotalReward': 0.19388198548847957, 'Done': False, 'Wins': 58, 'Losses': 57, 'TotalTrades': 115, 'TimeLimit.truncated': False}
