@@ -147,12 +147,6 @@ def ppo_eval(dir: str,
     return_data = pd.DataFrame(return_data)
     return_data.to_csv(dir+"eval_results.csv")
 
-def get_path_from_input():
-    folder = input("Enter name of the folder to save the results in: ")
-    res_path = path+folder+"/"
-    os.makedirs(res_path, exist_ok=True)
-    return res_path
-
 if __name__ == "__main__":
     path = "../results/"
     batch_divider = 1

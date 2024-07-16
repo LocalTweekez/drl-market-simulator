@@ -1,7 +1,9 @@
+import pandas as pd
 from drl_modules.env import TradingEnv
 from drl_modules.agent_render import render_loss_function
 from drl_modules.data_extract import extract_data, extract_batched_data
 from drl_modules.ppo import ppo_run, ppo_eval
+from drl_modules.input_config import get_user_input
 from drl_modules.rewards import RewardFunctions
 import os
 
@@ -11,19 +13,20 @@ def get_path_from_input(path="results/"):
     os.makedirs(res_path, exist_ok=True)
     return res_path
 
-def multiple_batch(reward_idx, batches_amount=4):
+def multiple_batch(reward_idx, 
+                   symbol, 
+                   batches_amount, 
+                   df_path, 
+                   step_inp, 
+                   vec_env, 
+                   res_path,
+                   device):
     start_part = 0
 
-    df = extract_data()
+    df = extract_data(csv_path=df_path)
     batches = extract_batched_data(df, batch_divider=batches_amount)
-    res_path = get_path_from_input()
     
-    step_inp = int(input("Enter amount of steps: "))
-    symbol = input("Enter currency pair symbol in 6 capital letters: ")
-    vec_env = int(input("Enter amount of vectorized environments (zero for base): "))
-    
-    
-    last_found_part = -1
+    last_found_part = -1 
     for i in range(batches_amount):
         if os.path.exists(res_path+f"part{i}"):
             last_found_part = i
@@ -43,7 +46,8 @@ def multiple_batch(reward_idx, batches_amount=4):
                 df_path=part,
                 batch_idx=i,
                 save_model_after_each_batch=True,
-                vectorized_environments=vec_env)
+                vectorized_environments=vec_env,
+                device=device)
                 
     eval_part = pd.concat(batches[-4:])
     ppo_eval(dir=res_path+f"evaluation/", 
@@ -53,15 +57,15 @@ def multiple_batch(reward_idx, batches_amount=4):
              render_modulo=1,
              df_path=eval_part)
 
-def single_batch(reward_idx):
-    path = "results/"
-    df = extract_data()
-    res_path = get_path_from_input()
+def single_batch(reward_idx, 
+                 symbol, 
+                 df_path, 
+                 step_inp, 
+                 vec_env, 
+                 res_path,
+                 device):
+    df = extract_data(csv_path=df_path)
 
-    symbol = input("Enter currency pair symbol in 6 capital letters: ")
-    step_inp = int(input("Enter amount of steps: "))
-    vec_env = int(input("Enter amount of vectorized environments (zero for base): "))
-    
     print("\n\nRUNNING THE TRAINING PHASE:")
     ppo_run(dir=res_path, 
         reward_func_idx=reward_idx, 
@@ -70,7 +74,8 @@ def single_batch(reward_idx):
         df_path=df,
         batch_idx=0,
         save_model_after_each_batch=True,
-        vectorized_environments=vec_env)
+        vectorized_environments=vec_env,
+        device=device)
         
     print("\n\nRUNNING THE EVALUATION PHASE:")
     ppo_eval(dir=res_path, 
@@ -83,15 +88,9 @@ def single_batch(reward_idx):
 
 
 if __name__ == "__main__":
-    batches = int(input("Enter amount of batches (zero for single, minimum 4): "))
-    print("\nReward functions:")
-    rewards = RewardFunctions().function_names
-
-    for i, r in enumerate(rewards):
-        print(f"\t{i}. {r}")
-    rw_idx = int(input("\nEnter reward function index: "))
+    inputs = get_user_input()
     
-    if batches == 0:
+    if inputs["Batches"] == 0:
         single_batch(rw_idx)
     else:
         multiple_batch(rw_idx, batches)
