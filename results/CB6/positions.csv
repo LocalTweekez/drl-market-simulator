@@ -1,206 +1,196 @@
 id,timeOpen,timeClose,positionType,tradeResult,priceOpen,priceClose,positionSL,positionTP,profit,symbol,comment
-1144,2020-01-27,2020-01-31,SELL,LOSS,1.10195,1.10314,1.1056,0.0,-35.65,asdf,(SHORT) Position closed by execution
-1145,2020-02-03,2020-02-11,SELL,WIN,1.10611,1.09106,1.1152,0.0,444.18,asdf,(SHORT) Position closed by execution
-1146,2020-02-12,2020-02-24,SELL,WIN,1.08737,1.08478,1.0911,0.0,79.38,asdf,(SHORT) Position closed by execution
-1147,2020-02-25,2020-03-03,BUY,WIN,1.0881,1.11324,1.0844,0.0,796.84,asdf,(LONG) Position closed by execution
-1148,2020-03-04,2020-03-06,SELL,LOSS,1.1135,1.12369,1.1212,0.0,-350.8,asdf,(SHORT) Stop loss hit - failed trade
-1149,2020-03-09,2020-03-11,SELL,WIN,1.14353,1.12815,1.1472,0.0,515.02,asdf,(SHORT) Position closed by execution
-1150,2020-03-16,2020-03-18,BUY,LOSS,1.11814,1.09987,1.1139,0.0,-624.57,asdf,(LONG) Stop loss hit - failed trade
-1151,2020-03-19,2020-03-25,SELL,LOSS,1.0693,1.07872,1.073,0.0,-298.61,asdf,(SHORT) Stop loss hit - failed trade
-1152,2020-03-30,2020-04-03,BUY,LOSS,1.10446,1.08569,1.0934,0.0,-582.32,asdf,(LONG) Stop loss hit - failed trade
-1153,2020-04-06,2020-04-08,SELL,LOSS,1.07937,1.08921,1.0831,0.0,-289.33,asdf,(SHORT) Stop loss hit - failed trade
-1154,2020-04-09,2020-04-15,SELL,LOSS,1.09297,1.09818,1.0994,0.0,-149.96,asdf,(SHORT) Position closed by execution
-1155,2020-04-16,2020-04-21,BUY,WIN,1.0839,1.08622,1.0802,0.0,65.01,asdf,(LONG) Position closed by execution
-1156,2020-04-22,2020-04-27,BUY,WIN,1.08231,1.08261,1.0713,0.0,8.43,asdf,(LONG) Position closed by execution
-1157,2020-04-28,2020-04-30,BUY,WIN,1.08197,1.08732,1.0783,0.0,151.24,asdf,(LONG) Position closed by execution
-1158,2020-05-05,2020-05-12,SELL,WIN,1.08375,1.08066,1.0874,0.0,88.18,asdf,(SHORT) Position closed by execution
-1159,2020-05-15,2020-05-19,BUY,WIN,1.0819,1.09142,1.0782,0.0,276.9,asdf,(LONG) Position closed by execution
-1160,2020-05-22,2020-06-08,BUY,WIN,1.09032,1.129,1.0866,0.0,1196.65,asdf,(LONG) Position closed by execution
-1161,2020-06-09,2020-06-12,BUY,LOSS,1.13383,1.1298,1.1301,0.0,-139.57,asdf,(LONG) Stop loss hit - failed trade
-1162,2020-06-16,2020-06-18,BUY,LOSS,1.12636,1.12431,1.1222,0.0,-69.78,asdf,(LONG) Position closed by execution
-1163,2020-06-19,2020-07-07,BUY,WIN,1.11777,1.13089,1.1088,0.0,446.34,asdf,(LONG) Position closed by execution
-1164,2020-07-09,2020-07-14,SELL,LOSS,1.12848,1.13428,1.1322,0.0,-205.89,asdf,(SHORT) Stop loss hit - failed trade
-1165,2020-07-15,2020-07-20,SELL,LOSS,1.14115,1.14246,1.1448,0.0,-46.01,asdf,(SHORT) Position closed by execution
-1166,2020-07-21,2020-07-23,SELL,LOSS,1.15286,1.15703,1.1565,0.0,-147.7,asdf,(SHORT) Stop loss hit - failed trade
-1167,2020-07-24,2020-08-06,BUY,WIN,1.16556,1.18641,1.1619,0.0,747.28,asdf,(LONG) Position closed by execution
-1168,2020-08-07,2020-08-11,BUY,LOSS,1.17868,1.17366,1.175,0.0,-189.95,asdf,(LONG) Stop loss hit - failed trade
-1169,2020-08-12,2020-08-17,SELL,LOSS,1.17854,1.18404,1.1822,0.0,-206.6,asdf,(SHORT) Stop loss hit - failed trade
-1170,2020-08-18,2020-08-20,BUY,LOSS,1.19314,1.18392,1.1854,0.0,-340.17,asdf,(LONG) Stop loss hit - failed trade
-1171,2020-08-21,2020-08-25,SELL,WIN,1.17956,1.17873,1.1906,0.0,29.57,asdf,(SHORT) Position closed by execution
-1172,2020-08-26,2020-09-01,SELL,LOSS,1.18303,1.19363,1.1909,0.0,-383.62,asdf,(SHORT) Stop loss hit - failed trade
-1173,2020-09-04,2020-09-09,SELL,WIN,1.18379,1.17738,1.1943,0.0,220.95,asdf,(SHORT) Position closed by execution
-1174,2020-09-11,2020-09-17,SELL,WIN,1.18446,1.18162,1.1955,0.0,100.25,asdf,(SHORT) Position closed by execution
-1175,2020-09-21,2020-09-23,BUY,LOSS,1.17714,1.17048,1.1735,0.0,-235.04,asdf,(LONG) Stop loss hit - failed trade
-1176,2020-09-25,2020-09-29,BUY,WIN,1.16307,1.16668,1.1594,0.0,124.28,asdf,(LONG) Position closed by execution
-1177,2020-09-30,2020-10-09,BUY,WIN,1.17208,1.17601,1.161,0.0,137.94,asdf,(LONG) Position closed by execution
-1178,2020-10-12,2020-10-14,BUY,LOSS,1.18119,1.17455,1.1775,0.0,-235.72,asdf,(LONG) Stop loss hit - failed trade
-1179,2020-10-16,2020-10-20,SELL,LOSS,1.17147,1.17709,1.1752,0.0,-195.71,asdf,(SHORT) Stop loss hit - failed trade
-1180,2020-10-23,2020-10-28,SELL,WIN,1.18614,1.17954,1.1934,0.0,226.16,asdf,(SHORT) Position closed by execution
-1181,2020-10-29,2020-11-04,BUY,WIN,1.16731,1.17202,1.1611,0.0,163.75,asdf,(LONG) Position closed by execution
-1182,2020-11-06,2020-11-11,SELL,WIN,1.18752,1.18172,1.1912,0.0,206.37,asdf,(SHORT) Position closed by execution
-1183,2020-11-12,2020-11-30,SELL,LOSS,1.18056,1.19609,1.1916,0.0,-569.72,asdf,(SHORT) Stop loss hit - failed trade
-1184,2020-12-02,2020-12-08,BUY,LOSS,1.21156,1.2109,1.2036,0.0,-23.29,asdf,(LONG) Position closed by execution
-1185,2020-12-10,2020-12-15,SELL,LOSS,1.21416,1.21431,1.2207,0.0,-5.3,asdf,(SHORT) Position closed by execution
-1186,2020-12-16,2020-12-23,BUY,LOSS,1.21994,1.21629,1.2144,0.0,-128.96,asdf,(LONG) Position closed by execution
-1187,2020-12-28,2021-01-07,SELL,LOSS,1.22148,1.23263,1.2325,0.0,-394.41,asdf,(SHORT) Stop loss hit - failed trade
-1188,2021-01-13,2021-01-15,SELL,WIN,1.21578,1.21545,1.2268,0.0,11.07,asdf,(SHORT) Position closed by execution
-1189,2021-01-18,2021-01-22,SELL,LOSS,1.20759,1.21679,1.2147,0.0,-309.6,asdf,(SHORT) Stop loss hit - failed trade
-1190,2021-01-25,2021-01-27,BUY,WIN,1.21415,1.21598,1.2105,0.0,59.66,asdf,(LONG) Position closed by execution
-1191,2021-01-28,2021-02-02,BUY,LOSS,1.21222,1.20609,1.2085,0.0,-199.46,asdf,(LONG) Stop loss hit - failed trade
-1192,2021-02-04,2021-02-08,SELL,LOSS,1.19611,1.20489,1.1998,0.0,-279.67,asdf,(SHORT) Stop loss hit - failed trade
-1193,2021-02-09,2021-02-11,BUY,LOSS,1.21197,1.21183,1.2083,0.0,-4.37,asdf,(LONG) Position closed by execution
-1194,2021-02-15,2021-02-17,SELL,WIN,1.21271,1.21034,1.2164,0.0,73.61,asdf,(SHORT) Position closed by execution
-1195,2021-02-18,2021-02-22,BUY,WIN,1.20933,1.21172,1.2056,0.0,74.89,asdf,(LONG) Position closed by execution
-1196,2021-02-23,2021-03-01,BUY,LOSS,1.21496,1.20736,1.2113,0.0,-239.2,asdf,(LONG) Stop loss hit - failed trade
-1197,2021-03-02,2021-03-08,SELL,WIN,1.20905,1.19102,1.2174,0.0,545.82,asdf,(SHORT) Position closed by execution
-1198,2021-03-09,2021-03-17,BUY,WIN,1.19008,1.19024,1.1864,0.0,5.11,asdf,(LONG) Position closed by execution
-1199,2021-03-18,2021-03-26,BUY,LOSS,1.19158,1.17641,1.1805,0.0,-480.32,asdf,(LONG) Stop loss hit - failed trade
-1200,2021-03-29,2021-03-31,BUY,LOSS,1.17652,1.17158,1.1728,0.0,-148.23,asdf,(LONG) Stop loss hit - failed trade
-1201,2021-04-01,2021-04-06,BUY,WIN,1.17776,1.18124,1.1741,0.0,103.61,asdf,(LONG) Position closed by execution
-1202,2021-04-07,2021-04-09,BUY,WIN,1.18717,1.19162,1.1797,0.0,135.15,asdf,(LONG) Position closed by execution
-1203,2021-04-12,2021-04-14,SELL,LOSS,1.19115,1.19489,1.1948,0.0,-115.56,asdf,(SHORT) Stop loss hit - failed trade
-1204,2021-04-16,2021-04-20,SELL,LOSS,1.19822,1.20368,1.2019,0.0,-167.87,asdf,(SHORT) Stop loss hit - failed trade
-1205,2021-04-22,2021-04-26,SELL,LOSS,1.2016,1.20975,1.2053,0.0,-247.35,asdf,(SHORT) Stop loss hit - failed trade
-1206,2021-04-27,2021-05-03,BUY,LOSS,1.20916,1.20215,1.2051,0.0,-205.75,asdf,(LONG) Stop loss hit - failed trade
-1207,2021-05-04,2021-05-07,SELL,LOSS,1.20137,1.2064,1.2051,0.0,-144.77,asdf,(SHORT) Stop loss hit - failed trade
-1208,2021-05-10,2021-05-12,BUY,WIN,1.21284,1.21482,1.2092,0.0,56.43,asdf,(LONG) Position closed by execution
-1209,2021-05-14,2021-05-18,BUY,WIN,1.21458,1.21518,1.2103,0.0,17.21,asdf,(LONG) Position closed by execution
-1210,2021-05-19,2021-05-21,SELL,LOSS,1.2176,1.22282,1.2213,0.0,-151.05,asdf,(SHORT) Stop loss hit - failed trade
-1211,2021-05-26,2021-06-03,BUY,WIN,1.21925,1.22097,1.2156,0.0,48.82,asdf,(LONG) Position closed by execution
-1212,2021-06-04,2021-06-08,BUY,WIN,1.21666,1.21895,1.2072,0.0,65.27,asdf,(LONG) Position closed by execution
-1213,2021-06-09,2021-06-14,SELL,WIN,1.21792,1.21079,1.229,0.0,203.41,asdf,(SHORT) Position closed by execution
-1214,2021-06-16,2021-06-18,BUY,LOSS,1.19957,1.19062,1.1959,0.0,-256.98,asdf,(LONG) Stop loss hit - failed trade
-1215,2021-06-21,2021-06-30,SELL,WIN,1.1918,1.18965,1.1955,0.0,59.89,asdf,(SHORT) Position closed by execution
-1216,2021-07-01,2021-07-05,BUY,WIN,1.18498,1.18664,1.1778,0.0,46.44,asdf,(LONG) Position closed by execution
-1217,2021-07-06,2021-07-08,SELL,WIN,1.18234,1.17907,1.1934,0.0,91.39,asdf,(SHORT) Position closed by execution
-1218,2021-07-09,2021-07-14,BUY,LOSS,1.18773,1.17767,1.184,0.0,-283.8,asdf,(LONG) Stop loss hit - failed trade
-1219,2021-07-19,2021-07-21,BUY,LOSS,1.17989,1.17805,1.1762,0.0,-50.26,asdf,(LONG) Position closed by execution
-1220,2021-07-22,2021-08-02,BUY,WIN,1.1771,1.18696,1.1734,0.0,269.72,asdf,(LONG) Position closed by execution
-1221,2021-08-03,2021-08-11,SELL,WIN,1.18651,1.17202,1.1902,0.0,403.82,asdf,(SHORT) Position closed by execution
-1222,2021-08-17,2021-08-19,BUY,WIN,1.17083,1.17091,1.1638,0.0,2.32,asdf,(LONG) Position closed by execution
-1223,2021-08-20,2021-08-24,SELL,LOSS,1.16999,1.17459,1.1737,0.0,-134.45,asdf,(SHORT) Stop loss hit - failed trade
-1224,2021-08-26,2021-08-30,SELL,LOSS,1.17519,1.17965,1.1789,0.0,-129.0,asdf,(SHORT) Stop loss hit - failed trade
-1225,2021-09-02,2021-09-08,BUY,LOSS,1.18753,1.18423,1.1765,0.0,-94.45,asdf,(LONG) Position closed by execution
-1226,2021-09-09,2021-09-13,BUY,LOSS,1.18238,1.18104,1.1752,0.0,-37.85,asdf,(LONG) Position closed by execution
-1227,2021-09-14,2021-09-22,BUY,LOSS,1.1804,1.17256,1.1693,0.0,-218.87,asdf,(LONG) Position closed by execution
-1228,2021-09-23,2021-09-30,SELL,WIN,1.1739,1.15973,1.1776,0.0,381.46,asdf,(SHORT) Position closed by execution
-1229,2021-10-01,2021-10-08,BUY,LOSS,1.15932,1.15533,1.1556,0.0,-111.79,asdf,(LONG) Stop loss hit - failed trade
-1230,2021-10-14,2021-10-20,BUY,WIN,1.15973,1.16326,1.1487,0.0,98.32,asdf,(LONG) Position closed by execution
-1231,2021-10-21,2021-10-25,BUY,WIN,1.16246,1.16441,1.1588,0.0,54.97,asdf,(LONG) Position closed by execution
-1232,2021-10-26,2021-11-03,BUY,LOSS,1.15963,1.15793,1.1559,0.0,-47.97,asdf,(LONG) Position closed by execution
-1233,2021-11-04,2021-11-09,BUY,WIN,1.15545,1.15873,1.1474,0.0,92.08,asdf,(LONG) Position closed by execution
-1234,2021-11-10,2021-11-17,SELL,WIN,1.14767,1.13194,1.1562,0.0,435.89,asdf,(SHORT) Position closed by execution
-1235,2021-11-19,2021-11-23,BUY,LOSS,1.1282,1.12338,1.1238,0.0,-138.98,asdf,(LONG) Stop loss hit - failed trade
-1236,2021-11-24,2021-11-29,BUY,WIN,1.12006,1.13087,1.1164,0.0,309.12,asdf,(LONG) Position closed by execution
-1237,2021-11-30,2021-12-06,SELL,WIN,1.13386,1.131,1.1375,0.0,84.5,asdf,(SHORT) Position closed by execution
-1238,2021-12-07,2021-12-15,SELL,WIN,1.12684,1.12581,1.1378,0.0,30.55,asdf,(SHORT) Position closed by execution
-1239,2021-12-16,2021-12-31,SELL,WIN,1.13306,1.13257,1.1367,0.0,14.66,asdf,(SHORT) Position closed by execution
-1240,2022-01-03,2022-01-06,BUY,WIN,1.12979,1.13127,1.1187,0.0,44.32,asdf,(LONG) Position closed by execution
-1241,2022-01-11,2022-01-13,SELL,LOSS,1.13652,1.14414,1.1476,0.0,-231.91,asdf,(SHORT) Position closed by execution
-1242,2022-01-14,2022-01-19,BUY,LOSS,1.14164,1.13278,1.138,0.0,-260.65,asdf,(LONG) Stop loss hit - failed trade
-1243,2022-01-25,2022-01-28,BUY,LOSS,1.13016,1.11446,1.1191,0.0,-442.02,asdf,(LONG) Stop loss hit - failed trade
-1244,2022-02-01,2022-02-04,SELL,LOSS,1.12738,1.14389,1.1311,0.0,-454.43,asdf,(SHORT) Stop loss hit - failed trade
-1245,2022-02-07,2022-02-09,SELL,WIN,1.14416,1.1417,1.1478,0.0,64.1,asdf,(SHORT) Position closed by execution
-1246,2022-02-10,2022-02-14,SELL,WIN,1.1428,1.13466,1.1465,0.0,212.44,asdf,(SHORT) Position closed by execution
-1247,2022-02-16,2022-02-18,BUY,LOSS,1.13733,1.13618,1.1336,0.0,-30.82,asdf,(LONG) Position closed by execution
-1248,2022-02-21,2022-02-25,SELL,WIN,1.13101,1.11928,1.1381,0.0,308.46,asdf,(SHORT) Position closed by execution
-1249,2022-02-28,2022-03-07,SELL,WIN,1.12191,1.09334,1.1256,0.0,760.06,asdf,(SHORT) Position closed by execution
-1250,2022-03-09,2022-03-11,SELL,WIN,1.10754,1.09888,1.1176,0.0,251.18,asdf,(SHORT) Position closed by execution
-1251,2022-03-14,2022-03-17,SELL,LOSS,1.09403,1.10345,1.0977,0.0,-281.47,asdf,(SHORT) Stop loss hit - failed trade
-1252,2022-03-21,2022-03-23,SELL,LOSS,1.10168,1.10245,1.1054,0.0,-22.35,asdf,(SHORT) Position closed by execution
-1253,2022-03-25,2022-03-30,BUY,WIN,1.09834,1.10862,1.0947,0.0,299.19,asdf,(LONG) Position closed by execution
-1254,2022-03-31,2022-04-04,SELL,WIN,1.10662,1.10488,1.1103,0.0,52.02,asdf,(SHORT) Position closed by execution
-1255,2022-04-07,2022-04-14,SELL,LOSS,1.08801,1.08917,1.0924,0.0,-34.38,asdf,(SHORT) Position closed by execution
-1256,2022-04-15,2022-04-19,BUY,LOSS,1.0809,1.07809,1.0701,0.0,-82.15,asdf,(LONG) Position closed by execution
-1257,2022-04-21,2022-05-04,SELL,WIN,1.08321,1.05193,1.0941,0.0,884.8,asdf,(SHORT) Position closed by execution
-1258,2022-05-06,2022-05-13,BUY,LOSS,1.05446,1.03795,1.0508,0.0,-501.98,asdf,(LONG) Stop loss hit - failed trade
-1259,2022-05-16,2022-05-24,BUY,WIN,1.04342,1.06921,1.0397,0.0,770.14,asdf,(LONG) Position closed by execution
-1260,2022-05-25,2022-05-30,BUY,WIN,1.06786,1.07312,1.0639,0.0,169.44,asdf,(LONG) Position closed by execution
-1261,2022-05-31,2022-06-02,BUY,LOSS,1.07324,1.06527,1.0696,0.0,-258.79,asdf,(LONG) Stop loss hit - failed trade
-1262,2022-06-03,2022-06-08,BUY,LOSS,1.07188,1.07049,1.0674,0.0,-44.32,asdf,(LONG) Position closed by execution
-1263,2022-06-09,2022-06-13,BUY,LOSS,1.0618,1.0519,1.0525,0.0,-308.86,asdf,(LONG) Stop loss hit - failed trade
-1264,2022-06-15,2022-06-27,BUY,WIN,1.04472,1.05554,1.041,0.0,329.13,asdf,(LONG) Position closed by execution
-1265,2022-06-29,2022-07-20,SELL,WIN,1.04413,1.02229,1.0535,0.0,663.37,asdf,(SHORT) Position closed by execution
-1266,2022-07-22,2022-07-26,BUY,WIN,1.02143,1.02183,1.0177,0.0,12.87,asdf,(LONG) Position closed by execution
-1267,2022-08-01,2022-08-03,BUY,LOSS,1.02605,1.0166,1.0224,0.0,-303.09,asdf,(LONG) Stop loss hit - failed trade
-1268,2022-08-05,2022-08-19,BUY,LOSS,1.01781,1.00866,1.0141,0.0,-283.58,asdf,(LONG) Stop loss hit - failed trade
-1269,2022-08-22,2022-09-01,BUY,WIN,0.99422,1.00524,0.9905,0.0,331.83,asdf,(LONG) Position closed by execution
-1270,2022-09-05,2022-09-08,BUY,WIN,0.99314,1.00063,0.9821,0.0,231.25,asdf,(LONG) Position closed by execution
-1271,2022-09-13,2022-09-15,SELL,LOSS,0.99672,0.99795,1.0004,0.0,-38.66,asdf,(SHORT) Position closed by execution
-1272,2022-09-16,2022-09-21,BUY,LOSS,1.00142,0.99697,0.9977,0.0,-139.22,asdf,(LONG) Stop loss hit - failed trade
-1273,2022-09-23,2022-09-27,SELL,WIN,0.96885,0.96086,0.9751,0.0,238.0,asdf,(SHORT) Position closed by execution
-1274,2022-09-28,2022-09-30,SELL,LOSS,0.97365,0.98133,0.9798,0.0,-238.52,asdf,(SHORT) Stop loss hit - failed trade
-1275,2022-10-03,2022-10-05,SELL,LOSS,0.98247,0.99862,0.987,0.0,-499.97,asdf,(SHORT) Stop loss hit - failed trade
-1276,2022-10-11,2022-10-17,SELL,LOSS,0.97048,0.97241,0.9802,0.0,-55.64,asdf,(SHORT) Position closed by execution
-1277,2022-10-20,2022-10-27,BUY,WIN,0.97877,1.00833,0.9748,0.0,879.02,asdf,(LONG) Position closed by execution
-1278,2022-11-02,2022-11-07,SELL,LOSS,0.98144,0.99581,0.9851,0.0,-456.18,asdf,(SHORT) Stop loss hit - failed trade
-1279,2022-11-10,2022-11-16,BUY,WIN,1.0208,1.03467,1.0171,0.0,439.69,asdf,(LONG) Position closed by execution
-1280,2022-11-17,2022-11-21,BUY,LOSS,1.03648,1.03225,1.0254,0.0,-139.01,asdf,(LONG) Position closed by execution
-1281,2022-11-24,2022-11-28,BUY,LOSS,1.04114,1.03935,1.0375,0.0,-58.53,asdf,(LONG) Position closed by execution
-1282,2022-11-30,2022-12-02,SELL,LOSS,1.04084,1.05258,1.0445,0.0,-386.75,asdf,(SHORT) Stop loss hit - failed trade
-1283,2022-12-06,2022-12-09,SELL,LOSS,1.04674,1.0555,1.0509,0.0,-279.68,asdf,(SHORT) Stop loss hit - failed trade
-1284,2022-12-12,2022-12-23,BUY,WIN,1.05383,1.05983,1.0501,0.0,187.5,asdf,(LONG) Position closed by execution
-1285,2022-12-27,2022-12-29,SELL,WIN,1.0639,1.06125,1.0737,0.0,84.35,asdf,(SHORT) Position closed by execution
-1286,2023-01-03,2023-01-06,BUY,LOSS,1.05488,1.05217,1.0469,0.0,-86.19,asdf,(LONG) Position closed by execution
-1287,2023-01-09,2023-01-11,SELL,LOSS,1.07326,1.07343,1.0769,0.0,-5.48,asdf,(SHORT) Position closed by execution
-1288,2023-01-13,2023-01-17,BUY,LOSS,1.0833,1.08223,1.0796,0.0,-34.72,asdf,(LONG) Position closed by execution
-1289,2023-01-19,2023-01-23,BUY,WIN,1.0831,1.08562,1.0773,0.0,81.74,asdf,(LONG) Position closed by execution
-1290,2023-01-24,2023-01-27,BUY,WIN,1.08882,1.08912,1.0778,0.0,9.83,asdf,(LONG) Position closed by execution
-1291,2023-01-30,2023-02-02,SELL,LOSS,1.08519,1.09901,1.0958,0.0,-457.65,asdf,(SHORT) Stop loss hit - failed trade
-1292,2023-02-03,2023-02-10,SELL,WIN,1.0794,1.07386,1.0831,0.0,171.85,asdf,(SHORT) Position closed by execution
-1293,2023-02-14,2023-02-16,BUY,LOSS,1.07359,1.06869,1.0699,0.0,-153.73,asdf,(LONG) Stop loss hit - failed trade
-1294,2023-02-20,2023-02-23,SELL,WIN,1.06848,1.06049,1.0722,0.0,245.19,asdf,(SHORT) Position closed by execution
-1295,2023-02-24,2023-03-01,SELL,LOSS,1.05458,1.05755,1.0648,0.0,-92.99,asdf,(SHORT) Position closed by execution
-1296,2023-03-02,2023-03-07,BUY,WIN,1.05971,1.06828,1.0507,0.0,268.7,asdf,(LONG) Position closed by execution
-1297,2023-03-09,2023-03-15,BUY,WIN,1.05823,1.07332,1.0545,0.0,487.19,asdf,(LONG) Position closed by execution
-1298,2023-03-16,2023-03-20,SELL,LOSS,1.06138,1.06647,1.0651,0.0,-170.48,asdf,(SHORT) Stop loss hit - failed trade
-1299,2023-03-21,2023-03-23,BUY,WIN,1.07698,1.08551,1.0719,0.0,286.48,asdf,(LONG) Position closed by execution
-1300,2023-03-24,2023-03-28,BUY,WIN,1.07587,1.07987,1.0722,0.0,137.0,asdf,(LONG) Position closed by execution
-1301,2023-03-30,2023-04-04,SELL,WIN,1.09056,1.09027,1.0972,0.0,10.14,asdf,(SHORT) Position closed by execution
-1302,2023-04-05,2023-04-13,BUY,WIN,1.09073,1.09915,1.0812,0.0,297.23,asdf,(LONG) Position closed by execution
-1303,2023-04-17,2023-04-19,SELL,LOSS,1.09275,1.09736,1.0964,0.0,-166.57,asdf,(SHORT) Stop loss hit - failed trade
-1304,2023-04-20,2023-04-25,SELL,LOSS,1.09706,1.10463,1.1007,0.0,-271.54,asdf,(SHORT) Stop loss hit - failed trade
-1305,2023-04-26,2023-05-02,BUY,LOSS,1.1039,1.09764,1.1002,0.0,-218.07,asdf,(LONG) Stop loss hit - failed trade
-1306,2023-05-03,2023-05-05,BUY,LOSS,1.10623,1.10122,1.1019,0.0,-171.83,asdf,(LONG) Stop loss hit - failed trade
-1307,2023-05-12,2023-05-18,BUY,LOSS,1.08496,1.08387,1.0813,0.0,-36.25,asdf,(LONG) Position closed by execution
-1308,2023-05-19,2023-05-24,SELL,WIN,1.08059,1.07706,1.0851,0.0,116.25,asdf,(SHORT) Position closed by execution
-1309,2023-05-26,2023-05-30,BUY,LOSS,1.07251,1.0709,1.0688,0.0,-53.28,asdf,(LONG) Position closed by execution
-1310,2023-06-01,2023-06-12,SELL,WIN,1.07624,1.07491,1.0866,0.0,43.95,asdf,(SHORT) Position closed by execution
-1311,2023-06-14,2023-06-16,SELL,LOSS,1.0831,1.09456,1.0868,0.0,-387.21,asdf,(SHORT) Stop loss hit - failed trade
-1312,2023-06-21,2023-06-26,SELL,WIN,1.09862,1.08954,1.1074,0.0,294.97,asdf,(SHORT) Position closed by execution
-1313,2023-06-28,2023-07-03,BUY,LOSS,1.0913,1.09098,1.0802,0.0,-10.7,asdf,(LONG) Position closed by execution
-1314,2023-07-04,2023-07-11,BUY,WIN,1.08793,1.10011,1.0842,0.0,409.86,asdf,(LONG) Position closed by execution
-1315,2023-07-12,2023-07-17,SELL,LOSS,1.11315,1.12253,1.1242,0.0,-333.81,asdf,(SHORT) Position closed by execution
-1316,2023-07-18,2023-07-21,SELL,WIN,1.12279,1.11296,1.1265,0.0,336.9,asdf,(SHORT) Position closed by execution
-1317,2023-07-25,2023-07-28,BUY,LOSS,1.10554,1.09768,1.1,0.0,-273.6,asdf,(LONG) Stop loss hit - failed trade
-1318,2023-07-31,2023-08-04,SELL,WIN,1.09969,1.09492,1.1034,0.0,161.72,asdf,(SHORT) Position closed by execution
-1319,2023-08-07,2023-08-09,BUY,LOSS,1.10032,1.09564,1.0966,0.0,-161.05,asdf,(LONG) Stop loss hit - failed trade
-1320,2023-08-11,2023-08-15,BUY,LOSS,1.09466,1.09066,1.091,0.0,-135.12,asdf,(LONG) Stop loss hit - failed trade
-1321,2023-08-17,2023-08-23,SELL,WIN,1.08727,1.08459,1.091,0.0,88.94,asdf,(SHORT) Position closed by execution
-1322,2023-08-24,2023-08-30,SELL,LOSS,1.08105,1.08791,1.0847,0.0,-230.2,asdf,(SHORT) Stop loss hit - failed trade
-1323,2023-09-05,2023-09-13,SELL,LOSS,1.0722,1.07549,1.0759,0.0,-106.93,asdf,(SHORT) Position closed by execution
-1324,2023-09-14,2023-09-18,SELL,LOSS,1.06443,1.06611,1.0719,0.0,-53.61,asdf,(SHORT) Position closed by execution
-1325,2023-09-19,2023-09-22,BUY,LOSS,1.06793,1.06612,1.0642,0.0,-57.48,asdf,(LONG) Position closed by execution
-1326,2023-09-26,2023-09-28,BUY,LOSS,1.05719,1.05031,1.0535,0.0,-214.1,asdf,(LONG) Stop loss hit - failed trade
-1327,2023-10-03,2023-10-11,BUY,WIN,1.04662,1.0605,1.0429,0.0,427.53,asdf,(LONG) Position closed by execution
-1328,2023-10-12,2023-10-16,SELL,WIN,1.05282,1.05089,1.0565,0.0,61.25,asdf,(SHORT) Position closed by execution
-1329,2023-10-17,2023-10-20,BUY,WIN,1.05762,1.05821,1.0534,0.0,18.95,asdf,(LONG) Position closed by execution
-1330,2023-10-23,2023-10-25,BUY,LOSS,1.06684,1.05908,1.0632,0.0,-250.05,asdf,(LONG) Stop loss hit - failed trade
-1331,2023-10-27,2023-11-06,BUY,WIN,1.05659,1.07266,1.0466,0.0,512.73,asdf,(LONG) Position closed by execution
-1332,2023-11-10,2023-11-15,SELL,LOSS,1.06846,1.08787,1.0721,0.0,-657.49,asdf,(SHORT) Stop loss hit - failed trade
-1333,2023-11-16,2023-11-21,SELL,LOSS,1.08529,1.09405,1.0963,0.0,-281.32,asdf,(SHORT) Position closed by execution
-1334,2023-11-22,2023-11-24,SELL,LOSS,1.08886,1.09045,1.0984,0.0,-49.58,asdf,(SHORT) Position closed by execution
-1335,2023-11-28,2023-12-04,BUY,LOSS,1.09949,1.0884,1.0884,0.0,-343.46,asdf,(LONG) Stop loss hit - failed trade
-1336,2023-12-05,2023-12-07,BUY,LOSS,1.07977,1.07642,1.0712,0.0,-99.25,asdf,(LONG) Position closed by execution
-1337,2023-12-08,2023-12-18,BUY,WIN,1.07617,1.08939,1.0725,0.0,392.47,asdf,(LONG) Position closed by execution
-1338,2023-12-19,2023-12-22,SELL,LOSS,1.09809,1.10109,1.1018,0.0,-93.55,asdf,(SHORT) Position closed by execution
-1339,2023-12-26,2024-01-03,BUY,LOSS,1.10416,1.09414,1.0996,0.0,-307.68,asdf,(LONG) Stop loss hit - failed trade
-1340,2024-01-05,2024-01-16,BUY,WIN,1.09415,1.09504,1.0876,0.0,26.53,asdf,(LONG) Position closed by execution
-1341,2024-01-19,2024-01-24,SELL,WIN,1.0897,1.08537,1.0934,0.0,128.29,asdf,(SHORT) Position closed by execution
-1342,2024-01-29,2024-02-02,BUY,WIN,1.08334,1.08722,1.0797,0.0,116.62,asdf,(LONG) Position closed by execution
-1343,2024-02-05,2024-02-07,SELL,LOSS,1.07425,1.07542,1.0779,0.0,-35.2,asdf,(SHORT) Position closed by execution
-1344,2024-02-08,2024-02-13,SELL,WIN,1.0778,1.07716,1.0815,0.0,19.2,asdf,(SHORT) Position closed by execution
-1345,2024-02-14,2024-02-16,BUY,WIN,1.07276,1.07722,1.0688,0.0,134.14,asdf,(LONG) Position closed by execution
-1346,2024-02-20,2024-02-27,SELL,LOSS,1.08078,1.08513,1.0862,0.0,-133.53,asdf,(SHORT) Position closed by execution
-1347,2024-02-28,2024-03-05,BUY,WIN,1.08385,1.08556,1.0802,0.0,51.82,asdf,(LONG) Position closed by execution
-1348,2024-03-07,2024-03-11,BUY,LOSS,1.09481,1.09377,1.0911,0.0,-31.93,asdf,(LONG) Position closed by execution
+2226,2020-01-27,2020-02-07,BUY,LOSS,1.10195,1.09809,1.0966,0.0,-115.08,asdf,(LONG) Position closed by execution
+2227,2020-02-10,2020-02-14,SELL,WIN,1.09106,1.08392,1.0947,0.0,207.67,asdf,(SHORT) Position closed by execution
+2228,2020-02-18,2020-02-25,BUY,WIN,1.07909,1.08534,1.068,0.0,185.85,asdf,(LONG) Position closed by execution
+2229,2020-02-27,2020-03-04,BUY,WIN,1.09999,1.117,1.0963,0.0,530.16,asdf,(LONG) Position closed by execution
+2230,2020-03-06,2020-03-10,SELL,LOSS,1.12895,1.14353,1.1342,0.0,-489.23,asdf,(SHORT) Stop loss hit - failed trade
+2231,2020-03-11,2020-03-16,BUY,LOSS,1.12704,1.11002,1.1172,0.0,-529.28,asdf,(LONG) Stop loss hit - failed trade
+2232,2020-03-17,2020-03-24,SELL,WIN,1.09987,1.07241,1.1036,0.0,782.66,asdf,(SHORT) Position closed by execution
+2233,2020-03-25,2020-04-02,BUY,WIN,1.08809,1.09625,1.0844,0.0,256.74,asdf,(LONG) Position closed by execution
+2234,2020-04-06,2020-04-15,BUY,WIN,1.07937,1.09818,1.0683,0.0,607.29,asdf,(LONG) Position closed by execution
+2235,2020-04-16,2020-04-24,BUY,LOSS,1.0839,1.07758,1.0779,0.0,-211.46,asdf,(LONG) Stop loss hit - failed trade
+2236,2020-04-27,2020-04-29,SELL,WIN,1.08294,1.08197,1.0866,0.0,31.97,asdf,(SHORT) Position closed by execution
+2237,2020-04-30,2020-05-06,BUY,LOSS,1.09516,1.08375,1.0842,0.0,-377.91,asdf,(LONG) Stop loss hit - failed trade
+2238,2020-05-07,2020-05-14,BUY,LOSS,1.08318,1.0819,1.0746,0.0,-40.91,asdf,(LONG) Position closed by execution
+2239,2020-05-15,2020-05-19,SELL,LOSS,1.0819,1.09142,1.0914,0.0,-305.73,asdf,(SHORT) Stop loss hit - failed trade
+2240,2020-05-20,2020-05-28,SELL,LOSS,1.09781,1.10093,1.1019,0.0,-98.23,asdf,(SHORT) Position closed by execution
+2241,2020-05-29,2020-06-10,BUY,WIN,1.11007,1.13383,1.1011,0.0,763.12,asdf,(LONG) Position closed by execution
+2242,2020-06-15,2020-06-19,SELL,WIN,1.13227,1.12046,1.1404,0.0,402.25,asdf,(SHORT) Position closed by execution
+2243,2020-06-22,2020-06-26,BUY,LOSS,1.12615,1.12182,1.1225,0.0,-152.98,asdf,(LONG) Stop loss hit - failed trade
+2244,2020-06-29,2020-07-01,SELL,WIN,1.12426,1.12336,1.1279,0.0,31.41,asdf,(SHORT) Position closed by execution
+2245,2020-07-02,2020-07-07,BUY,WIN,1.12394,1.13089,1.1203,0.0,244.9,asdf,(LONG) Position closed by execution
+2246,2020-07-08,2020-07-10,BUY,LOSS,1.13298,1.12848,1.1293,0.0,-161.63,asdf,(LONG) Stop loss hit - failed trade
+2247,2020-07-13,2020-07-21,SELL,LOSS,1.13428,1.14478,1.1429,0.0,-377.29,asdf,(SHORT) Stop loss hit - failed trade
+2248,2020-07-22,2020-07-24,SELL,LOSS,1.15703,1.15971,1.1614,0.0,-94.38,asdf,(SHORT) Position closed by execution
+2249,2020-07-27,2020-07-30,BUY,WIN,1.17513,1.17903,1.1714,0.0,138.43,asdf,(LONG) Position closed by execution
+2250,2020-08-04,2020-08-07,BUY,WIN,1.18027,1.18768,1.1765,0.0,268.26,asdf,(LONG) Position closed by execution
+2251,2020-08-11,2020-08-21,BUY,WIN,1.17395,1.18612,1.1629,0.0,450.52,asdf,(LONG) Position closed by execution
+2252,2020-08-26,2020-09-01,BUY,WIN,1.18303,1.19363,1.1793,0.0,410.35,asdf,(LONG) Position closed by execution
+2253,2020-09-02,2020-09-04,BUY,LOSS,1.18542,1.18515,1.1817,0.0,-10.74,asdf,(LONG) Position closed by execution
+2254,2020-09-09,2020-09-11,SELL,LOSS,1.1803,1.18147,1.1873,0.0,-46.34,asdf,(SHORT) Position closed by execution
+2255,2020-09-14,2020-09-16,BUY,LOSS,1.18638,1.18466,1.1756,0.0,-68.05,asdf,(LONG) Position closed by execution
+2256,2020-09-17,2020-09-28,SELL,WIN,1.18477,1.16307,1.1885,0.0,838.11,asdf,(SHORT) Position closed by execution
+2257,2020-09-30,2020-10-05,BUY,LOSS,1.17208,1.17162,1.1684,0.0,-19.13,asdf,(LONG) Position closed by execution
+2258,2020-10-06,2020-10-09,BUY,WIN,1.17335,1.17601,1.1697,0.0,110.83,asdf,(LONG) Position closed by execution
+2259,2020-10-12,2020-10-20,SELL,WIN,1.18119,1.17709,1.1849,0.0,172.44,asdf,(SHORT) Position closed by execution
+2260,2020-10-21,2020-10-28,SELL,WIN,1.18611,1.17954,1.1898,0.0,280.53,asdf,(SHORT) Position closed by execution
+2261,2020-10-29,2020-11-04,BUY,WIN,1.16731,1.17202,1.1636,0.0,204.03,asdf,(LONG) Position closed by execution
+2262,2020-11-05,2020-11-12,BUY,LOSS,1.18269,1.17788,1.1782,0.0,-212.56,asdf,(LONG) Stop loss hit - failed trade
+2263,2020-11-13,2020-11-17,BUY,WIN,1.18325,1.18539,1.1753,0.0,93.69,asdf,(LONG) Position closed by execution
+2264,2020-11-20,2020-11-25,SELL,LOSS,1.1858,1.18927,1.1903,0.0,-153.5,asdf,(SHORT) Position closed by execution
+2265,2020-11-26,2020-12-01,BUY,WIN,1.1913,1.19257,1.1876,0.0,55.69,asdf,(LONG) Position closed by execution
+2266,2020-12-02,2020-12-18,BUY,WIN,1.21156,1.22669,1.2074,0.0,685.36,asdf,(LONG) Position closed by execution
+2267,2020-12-21,2020-12-24,BUY,LOSS,1.22431,1.21861,1.2133,0.0,-269.43,asdf,(LONG) Position closed by execution
+2268,2020-12-28,2021-01-12,BUY,LOSS,1.22148,1.21502,1.2133,0.0,-298.72,asdf,(LONG) Position closed by execution
+2269,2021-01-13,2021-01-18,BUY,LOSS,1.21578,1.20757,1.2121,0.0,-369.27,asdf,(LONG) Stop loss hit - failed trade
+2270,2021-01-19,2021-01-27,SELL,LOSS,1.21286,1.21598,1.2205,0.0,-137.51,asdf,(SHORT) Position closed by execution
+2271,2021-02-02,2021-02-05,BUY,LOSS,1.20431,1.19611,1.1989,0.0,-351.82,asdf,(LONG) Stop loss hit - failed trade
+2272,2021-02-08,2021-02-17,BUY,WIN,1.20499,1.21034,1.2013,0.0,226.07,asdf,(LONG) Position closed by execution
+2273,2021-02-18,2021-02-22,BUY,WIN,1.20933,1.21172,1.1992,0.0,102.88,asdf,(LONG) Position closed by execution
+2274,2021-02-24,2021-03-08,SELL,WIN,1.21684,1.19102,1.2205,0.0,1101.15,asdf,(SHORT) Position closed by execution
+2275,2021-03-11,2021-03-16,SELL,WIN,1.19852,1.19298,1.2037,0.0,256.4,asdf,(SHORT) Position closed by execution
+2276,2021-03-19,2021-03-24,BUY,LOSS,1.19061,1.18503,1.1865,0.0,-261.16,asdf,(LONG) Stop loss hit - failed trade
+2277,2021-03-25,2021-03-29,BUY,WIN,1.17641,1.17929,1.1727,0.0,131.71,asdf,(LONG) Position closed by execution
+2278,2021-03-30,2021-04-01,SELL,LOSS,1.17158,1.173,1.1801,0.0,-65.21,asdf,(SHORT) Position closed by execution
+2279,2021-04-02,2021-04-06,SELL,LOSS,1.17623,1.18124,1.1799,0.0,-230.6,asdf,(SHORT) Stop loss hit - failed trade
+2280,2021-04-07,2021-04-13,BUY,WIN,1.18717,1.19115,1.1835,0.0,181.75,asdf,(LONG) Position closed by execution
+2281,2021-04-14,2021-04-19,BUY,WIN,1.19792,1.19822,1.1911,0.0,13.95,asdf,(LONG) Position closed by execution
+2282,2021-04-20,2021-04-26,SELL,LOSS,1.20366,1.20975,1.2073,0.0,-286.38,asdf,(SHORT) Stop loss hit - failed trade
+2283,2021-04-27,2021-05-05,BUY,LOSS,1.20916,1.20137,1.1981,0.0,-356.51,asdf,(LONG) Position closed by execution
+2284,2021-05-07,2021-05-13,BUY,LOSS,1.21635,1.20705,1.2127,0.0,-416.76,asdf,(LONG) Stop loss hit - failed trade
+2285,2021-05-17,2021-05-31,BUY,WIN,1.21518,1.2193,1.2115,0.0,180.8,asdf,(LONG) Position closed by execution
+2286,2021-06-01,2021-06-04,SELL,WIN,1.2214,1.21271,1.2256,0.0,384.48,asdf,(SHORT) Position closed by execution
+2287,2021-06-07,2021-06-10,SELL,WIN,1.21895,1.21792,1.2226,0.0,47.07,asdf,(SHORT) Position closed by execution
+2288,2021-06-11,2021-06-22,SELL,WIN,1.21079,1.1918,1.2145,0.0,852.22,asdf,(SHORT) Position closed by execution
+2289,2021-06-28,2021-07-01,SELL,WIN,1.19242,1.18577,1.1961,0.0,315.16,asdf,(SHORT) Position closed by execution
+2290,2021-07-05,2021-07-07,BUY,LOSS,1.1863,1.18234,1.1826,0.0,-191.15,asdf,(LONG) Stop loss hit - failed trade
+2291,2021-07-09,2021-07-14,BUY,LOSS,1.18773,1.17767,1.1823,0.0,-477.53,asdf,(LONG) Stop loss hit - failed trade
+2292,2021-07-15,2021-07-19,BUY,LOSS,1.18111,1.18053,1.1774,0.0,-26.72,asdf,(LONG) Position closed by execution
+2293,2021-07-20,2021-07-23,BUY,LOSS,1.17805,1.1771,1.1685,0.0,-43.55,asdf,(LONG) Position closed by execution
+2294,2021-07-29,2021-08-05,BUY,LOSS,1.18869,1.18371,1.1776,0.0,-228.84,asdf,(LONG) Position closed by execution
+2295,2021-08-06,2021-08-16,BUY,WIN,1.17604,1.17952,1.1705,0.0,156.78,asdf,(LONG) Position closed by execution
+2296,2021-08-17,2021-08-19,SELL,LOSS,1.17083,1.17091,1.1745,0.0,-3.63,asdf,(SHORT) Position closed by execution
+2297,2021-08-23,2021-08-25,BUY,WIN,1.17459,1.17576,1.1709,0.0,53.11,asdf,(LONG) Position closed by execution
+2298,2021-08-26,2021-09-01,SELL,LOSS,1.17519,1.18086,1.1805,0.0,-259.51,asdf,(SHORT) Stop loss hit - failed trade
+2299,2021-09-02,2021-09-09,BUY,LOSS,1.18753,1.18157,1.1838,0.0,-267.98,asdf,(LONG) Stop loss hit - failed trade
+2300,2021-09-10,2021-09-14,BUY,WIN,1.18104,1.18108,1.1774,0.0,1.75,asdf,(LONG) Position closed by execution
+2301,2021-09-15,2021-09-17,BUY,LOSS,1.18157,1.17686,1.1779,0.0,-206.93,asdf,(LONG) Stop loss hit - failed trade
+2302,2021-09-21,2021-09-23,BUY,LOSS,1.17256,1.16886,1.1689,0.0,-159.03,asdf,(LONG) Stop loss hit - failed trade
+2303,2021-09-24,2021-09-30,BUY,LOSS,1.17206,1.15973,1.161,0.0,-519.61,asdf,(LONG) Stop loss hit - failed trade
+2304,2021-10-05,2021-10-15,SELL,LOSS,1.15971,1.15973,1.1677,0.0,-0.82,asdf,(SHORT) Position closed by execution
+2305,2021-10-18,2021-10-20,BUY,WIN,1.16108,1.16326,1.15,0.0,88.55,asdf,(LONG) Position closed by execution
+2306,2021-10-21,2021-10-28,SELL,WIN,1.16246,1.16028,1.1661,0.0,88.93,asdf,(SHORT) Position closed by execution
+2307,2021-11-01,2021-11-05,BUY,LOSS,1.16066,1.15545,1.157,0.0,-213.15,asdf,(LONG) Stop loss hit - failed trade
+2308,2021-11-08,2021-11-11,BUY,LOSS,1.15873,1.14767,1.155,0.0,-442.08,asdf,(LONG) Stop loss hit - failed trade
+2309,2021-11-12,2021-11-16,BUY,LOSS,1.14438,1.1367,1.1407,0.0,-293.57,asdf,(LONG) Stop loss hit - failed trade
+2310,2021-11-17,2021-11-22,BUY,LOSS,1.13189,1.1282,1.1282,0.0,-136.68,asdf,(LONG) Stop loss hit - failed trade
+2311,2021-11-24,2021-12-02,BUY,WIN,1.12006,1.13191,1.1134,0.0,435.36,asdf,(LONG) Position closed by execution
+2312,2021-12-03,2021-12-08,BUY,LOSS,1.131,1.12684,1.1207,0.0,-157.71,asdf,(LONG) Position closed by execution
+2313,2021-12-09,2021-12-13,SELL,LOSS,1.12928,1.13168,1.1361,0.0,-90.22,asdf,(SHORT) Position closed by execution
+2314,2021-12-14,2021-12-20,BUY,LOSS,1.12581,1.12353,1.1221,0.0,-84.46,asdf,(LONG) Position closed by execution
+2315,2021-12-24,2022-01-06,BUY,LOSS,1.13206,1.13127,1.1284,0.0,-29.27,asdf,(LONG) Position closed by execution
+2316,2022-01-07,2022-01-12,BUY,WIN,1.13613,1.13652,1.1324,0.0,14.47,asdf,(LONG) Position closed by execution
+2317,2022-01-13,2022-01-17,BUY,LOSS,1.14545,1.14164,1.1418,0.0,-142.24,asdf,(LONG) Stop loss hit - failed trade
+2318,2022-01-19,2022-01-25,BUY,LOSS,1.13422,1.13243,1.1305,0.0,-65.51,asdf,(LONG) Position closed by execution
+2319,2022-01-26,2022-01-31,SELL,WIN,1.12416,1.11487,1.1352,0.0,332.81,asdf,(SHORT) Position closed by execution
+2320,2022-02-01,2022-02-07,BUY,WIN,1.12738,1.14496,1.1176,0.0,664.99,asdf,(LONG) Position closed by execution
+2321,2022-02-09,2022-02-14,SELL,WIN,1.14225,1.13466,1.1488,0.0,300.06,asdf,(SHORT) Position closed by execution
+2322,2022-02-15,2022-02-22,BUY,LOSS,1.13578,1.13101,1.1316,0.0,-192.38,asdf,(LONG) Stop loss hit - failed trade
+2323,2022-02-23,2022-02-25,SELL,WIN,1.13047,1.11928,1.1415,0.0,440.05,asdf,(SHORT) Position closed by execution
+2324,2022-03-02,2022-03-07,BUY,LOSS,1.11197,1.09334,1.1009,0.0,-740.01,asdf,(LONG) Stop loss hit - failed trade
+2325,2022-03-08,2022-03-10,SELL,LOSS,1.08964,1.10754,1.0982,0.0,-680.42,asdf,(SHORT) Stop loss hit - failed trade
+2326,2022-03-11,2022-03-25,BUY,WIN,1.09123,1.0997,1.0875,0.0,302.47,asdf,(LONG) Position closed by execution
+2327,2022-03-29,2022-04-04,SELL,WIN,1.10862,1.10488,1.1197,0.0,137.57,asdf,(SHORT) Position closed by execution
+2328,2022-04-05,2022-04-08,BUY,LOSS,1.09057,1.08801,1.0855,0.0,-93.79,asdf,(LONG) Position closed by execution
+2329,2022-04-11,2022-04-15,SELL,WIN,1.08835,1.08293,1.092,0.0,196.11,asdf,(SHORT) Position closed by execution
+2330,2022-04-18,2022-04-27,BUY,LOSS,1.07809,1.06373,1.067,0.0,-518.54,asdf,(LONG) Stop loss hit - failed trade
+2331,2022-04-29,2022-05-04,SELL,WIN,1.05427,1.05193,1.058,0.0,80.08,asdf,(SHORT) Position closed by execution
+2332,2022-05-05,2022-05-11,SELL,WIN,1.05392,1.05299,1.0576,0.0,32.07,asdf,(SHORT) Position closed by execution
+2333,2022-05-16,2022-05-19,BUY,WIN,1.04342,1.04608,1.0397,0.0,91.38,asdf,(LONG) Position closed by execution
+2334,2022-05-25,2022-05-27,SELL,LOSS,1.06786,1.07292,1.0716,0.0,-179.66,asdf,(SHORT) Stop loss hit - failed trade
+2335,2022-05-30,2022-06-10,SELL,WIN,1.07798,1.0618,1.0817,0.0,560.11,asdf,(SHORT) Position closed by execution
+2336,2022-06-14,2022-06-16,BUY,WIN,1.04175,1.04472,1.0363,0.0,105.87,asdf,(LONG) Position closed by execution
+2337,2022-06-20,2022-06-23,BUY,WIN,1.05109,1.05688,1.0436,0.0,210.56,asdf,(LONG) Position closed by execution
+2338,2022-06-24,2022-06-30,BUY,LOSS,1.05554,1.04413,1.0466,0.0,-416.78,asdf,(LONG) Stop loss hit - failed trade
+2339,2022-07-01,2022-07-05,SELL,WIN,1.04246,1.04227,1.0461,0.0,6.69,asdf,(SHORT) Position closed by execution
+2340,2022-07-08,2022-07-20,SELL,LOSS,1.01854,1.02229,1.0222,0.0,-129.85,asdf,(SHORT) Stop loss hit - failed trade
+2341,2022-07-22,2022-07-26,BUY,WIN,1.02143,1.02183,1.0104,0.0,13.69,asdf,(LONG) Position closed by execution
+2342,2022-07-28,2022-08-02,SELL,LOSS,1.01967,1.02605,1.0234,0.0,-219.66,asdf,(SHORT) Stop loss hit - failed trade
+2343,2022-08-03,2022-08-15,BUY,WIN,1.01687,1.02589,1.0132,0.0,304.97,asdf,(LONG) Position closed by execution
+2344,2022-08-16,2022-08-19,BUY,LOSS,1.01705,1.00866,1.0134,0.0,-285.93,asdf,(LONG) Stop loss hit - failed trade
+2345,2022-08-23,2022-08-31,BUY,WIN,0.99677,1.00152,0.9886,0.0,157.02,asdf,(LONG) Position closed by execution
+2346,2022-09-01,2022-09-07,BUY,LOSS,0.9945,0.99066,0.9908,0.0,-127.2,asdf,(LONG) Stop loss hit - failed trade
+2347,2022-09-08,2022-09-22,BUY,LOSS,0.99984,0.98369,0.9962,0.0,-525.71,asdf,(LONG) Stop loss hit - failed trade
+2348,2022-09-28,2022-09-30,SELL,LOSS,0.97365,0.98133,0.9773,0.0,-238.64,asdf,(SHORT) Stop loss hit - failed trade
+2349,2022-10-03,2022-10-05,SELL,LOSS,0.98247,0.99862,0.9862,0.0,-500.22,asdf,(SHORT) Stop loss hit - failed trade
+2350,2022-10-07,2022-10-13,BUY,LOSS,0.97407,0.97024,0.963,0.0,-110.22,asdf,(LONG) Position closed by execution
+2351,2022-10-17,2022-10-20,BUY,LOSS,0.9844,0.97721,0.9807,0.0,-206.29,asdf,(LONG) Stop loss hit - failed trade
+2352,2022-10-24,2022-10-26,SELL,LOSS,0.98731,0.99678,0.9932,0.0,-271.85,asdf,(SHORT) Stop loss hit - failed trade
+2353,2022-10-27,2022-10-31,SELL,LOSS,0.99649,0.99658,1.0063,0.0,-2.53,asdf,(SHORT) Position closed by execution
+2354,2022-11-02,2022-11-07,SELL,LOSS,0.98144,0.99581,0.991,0.0,-401.45,asdf,(SHORT) Stop loss hit - failed trade
+2355,2022-11-08,2022-11-17,BUY,WIN,1.00728,1.03942,0.9962,0.0,900.76,asdf,(LONG) Position closed by execution
+2356,2022-11-22,2022-11-28,SELL,LOSS,1.03024,1.03935,1.0413,0.0,-278.47,asdf,(SHORT) Position closed by execution
+2357,2022-11-29,2022-12-05,BUY,WIN,1.0329,1.05405,1.0292,0.0,638.75,asdf,(LONG) Position closed by execution
+2358,2022-12-07,2022-12-14,BUY,WIN,1.0506,1.06324,1.0395,0.0,408.37,asdf,(LONG) Position closed by execution
+2359,2022-12-15,2022-12-19,BUY,LOSS,1.06263,1.05856,1.0589,0.0,-135.7,asdf,(LONG) Stop loss hit - failed trade
+2360,2022-12-20,2022-12-28,BUY,WIN,1.06232,1.0639,1.0586,0.0,52.31,asdf,(LONG) Position closed by execution
+2361,2022-12-30,2023-01-03,BUY,LOSS,1.07007,1.066,1.0664,0.0,-135.68,asdf,(LONG) Stop loss hit - failed trade
+2362,2023-01-04,2023-01-06,SELL,WIN,1.06041,1.05217,1.0672,0.0,267.9,asdf,(SHORT) Position closed by execution
+2363,2023-01-09,2023-01-16,BUY,WIN,1.07326,1.0833,1.0696,0.0,343.99,asdf,(LONG) Position closed by execution
+2364,2023-01-17,2023-01-20,BUY,WIN,1.07883,1.0831,1.0751,0.0,150.58,asdf,(LONG) Position closed by execution
+2365,2023-01-23,2023-01-26,SELL,LOSS,1.08714,1.09152,1.0908,0.0,-157.64,asdf,(SHORT) Stop loss hit - failed trade
+2366,2023-01-30,2023-02-01,SELL,LOSS,1.08519,1.08621,1.0889,0.0,-36.07,asdf,(SHORT) Position closed by execution
+2367,2023-02-02,2023-02-07,SELL,WIN,1.09108,1.07257,1.0948,0.0,644.13,asdf,(SHORT) Position closed by execution
+2368,2023-02-08,2023-02-17,BUY,LOSS,1.07141,1.06728,1.0677,0.0,-150.73,asdf,(LONG) Stop loss hit - failed trade
+2369,2023-02-20,2023-02-22,BUY,LOSS,1.06848,1.06461,1.0648,0.0,-139.2,asdf,(LONG) Stop loss hit - failed trade
+2370,2023-02-23,2023-03-01,BUY,LOSS,1.05943,1.05755,1.0511,0.0,-66.43,asdf,(LONG) Position closed by execution
+2371,2023-03-03,2023-03-07,BUY,WIN,1.06341,1.06828,1.0597,0.0,172.85,asdf,(LONG) Position closed by execution
+2372,2023-03-09,2023-03-14,SELL,LOSS,1.05823,1.07316,1.0647,0.0,-539.89,asdf,(SHORT) Stop loss hit - failed trade
+2373,2023-03-15,2023-03-17,BUY,WIN,1.05758,1.06138,1.0465,0.0,129.98,asdf,(LONG) Position closed by execution
+2374,2023-03-24,2023-04-07,BUY,WIN,1.07587,1.09205,1.0648,0.0,575.7,asdf,(LONG) Position closed by execution
+2375,2023-04-13,2023-04-17,BUY,LOSS,1.1047,1.09942,1.1002,0.0,-198.22,asdf,(LONG) Stop loss hit - failed trade
+2376,2023-04-18,2023-04-24,BUY,WIN,1.09736,1.09894,1.0928,0.0,58.34,asdf,(LONG) Position closed by execution
+2377,2023-04-25,2023-04-27,SELL,LOSS,1.09739,1.1039,1.1067,0.0,-242.66,asdf,(SHORT) Position closed by execution
+2378,2023-04-28,2023-05-02,SELL,WIN,1.10165,1.09764,1.1053,0.0,145.71,asdf,(SHORT) Position closed by execution
+2379,2023-05-03,2023-05-12,BUY,LOSS,1.10623,1.09157,1.0952,0.0,-536.13,asdf,(LONG) Stop loss hit - failed trade
+2380,2023-05-15,2023-05-17,SELL,WIN,1.08745,1.08627,1.0911,0.0,41.07,asdf,(SHORT) Position closed by execution
+2381,2023-05-18,2023-05-29,BUY,LOSS,1.077,1.07251,1.0666,0.0,-154.87,asdf,(LONG) Position closed by execution
+2382,2023-05-30,2023-06-01,BUY,LOSS,1.0734,1.06883,1.0697,0.0,-155.04,asdf,(LONG) Stop loss hit - failed trade
+2383,2023-06-02,2023-06-06,SELL,LOSS,1.07073,1.07122,1.0744,0.0,-16.45,asdf,(SHORT) Position closed by execution
+2384,2023-06-08,2023-06-12,SELL,WIN,1.07832,1.07491,1.084,0.0,114.62,asdf,(SHORT) Position closed by execution
+2385,2023-06-13,2023-06-16,BUY,WIN,1.0793,1.09456,1.0756,0.0,527.53,asdf,(LONG) Position closed by execution
+2386,2023-06-19,2023-06-22,SELL,LOSS,1.09215,1.09862,1.0958,0.0,-234.69,asdf,(SHORT) Stop loss hit - failed trade
+2387,2023-06-23,2023-06-27,SELL,LOSS,1.08954,1.09053,1.097,0.0,-34.97,asdf,(SHORT) Position closed by execution
+2388,2023-06-28,2023-06-30,BUY,LOSS,1.0913,1.08642,1.0876,0.0,-171.17,asdf,(LONG) Stop loss hit - failed trade
+2389,2023-07-03,2023-07-07,SELL,WIN,1.09139,1.08922,1.1024,0.0,75.2,asdf,(SHORT) Position closed by execution
+2390,2023-07-11,2023-07-13,SELL,LOSS,1.10086,1.11315,1.1045,0.0,-438.11,asdf,(SHORT) Stop loss hit - failed trade
+2391,2023-07-14,2023-07-20,BUY,LOSS,1.12253,1.12026,1.1165,0.0,-78.42,asdf,(LONG) Position closed by execution
+2392,2023-07-21,2023-07-25,BUY,LOSS,1.11254,1.10648,1.1089,0.0,-205.33,asdf,(LONG) Stop loss hit - failed trade
+2393,2023-07-26,2023-07-31,SELL,WIN,1.10858,1.10161,1.1123,0.0,230.83,asdf,(SHORT) Position closed by execution
+2394,2023-08-04,2023-08-08,BUY,LOSS,1.10099,1.10032,1.0973,0.0,-22.64,asdf,(LONG) Position closed by execution
+2395,2023-08-09,2023-08-11,SELL,LOSS,1.09737,1.09808,1.1025,0.0,-23.89,asdf,(SHORT) Position closed by execution
+2396,2023-08-15,2023-08-23,BUY,LOSS,1.09049,1.08459,1.0868,0.0,-195.59,asdf,(LONG) Stop loss hit - failed trade
+2397,2023-08-24,2023-09-04,BUY,LOSS,1.08105,1.07735,1.0774,0.0,-119.73,asdf,(LONG) Stop loss hit - failed trade
+2398,2023-09-06,2023-09-15,BUY,LOSS,1.0726,1.06443,1.0686,0.0,-258.36,asdf,(LONG) Stop loss hit - failed trade
+2399,2023-09-20,2023-09-22,SELL,LOSS,1.06605,1.06612,1.0697,0.0,-2.17,asdf,(SHORT) Position closed by execution
+2400,2023-09-25,2023-09-29,BUY,LOSS,1.05921,1.05661,1.0482,0.0,-79.68,asdf,(LONG) Position closed by execution
+2401,2023-10-02,2023-10-04,SELL,WIN,1.04775,1.04662,1.0514,0.0,34.03,asdf,(SHORT) Position closed by execution
+2402,2023-10-05,2023-10-11,SELL,LOSS,1.05509,1.0605,1.0588,0.0,-165.68,asdf,(SHORT) Stop loss hit - failed trade
+2403,2023-10-13,2023-10-20,BUY,WIN,1.05089,1.05821,1.0472,0.0,220.19,asdf,(LONG) Position closed by execution
+2404,2023-10-24,2023-10-26,BUY,LOSS,1.05908,1.05661,1.0554,0.0,-75.76,asdf,(LONG) Position closed by execution
+2405,2023-10-30,2023-11-01,BUY,LOSS,1.06154,1.05756,1.0579,0.0,-121.31,asdf,(LONG) Stop loss hit - failed trade
+2406,2023-11-02,2023-11-07,BUY,WIN,1.06224,1.07172,1.0549,0.0,289.44,asdf,(LONG) Position closed by execution
+2407,2023-11-08,2023-11-10,BUY,LOSS,1.07088,1.06683,1.0672,0.0,-126.5,asdf,(LONG) Stop loss hit - failed trade
+2408,2023-11-14,2023-11-16,BUY,LOSS,1.08787,1.0847,1.0807,0.0,-99.49,asdf,(LONG) Position closed by execution
+2409,2023-11-17,2023-11-21,BUY,WIN,1.09136,1.09405,1.0877,0.0,84.34,asdf,(LONG) Position closed by execution
+2410,2023-11-22,2023-11-29,SELL,LOSS,1.08886,1.09949,1.0985,0.0,-337.68,asdf,(SHORT) Stop loss hit - failed trade
+2411,2023-11-30,2023-12-05,BUY,LOSS,1.08887,1.08362,1.0852,0.0,-159.16,asdf,(LONG) Stop loss hit - failed trade
+2412,2023-12-07,2023-12-13,SELL,LOSS,1.07932,1.07945,1.083,0.0,-3.87,asdf,(SHORT) Position closed by execution
+2413,2023-12-19,2023-12-21,BUY,LOSS,1.09809,1.0943,1.0944,0.0,-114.19,asdf,(LONG) Stop loss hit - failed trade
+2414,2023-12-22,2023-12-28,SELL,LOSS,1.10137,1.1106,1.1051,0.0,-279.05,asdf,(SHORT) Stop loss hit - failed trade
+2415,2024-01-02,2024-01-10,BUY,LOSS,1.09414,1.09312,1.0905,0.0,-29.52,asdf,(LONG) Position closed by execution
+2416,2024-01-11,2024-01-16,BUY,LOSS,1.09735,1.09504,1.0937,0.0,-66.75,asdf,(LONG) Position closed by execution
+2417,2024-01-18,2024-01-30,BUY,LOSS,1.08757,1.08334,1.0807,0.0,-120.08,asdf,(LONG) Position closed by execution
+2418,2024-01-31,2024-02-12,SELL,WIN,1.08177,1.07854,1.0928,0.0,90.14,asdf,(SHORT) Position closed by execution
+2419,2024-02-16,2024-02-22,BUY,WIN,1.07763,1.08196,1.0666,0.0,122.37,asdf,(LONG) Position closed by execution
+2420,2024-02-23,2024-03-07,BUY,WIN,1.08209,1.08988,1.0784,0.0,224.59,asdf,(LONG) Position closed by execution

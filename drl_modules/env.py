@@ -140,6 +140,7 @@ class TradingEnv(gym.Env):
 
         # Environment parameters init
         self.t = self.batch_size  # Initialize t to batch_size
+        self.t_global = self.t
         self.df_size = len(self.df)
         self.positions = []
         self.symbol = symbol
@@ -168,6 +169,7 @@ class TradingEnv(gym.Env):
             return self.state, self.reward, self.done, self.done, self.info
         
         self.t += 1  # Increment t
+        self.t_global += 1
 
         # Extract actions
         direction = action[0]  # Long/short decision (-1 to 1)
@@ -223,6 +225,7 @@ class TradingEnv(gym.Env):
         self.done = self.t >= len(self.trade_env) - 1
         self.info = {
             "Step": self.t,
+            "StepGlobal": self.t_global,
             "Balance": self.trade_env['eAccBalance'][self.t],
             "Action": direction,
             "Position": self.trade_env['pType'][self.t],

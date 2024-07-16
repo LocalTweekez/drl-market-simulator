@@ -8,8 +8,11 @@ import numpy as np
 import time
 import tkinter as tk
 from tkinter.filedialog import askopenfilename
-from drl_modules.callbacks import LoggingCallback, EventCallback
+from drl_modules.callbacks import LoggingCallback, EventCallback, plot_total_rewards
 from drl_modules.data_extract import extract_data, extract_batched_data
+
+# IGNORE FOR NOW
+remote_url = "https://your-server.com/api/logs"  # Replace with your actual server URL
 
 def make_env(env_id, reward_idx, df_path, symbol):
     def _init():
@@ -53,11 +56,13 @@ def ppo_run(dir,
         except FileNotFoundError:
             print("File not found, training a new file instead")
 
-    log_callback = LoggingCallback(log_dir=tmp_path, dataset_size=base_env.df_size)
+    log_callback = LoggingCallback(log_dir=tmp_path, dataset_size=base_env.df_size, remote_url=remote_url)
     eval_callback = EventCallback(log_callback)
 
     model.learn(total_timesteps=training_steps, callback=log_callback)
     model.save(path=tmp_path+"PPO_model")
+    print(f"Saved model in path {tmp_path}")
+
     if save_model_after_each_batch:
         model.save(tmp_path+f"batch/PPO_model_batch_{batch_idx}")
 

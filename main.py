@@ -12,7 +12,6 @@ def get_path_from_input(path="results/"):
     return res_path
 
 def multiple_batch(reward_idx, batches_amount=4):
-    path = "results/"
     start_part = 0
 
     df = extract_data()
