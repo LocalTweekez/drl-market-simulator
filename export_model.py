@@ -12,50 +12,51 @@ from stable_baselines3.common.policies import BasePolicy
 import tkinter as tk
 from tkinter.filedialog import askdirectory, askopenfilename
 
-
 class OnnxableSB3Policy(th.nn.Module):
     def __init__(self, policy: BasePolicy):
         super().__init__()
         self.policy = policy
 
-    def forward(self, observation):
-        print(observation)
-        return observation["a"]
-        # NOTE: Preprocessing is included, but postprocessing
-        # (clipping/inscaling actions) is not,
-        # If needed, you also need to transpose the images so that they are channel first
-        # use deterministic=False if you want to export the stochastic policy
-        return self.policy._predict(observation, deterministic=True)
+    def forward(self, open, high, low, close, volume, position):
+        device = next(self.policy.parameters()).device
+        # Move inputs to the same device as the policy
+        open = open.to(device)
+        high = high.to(device)
+        low = low.to(device)
+        close = close.to(device)
+        volume = volume.to(device)
+        position = position.to(device)
+        
+        observation = th.cat([open, high, low, close, volume, position], dim=1)
+        return self.policy._predict(observation, deterministic=False)
 
 if __name__ == "__main__":
     # Example: model = PPO("MlpPolicy", "Pendulum-v1")
     env = TradingEnv(0, "EURUSD", "datasets/EURUSD.csv")
     env.reset()
-    model = PPO("MultiInputPolicy", env)
+    model = PPO("MultiInputPolicy", env, device="cuda")
 
     model = PPO.load("results/16/PPO_model.zip", device="cuda")
 
     onnx_policy = OnnxableSB3Policy(model.policy)
 
-    observation_size = env.observation_space.shape
-    print(f"\n\n\n{env.observation_space}")
+    # Extract observation space sizes
+    observation_space = env.observation_space
+    dummy_input = {
+        'open': th.randn(1, 10).to("cuda"),
+        'high': th.randn(1, 10).to("cuda"),
+        'low': th.randn(1, 10).to("cuda"),
+        'close': th.randn(1, 10).to("cuda"),
+        'volume': th.randn(1, 10).to("cuda"),
+        'position': th.randn(1, 10).to("cuda")
+    }
 
-    """
-    output:
-    Dict('close': Box(0.8976421, 1.2943679, (10,), float32), 
-    'high': Box(0.9059728, 1.2960472, (10,), float32), 
-    'low': Box(0.89135516, 1.2888348, (10,), float32), 
-    'open': Box(0.8975308, 1.2942992, (10,), float32), 
-    'position': Box(0.0, 2.0, (1,), float32), 
-    'volume': Box(0.0, 263068.5, (10,), float32))
-    """
-    dummy_input = th.randn(1, *observation_size)
     th.onnx.export(
         onnx_policy,
-        dummy_input,
+        (dummy_input['open'], dummy_input['high'], dummy_input['low'], dummy_input['close'], dummy_input['volume'], dummy_input['position']),
         "my_ppo_model.onnx",
         opset_version=17,
-        input_names=["input"],
+        input_names=["open", "high", "low", "close", "volume", "position"],
         output_names=["output"],
     )
 
@@ -69,12 +70,37 @@ if __name__ == "__main__":
     onnx_model = onnx.load(onnx_path)
     onnx.checker.check_model(onnx_model)
 
-    observation = np.zeros((1, *observation_size)).astype(np.float32)
+    observation = {
+        'open': np.zeros((1, 10)).astype(np.float32),
+        'high': np.zeros((1, 10)).astype(np.float32),
+        'low': np.zeros((1, 10)).astype(np.float32),
+        'close': np.zeros((1, 10)).astype(np.float32),
+        'volume': np.zeros((1, 10)).astype(np.float32),
+        'position': np.zeros((1, 10)).astype(np.int32)
+    }
     ort_sess = ort.InferenceSession(onnx_path)
-    actions, values, log_prob = ort_sess.run(None, {"input": observation})
+    inputs = {
+        "open": observation['open'],
+        "high": observation['high'],
+        "low": observation['low'],
+        "close": observation['close'],
+        "volume": observation['volume'],
+        "position": observation['position']
+    }
+    outputs = ort_sess.run(None, inputs)
 
-    print(actions, values, log_prob)
+    print(outputs)
 
     # Check that the predictions are the same
     with th.no_grad():
-        print(model.policy(th.as_tensor(observation), deterministic=True))
+        pytorch_inputs = {
+            'open': th.as_tensor(observation['open']).to("cuda"),
+            'high': th.as_tensor(observation['high']).to("cuda"),
+            'low': th.as_tensor(observation['low']).to("cuda"),
+            'close': th.as_tensor(observation['close']).to("cuda"),
+            'volume': th.as_tensor(observation['volume']).to("cuda"),
+            'position': th.as_tensor(observation['position']).to("cuda")
+        }
+        pytorch_inputs_combined = th.cat([pytorch_inputs['open'], pytorch_inputs['high'], pytorch_inputs['low'], pytorch_inputs['close'], pytorch_inputs['volume'], pytorch_inputs['position']], dim=1)
+        pytorch_outputs = model.policy(pytorch_inputs_combined, deterministic=False)
+        print(pytorch_outputs)

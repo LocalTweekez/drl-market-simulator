@@ -405,7 +405,7 @@ class TradingEnv(gym.Env):
         # Return the last ATR value
         return atr.iloc[-1] if not atr.empty else 0.0
     
-    def _calculate_profit_loss(self, diff_pips, lot=10000):
+    def _calculate_profit_loss(self, diff_pips, lot = 10000):
         risk_per_trade = self.trade_env["eAccBalance"][self.t] * (self.risk_percentage/100)
         pip_value = (1/self.trade_env["close"][self.t-1]) * lot
         sl_pips = 1.5 * self._calculate_atr()
@@ -416,12 +416,12 @@ class TradingEnv(gym.Env):
 
     def _get_observation(self):
         obs = {
-            'open': self.trade_env['open'][self.t - self.batch_size:self.t],
-            'high': self.trade_env['high'][self.t - self.batch_size:self.t],
-            'low': self.trade_env['low'][self.t - self.batch_size:self.t],
-            'close': self.trade_env['close'][self.t - self.batch_size:self.t],
-            'volume': self.trade_env['tick_volume'][self.t - self.batch_size:self.t],
-            'position': np.array([self.trade_env['pType'][self.t]], dtype=np.float32)  # Include the current position type
+            'open': self.trade_env['open'][self.t-self.batch_size : self.t],
+            'high': self.trade_env['high'][self.t-self.batch_size : self.t],
+            'low': self.trade_env['low'][self.t-self.batch_size : self.t],
+            'close': self.trade_env['close'][self.t-self.batch_size : self.t],
+            'volume': self.trade_env['tick_volume'][self.t-self.batch_size : self.t],
+            'position': self.trade_env['pType'][self.t-self.batch_size : self.t]  # Include the current position type
         }
         return obs
 
