@@ -1,11 +1,14 @@
 import torch as th
 from typing import Tuple
 
+import stable_baselines3 as sb3
 from stable_baselines3 import PPO
 from stable_baselines3.common.policies import BasePolicy
 import onnx
 import onnxruntime as ort
 import numpy as np
+
+print(f"SB3 version: {sb3.__version__}")
 
 
 class OnnxableSB3Policy(th.nn.Module):
@@ -29,6 +32,7 @@ model = PPO.load("PathToTrainedModel.zip", device="cpu")
 onnx_policy = OnnxableSB3Policy(model.policy)
 
 observation_size = model.observation_space.shape
+print(model.observation_space)      #Box([-1. -1. -8.], [1. 1. 8.], (3,), float32)
 dummy_input = th.randn(1, *observation_size)
 th.onnx.export(
     onnx_policy,

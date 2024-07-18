@@ -13,85 +13,81 @@ def get_path_from_input(path="results/"):
     os.makedirs(res_path, exist_ok=True)
     return res_path
 
-def multiple_batch(reward_idx, 
+def run_drl_system(reward_idx, 
                    symbol, 
                    batches_amount, 
                    df_path, 
                    step_inp, 
                    vec_env, 
                    res_path,
-                   device):
+                   device,
+                   eval_only=False):
     start_part = 0
 
     df = extract_data(csv_path=df_path)
-    batches = extract_batched_data(df, batch_divider=batches_amount)
-    
-    last_found_part = -1 
-    for i in range(batches_amount):
-        if os.path.exists(res_path+f"part{i}"):
-            last_found_part = i
+
+    if not eval_only:
+        if batches_amount >= 4:
+            batches = extract_batched_data(df, batch_divider=batches_amount)
+            
+            last_found_part = -1 
+            for i in range(batches_amount):
+                if os.path.exists(res_path+f"part{i}"):
+                    last_found_part = i
+                else:
+                    break
+
+            start_part = last_found_part + 1 if last_found_part != -1 else 0
+            
+            print(f"\n\nRUNNING THE TRAINING PHASE ({batches_amount} batches):")
+            print(f"Starting from part {start_part}")
+
+            for i, part in enumerate(batches[start_part:], start=start_part):
+                print(f"Training on batch {i + 1}")
+                # ../results/REWARD_FUNC_TEST_PPO/func_r/
+                ppo_run(dir=res_path, 
+                        reward_func_idx=reward_idx, 
+                        symbol=symbol,
+                        step_amount=step_inp, 
+                        df_path=part,
+                        batch_idx=i,
+                        batches_amount=batches_amount,
+                        save_model_after_each_batch=True,
+                        vectorized_environments=vec_env,
+                        device=device)
+            eval_part = pd.concat(batches[-4:])
+
         else:
-            break
-
-    start_part = last_found_part + 1 if last_found_part != -1 else 0
-    print(f"Starting from part {start_part}")
-
-    for i, part in enumerate(batches[start_part:], start=start_part):
-        print(f"Training on batch {i + 1}")
-        # ../results/REWARD_FUNC_TEST_PPO/func_r/
-        ppo_run(dir=res_path+f"part{i}/", 
+            print("\n\nRUNNING THE TRAINING PHASE (Single batch):")
+            ppo_run(dir=res_path, 
                 reward_func_idx=reward_idx, 
                 symbol=symbol,
                 step_amount=step_inp, 
-                df_path=part,
-                batch_idx=i,
+                df_path=df,
+                batch_idx=0,
+                batches_amount=batches_amount,
                 save_model_after_each_batch=True,
                 vectorized_environments=vec_env,
                 device=device)
                 
-    eval_part = pd.concat(batches[-4:])
-    ppo_eval(dir=res_path+f"evaluation/", 
+    print("\n\nRUNNING THE EVALUATION PHASE:")
+    ppo_eval(dir=res_path, 
+             model_path=res_path+"PPO_model",
              episodes=100, 
              symbol=symbol,
              reward_func_idx=reward_idx,
              render_modulo=1,
-             df_path=eval_part)
+             df_path=df)
 
-def single_batch(reward_idx, 
-                 symbol, 
-                 df_path, 
-                 step_inp, 
-                 vec_env, 
-                 res_path,
-                 device):
-    df = extract_data(csv_path=df_path)
-
-    print("\n\nRUNNING THE TRAINING PHASE:")
-    ppo_run(dir=res_path, 
-        reward_func_idx=reward_idx, 
-        symbol=symbol,
-        step_amount=step_inp, 
-        df_path=df,
-        batch_idx=0,
-        save_model_after_each_batch=True,
-        vectorized_environments=vec_env,
-        device=device)
-        
-    print("\n\nRUNNING THE EVALUATION PHASE:")
-    ppo_eval(dir=res_path, 
-                episodes=100, 
-                reward_func_idx=reward_idx,
-                symbol=symbol,
-                model_path=res_path+"PPO_model",
-                render_modulo=1,
-                df_path=df)
-
-
-if __name__ == "__main__":
+if __name__ == "__main__":  
     inputs = get_user_input()
-    
-    if inputs["Batches"] == 0:
-        single_batch(rw_idx)
-    else:
-        multiple_batch(rw_idx, batches)
-    
+
+    run_drl_system(reward_idx=inputs["Reward"],
+                    symbol=inputs["Symbol"],
+                    batches_amount=inputs["Batches"],
+                    df_path=inputs["Dataset"],
+                    step_inp=inputs["Steps"],
+                    vec_env=inputs["VectEnvs"],
+                    res_path=inputs["Folder"],
+                    device=inputs["Device"],
+                    eval_only=False)

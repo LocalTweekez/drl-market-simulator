@@ -1,0 +1,37 @@
+id,timeOpen,timeClose,positionType,tradeResult,priceOpen,priceClose,positionSL,positionTP,profit,symbol,comment
+4233,2020-11-25,2020-12-02,BUY,WIN,1.19139,1.2072,1.1881,0.0,577.04,asdf,(LONG) Position closed by execution
+4234,2020-12-04,2020-12-10,SELL,WIN,1.21209,1.20814,1.2165,0.0,152.6,asdf,(SHORT) Position closed by execution
+4235,2020-12-11,2020-12-15,BUY,WIN,1.21138,1.21431,1.2039,0.0,115.41,asdf,(LONG) Position closed by execution
+4236,2020-12-16,2020-12-22,BUY,WIN,1.21994,1.22431,1.21,0.0,175.42,asdf,(LONG) Position closed by execution
+4237,2020-12-24,2020-12-31,BUY,WIN,1.21808,1.22998,1.2087,0.0,487.68,asdf,(LONG) Position closed by execution
+4238,2021-01-04,2021-01-12,BUY,LOSS,1.22521,1.21502,1.2153,0.0,-430.8,asdf,(LONG) Stop loss hit - failed trade
+4239,2021-01-13,2021-01-19,SELL,WIN,1.21578,1.20759,1.2196,0.0,331.23,asdf,(SHORT) Position closed by execution
+4240,2021-01-21,2021-01-27,BUY,LOSS,1.21679,1.21598,1.2069,0.0,-33.98,asdf,(LONG) Position closed by execution
+4241,2021-01-28,2021-02-01,BUY,WIN,1.21222,1.21367,1.2089,0.0,60.51,asdf,(LONG) Position closed by execution
+4242,2021-02-02,2021-02-10,SELL,LOSS,1.20431,1.21197,1.21,0.0,-320.98,asdf,(SHORT) Stop loss hit - failed trade
+4243,2021-02-11,2021-02-18,BUY,LOSS,1.21317,1.20417,1.2099,0.0,-364.18,asdf,(LONG) Stop loss hit - failed trade
+4244,2021-02-19,2021-03-01,SELL,WIN,1.21172,1.20736,1.2216,0.0,171.08,asdf,(SHORT) Position closed by execution
+4245,2021-03-04,2021-03-09,SELL,WIN,1.19721,1.18465,1.2005,0.0,491.29,asdf,(SHORT) Position closed by execution
+4246,2021-03-10,2021-03-23,BUY,WIN,1.19291,1.19327,1.1838,0.0,14.81,asdf,(LONG) Position closed by execution
+4247,2021-03-24,2021-03-31,SELL,WIN,1.18118,1.17158,1.1845,0.0,388.57,asdf,(SHORT) Position closed by execution
+4248,2021-04-01,2021-04-06,SELL,LOSS,1.17776,1.18124,1.1811,0.0,-146.86,asdf,(SHORT) Stop loss hit - failed trade
+4249,2021-04-13,2021-04-15,BUY,WIN,1.19489,1.19792,1.1916,0.0,128.05,asdf,(LONG) Position closed by execution
+4250,2021-04-19,2021-04-21,SELL,WIN,1.20368,1.20366,1.2136,0.0,0.85,asdf,(SHORT) Position closed by execution
+4251,2021-04-22,2021-04-30,BUY,WIN,1.2016,1.21199,1.1951,0.0,449.16,asdf,(LONG) Position closed by execution
+4252,2021-05-03,2021-05-10,SELL,LOSS,1.20631,1.21635,1.2096,0.0,-452.2,asdf,(SHORT) Stop loss hit - failed trade
+4253,2021-05-11,2021-05-13,BUY,LOSS,1.21482,1.20705,1.2095,0.0,-334.46,asdf,(LONG) Stop loss hit - failed trade
+4254,2021-05-17,2021-05-25,BUY,WIN,1.21518,1.22163,1.2086,0.0,273.01,asdf,(LONG) Position closed by execution
+4255,2021-05-28,2021-06-09,BUY,LOSS,1.2193,1.2173,1.2094,0.0,-86.38,asdf,(LONG) Position closed by execution
+4256,2021-06-10,2021-06-16,SELL,WIN,1.21761,1.21255,1.2275,0.0,216.04,asdf,(SHORT) Position closed by execution
+4257,2021-06-18,2021-06-23,BUY,WIN,1.18616,1.19412,1.1772,0.0,340.91,asdf,(LONG) Position closed by execution
+4258,2021-06-25,2021-07-01,SELL,WIN,1.19362,1.18577,1.1969,0.0,343.44,asdf,(SHORT) Position closed by execution
+4259,2021-07-02,2021-07-14,SELL,WIN,1.18664,1.17767,1.1899,0.0,400.73,asdf,(SHORT) Position closed by execution
+4260,2021-07-15,2021-07-22,SELL,WIN,1.18111,1.17943,1.1848,0.0,77.56,asdf,(SHORT) Position closed by execution
+4261,2021-07-23,2021-07-27,BUY,WIN,1.17722,1.18023,1.1704,0.0,139.89,asdf,(LONG) Position closed by execution
+4262,2021-07-28,2021-07-30,SELL,LOSS,1.18427,1.18869,1.1942,0.0,-209.14,asdf,(SHORT) Position closed by execution
+4263,2021-08-02,2021-08-04,BUY,LOSS,1.18717,1.18651,1.1839,0.0,-30.69,asdf,(LONG) Position closed by execution
+4264,2021-08-05,2021-08-10,SELL,WIN,1.18319,1.17363,1.1865,0.0,438.46,asdf,(SHORT) Position closed by execution
+4265,2021-08-11,2021-08-17,BUY,WIN,1.17396,1.17758,1.1707,0.0,172.23,asdf,(LONG) Position closed by execution
+4266,2021-08-20,2021-08-26,BUY,WIN,1.16999,1.17727,1.1601,0.0,350.75,asdf,(LONG) Position closed by execution
+4267,2021-08-30,2021-09-03,BUY,WIN,1.17969,1.18753,1.1764,0.0,390.89,asdf,(LONG) Position closed by execution
+4268,2021-09-06,2021-09-09,SELL,WIN,1.187,1.18157,1.1939,0.0,276.96,asdf,(SHORT) Position closed by execution

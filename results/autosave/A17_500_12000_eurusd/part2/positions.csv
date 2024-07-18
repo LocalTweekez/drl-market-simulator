@@ -1,0 +1,36 @@
+id,timeOpen,timeClose,positionType,tradeResult,priceOpen,priceClose,positionSL,positionTP,profit,symbol,comment
+6398,2021-09-28,2021-10-01,BUY,LOSS,1.16838,1.15769,1.1451,0.0,-159.56,eurusd,(LONG) Position closed by execution
+6399,2021-10-04,2021-10-07,BUY,LOSS,1.16196,1.15565,1.154,0.0,-92.52,eurusd,(LONG) Position closed by execution
+6400,2021-10-13,2021-10-28,BUY,WIN,1.1596,1.16028,1.1477,0.0,9.91,eurusd,(LONG) Position closed by execution
+6401,2021-11-01,2021-11-05,SELL,WIN,1.16066,1.15545,1.1703,0.0,75.72,eurusd,(SHORT) Position closed by execution
+6402,2021-11-09,2021-11-16,SELL,WIN,1.15944,1.1367,1.169,0.0,327.69,eurusd,(SHORT) Position closed by execution
+6403,2021-11-17,2021-11-24,BUY,LOSS,1.13189,1.1249,1.1215,0.0,-103.02,eurusd,(LONG) Position closed by execution
+6404,2021-11-25,2021-11-30,BUY,WIN,1.12087,1.12918,1.0976,0.0,121.67,eurusd,(LONG) Position closed by execution
+6405,2021-12-01,2021-12-03,SELL,WIN,1.13191,1.13016,1.1397,0.0,25.95,eurusd,(SHORT) Position closed by execution
+6406,2021-12-06,2021-12-23,BUY,WIN,1.12852,1.13272,1.1208,0.0,62.59,eurusd,(LONG) Position closed by execution
+6407,2021-12-28,2022-01-06,SELL,LOSS,1.13085,1.13127,1.1386,0.0,-6.3,eurusd,(SHORT) Position closed by execution
+6408,2022-01-10,2022-01-14,SELL,LOSS,1.13283,1.14545,1.1444,0.0,-191.26,eurusd,(SHORT) Stop loss hit - failed trade
+6409,2022-01-17,2022-01-19,SELL,WIN,1.14062,1.13278,1.1639,0.0,115.3,eurusd,(SHORT) Position closed by execution
+6410,2022-01-20,2022-01-26,SELL,WIN,1.13106,1.13016,1.1388,0.0,13.35,eurusd,(SHORT) Position closed by execution
+6411,2022-01-28,2022-02-01,SELL,LOSS,1.11487,1.1233,1.1226,0.0,-124.53,eurusd,(SHORT) Stop loss hit - failed trade
+6412,2022-02-02,2022-02-04,SELL,LOSS,1.13045,1.14389,1.1509,0.0,-199.7,eurusd,(SHORT) Position closed by execution
+6413,2022-02-07,2022-02-09,SELL,WIN,1.14416,1.1417,1.1551,0.0,35.75,eurusd,(SHORT) Position closed by execution
+6414,2022-02-11,2022-02-16,BUY,WIN,1.13466,1.13578,1.1269,0.0,16.24,eurusd,(LONG) Position closed by execution
+6415,2022-02-21,2022-03-04,SELL,WIN,1.13101,1.10659,1.1448,0.0,345.84,eurusd,(SHORT) Position closed by execution
+6416,2022-03-08,2022-03-21,SELL,LOSS,1.08964,1.10507,1.1129,0.0,-225.84,eurusd,(SHORT) Position closed by execution
+6417,2022-03-22,2022-03-25,BUY,LOSS,1.10245,1.0997,1.0792,0.0,-39.18,eurusd,(LONG) Position closed by execution
+6418,2022-03-30,2022-04-01,BUY,LOSS,1.1158,1.10662,1.1079,0.0,-131.09,eurusd,(LONG) Stop loss hit - failed trade
+6419,2022-04-05,2022-04-07,SELL,WIN,1.09057,1.08964,1.1017,0.0,12.89,eurusd,(SHORT) Position closed by execution
+6420,2022-04-08,2022-04-13,SELL,WIN,1.08765,1.0826,1.0954,0.0,69.7,eurusd,(SHORT) Position closed by execution
+6421,2022-04-14,2022-04-18,SELL,WIN,1.08293,1.0809,1.0942,0.0,28.16,eurusd,(SHORT) Position closed by execution
+6422,2022-04-19,2022-04-26,SELL,WIN,1.0789,1.07117,1.1022,0.0,106.61,eurusd,(SHORT) Position closed by execution
+6423,2022-04-28,2022-05-03,SELL,LOSS,1.04983,1.05074,1.0576,0.0,-12.45,eurusd,(SHORT) Position closed by execution
+6424,2022-05-04,2022-05-09,BUY,LOSS,1.06193,1.05446,1.0421,0.0,-102.39,eurusd,(LONG) Position closed by execution
+6425,2022-05-10,2022-05-12,SELL,WIN,1.05299,1.05138,1.0763,0.0,21.77,eurusd,(SHORT) Position closed by execution
+6426,2022-05-16,2022-05-19,BUY,WIN,1.04342,1.04608,1.0357,0.0,35.87,eurusd,(LONG) Position closed by execution
+6427,2022-05-20,2022-05-24,SELL,LOSS,1.05621,1.06921,1.064,0.0,-179.87,eurusd,(SHORT) Stop loss hit - failed trade
+6428,2022-05-27,2022-06-02,BUY,LOSS,1.07312,1.06527,1.0499,0.0,-106.28,eurusd,(LONG) Position closed by execution
+6429,2022-06-06,2022-06-15,SELL,WIN,1.06958,1.04175,1.0831,0.0,364.45,eurusd,(SHORT) Position closed by execution
+6430,2022-06-16,2022-06-21,SELL,WIN,1.05505,1.05109,1.0628,0.0,54.27,eurusd,(SHORT) Position closed by execution
+6431,2022-06-22,2022-06-29,BUY,LOSS,1.05688,1.05207,1.0491,0.0,-66.36,eurusd,(LONG) Position closed by execution
+6432,2022-07-01,2022-07-05,BUY,LOSS,1.04246,1.04227,1.0347,0.0,-2.59,eurusd,(LONG) Position closed by execution

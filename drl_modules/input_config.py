@@ -13,7 +13,7 @@ def get_user_input(res_path: str = ""):
 
     print("\nDatasets:")
     dfs = []
-    for i, f in enumerate(os.listdir("../datasets/")):
+    for i, f in enumerate(os.listdir("datasets/")):
         print(f"\t{i}. {f}")
         dfs.append(f)
     df_idx = int(input("\nEnter dataset index: "))
@@ -63,12 +63,13 @@ def get_user_input(res_path: str = ""):
         folder_path = os.path.join(res_path, name_init)
         os.makedirs(folder_path, exist_ok=True)
 
+    folder_path += "/"
     print("Saving results in folder:", folder_path)
 
     return {
         "Symbol": symbol,
         "Batches": batches,
-        "Rewards": rw_idx,
+        "Reward": rw_idx,
         "Dataset": df,
         "Steps": step_inp,
         "VectEnvs": vec_env,

@@ -33,7 +33,7 @@ def get_obs_space(df: pd.DataFrame, box_length: int = 10):
         'low': np.array([df["low"].min() - std_low] * box_length, dtype=np.float32),
         'close': np.array([df["close"].min() - std_close] * box_length, dtype=np.float32),
         'volume': np.array([0] * box_length, dtype=np.float32),
-        'position': np.array([0], dtype=np.int32)  # Assuming position type is a single value
+        'position': np.array([0] * box_length, dtype=np.int32)  # Assuming position type is a single value
     }
     
     high_dict = {
@@ -42,7 +42,7 @@ def get_obs_space(df: pd.DataFrame, box_length: int = 10):
         'low': np.array([df["low"].max() + std_low] * box_length, dtype=np.float32),
         'close': np.array([df["close"].max() + std_close] * box_length, dtype=np.float32),
         'volume': np.array([df["tick_volume"].max() + std_vol] * box_length, dtype=np.float32),
-        'position': np.array([2], dtype=np.int32)  # Assuming position type is a single value
+        'position': np.array([2] * box_length, dtype=np.int32)  # Assuming position type is a single value
     }
     
     return spaces.Dict({
@@ -51,5 +51,5 @@ def get_obs_space(df: pd.DataFrame, box_length: int = 10):
         'low': spaces.Box(low=low_dict['low'], high=high_dict['low'], dtype=np.float32),
         'close': spaces.Box(low=low_dict['close'], high=high_dict['close'], dtype=np.float32),
         'volume': spaces.Box(low=low_dict['volume'], high=high_dict['volume'], dtype=np.float32),
-        'position': spaces.Box(low=low_dict['position'], high=high_dict['position'], dtype=np.float32),
+        'position': spaces.Box(low=low_dict['position'], high=high_dict['position'], dtype=np.int32),
     })

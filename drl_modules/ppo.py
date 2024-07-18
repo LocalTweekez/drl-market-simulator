@@ -22,37 +22,39 @@ def make_env(env_id, reward_idx, df_path, symbol):
 def ppo_run(dir, 
             reward_func_idx, 
             symbol: str, 
-            step_amount=0, 
+            step_amount: int = 0, 
             df_path: str | pd.DataFrame = "", 
             batch_idx: int = 0, 
+            batches_amount: int = 0,
             save_model_after_each_batch: bool = False, 
             vectorized_environments: int = 4,
             device: str = "cpu"):
-    if step_amount == 0:
-        training_steps = int(input("Enter the amount of training steps: "))
-    else:
-        training_steps = step_amount
+    
+    training_steps = step_amount
 
+    # Init environment(s)
     base_env = TradingEnv(reward_func_idx=reward_func_idx, 
                           dataset_path=df_path, symbol=symbol)
-    
     base_env._get_env_details()
-
     if vectorized_environments > 0:
         vec_env = make_vec_env(lambda: make_env(None, reward_func_idx, df_path, symbol)(), n_envs=vectorized_environments)
         print("VECTORIZING ENVIRONMENTS (This could cause crashes!)")
 
     env = base_env if vectorized_environments == 0 else vec_env
 
-    tmp_path = dir
+    # Set directories
+    parent_dir = os.path.dirname(dir) + "/"
+    tmp_path = dir + f"part{batch_idx}/" if batches_amount > 0 else dir
+    print("parent_dir: ", parent_dir)
+    
+    # Init agent with logging functions
     new_logger = configure(tmp_path+"sb3_log/", ["stdout", "csv", "tensorboard"])
     model = PPO("MultiInputPolicy", env, verbose=1, device=device)
-
     model.set_logger(new_logger)
 
-    if batch_idx > 0:
+    if batch_idx > 0 and batches_amount >= 4:
         try:
-            model.load(tmp_path+"../PPO_model", device=device)
+            model.load(parent_dir+"PPO_model", device=device)
         except FileNotFoundError:
             print("File not found, training a new file instead")
 
@@ -60,7 +62,10 @@ def ppo_run(dir,
     eval_callback = EventCallback(log_callback)
 
     model.learn(total_timesteps=training_steps, callback=log_callback)
-    model.save(path=tmp_path+"PPO_model")
+    if batches_amount >= 4:
+        model.save(path=parent_dir+"PPO_model")
+    else:
+        model.save(path=tmp_path+"PPO_model")
     print(f"Saved model in path {tmp_path}")
 
     if save_model_after_each_batch:

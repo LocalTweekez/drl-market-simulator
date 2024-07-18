@@ -107,12 +107,9 @@ def plot_total_rewards(csv_file_dir):
 
     df = pd.read_csv(csv_file_dir + "info_log.csv")
     plt.figure(figsize=(10, 6))
-    print(df.head(2))
 
     x_arr = df["StepGlobal"].tolist()
     y_arr = df["TotalReward"].tolist()
-    print(x_arr)
-    print(y_arr)
 
     plt.plot(x_arr, y_arr, marker='o', linestyle='-')
     plt.title('Total Reward Over Iterations')

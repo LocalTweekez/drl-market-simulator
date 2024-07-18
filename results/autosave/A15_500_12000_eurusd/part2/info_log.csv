@@ -1,0 +1,3 @@
+Step,StepGlobal,Balance,Action,Position,Reward,TotalReward,Done,Wins,Losses,TotalTrades,TimeLimit.truncated,Truncated
+216,216,9886.849999999999,-0.03920652,0,-0.018732401774982886,-0.008485973786454794,True,17,21,38,"{'r': -0.008486, 'l': 206, 't': 0.195537}",False
+216,422,9622.639999999996,-0.6534739,2,0.0,-0.03385103168611013,True,15,18,33,"{'r': -0.033851, 'l': 206, 't': 0.39439}",False
