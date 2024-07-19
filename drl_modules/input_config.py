@@ -1,6 +1,8 @@
 import pandas as pd
 from drl_modules.rewards import RewardFunctions
 import os
+import tkinter as tk
+from tkinter.filedialog import askdirectory
 
 def get_path_from_input(path):
     folder = input("Enter name of the folder to save the results in: ")
@@ -8,7 +10,7 @@ def get_path_from_input(path):
     os.makedirs(res_path, exist_ok=True)
     return res_path
 
-def get_user_input(res_path: str = ""):
+def get_user_input():
     batches = int(input("Enter amount of batches (zero for single, minimum 4): "))
 
     print("\nDatasets:")
@@ -39,8 +41,14 @@ def get_user_input(res_path: str = ""):
     device_idx = int(input("Enter device (0 - cuda, 1 - cpu): "))
     device = "cuda" if device_idx == 0 else "cpu" if device_idx == 1 else "auto"
 
-    if res_path:
-        folder_path = res_path
+    res_path = input("Set results folder manually? [y/n]: ")
+
+    if res_path == "y":
+        root = tk.Tk()
+        root.withdraw()
+        folder_path = askdirectory(
+            title="Select directory to save results in."
+        )
     else:
         name_init = f"A0_{batches}{rw_idx}{vec_env}_{step_inp}_{symbol}"
         res_path = os.path.join(parent_dir, "results", "autosave")
