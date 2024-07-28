@@ -14,9 +14,9 @@ from drl_modules.data_extract import extract_data, extract_batched_data
 # IGNORE FOR NOW
 remote_url = "https://your-server.com/api/logs"  # Replace with your actual server URL
 
-def make_env(env_id, reward_idx, df_path, symbol):
+def make_env(env_id, reward_idx, agent_policy, df_path, symbol):
     def _init():
-        return TradingEnv(reward_func_idx=reward_idx, dataset_path=df_path, symbol=symbol)
+        return TradingEnv(reward_func_idx=reward_idx, agent_policy=agent_policy, dataset_path=df_path, symbol=symbol)
     return _init
 
 def ppo_run(dir, 
@@ -28,16 +28,19 @@ def ppo_run(dir,
             batches_amount: int = 0,
             save_model_after_each_batch: bool = False, 
             vectorized_environments: int = 4,
-            device: str = "cpu"):
+            device: str = "cpu",
+            agent_policy: str = "MultiInputPolicy"):
     
     training_steps = step_amount
 
     # Init environment(s)
     base_env = TradingEnv(reward_func_idx=reward_func_idx, 
-                          dataset_path=df_path, symbol=symbol)
+                          agent_policy=agent_policy,
+                          dataset_path=df_path, 
+                          symbol=symbol)
     base_env._get_env_details()
     if vectorized_environments > 0:
-        vec_env = make_vec_env(lambda: make_env(None, reward_func_idx, df_path, symbol)(), n_envs=vectorized_environments)
+        vec_env = make_vec_env(lambda: make_env(None, reward_func_idx, agent_policy, df_path, symbol)(), n_envs=vectorized_environments)
         print("VECTORIZING ENVIRONMENTS (This could cause crashes!)")
 
     env = base_env if vectorized_environments == 0 else vec_env
@@ -49,7 +52,7 @@ def ppo_run(dir,
     
     # Init agent with logging functions
     new_logger = configure(tmp_path+"sb3_log/", ["stdout", "csv", "tensorboard"])
-    model = PPO("MultiInputPolicy", env, verbose=1, device=device)
+    model = PPO(agent_policy, env, verbose=1, device=device)
     model.set_logger(new_logger)
 
     if batch_idx > 0 and batches_amount >= 4:
@@ -91,13 +94,17 @@ def ppo_eval(dir: str,
              model_path: str = "", 
              render_modulo: str = 10, 
              df_path: str | pd.DataFrame = "",
-             device: str = "cpu"):
-    env = TradingEnv(reward_func_idx=reward_func_idx, symbol=symbol, dataset_path=df_path)
+             device: str = "cpu",
+             agent_policy: str = "MultiInputPolicy"):
+    env = TradingEnv(reward_func_idx=reward_func_idx, 
+                     agent_policy=agent_policy,
+                     symbol=symbol, 
+                     dataset_path=df_path)
     
     tmp_path = dir+"evaluation/"
     os.makedirs(tmp_path, exist_ok=True)
 
-    model = PPO("MultiInputPolicy", env, verbose=1)
+    model = PPO(agent_policy, env, verbose=1)
     
     if model_path == "":
         root = tk.Tk()

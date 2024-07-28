@@ -6,7 +6,7 @@ from drl_modules.ppo import ppo_run, ppo_eval
 from drl_modules.input_config import get_user_input
 from drl_modules.rewards import RewardFunctions
 import os
-from drl_modules.export_model import export_to_onnx
+from drl_modules.export_model import export_to_onnx_dict
 
 def get_path_from_input(path="results/"):
     folder = input("Enter name of the folder to save the results in: ")
@@ -22,6 +22,7 @@ def run_drl_system(reward_idx,
                    vec_env, 
                    res_path,
                    device,
+                   policy,
                    eval_only=False):
     start_part = 0
 
@@ -55,6 +56,7 @@ def run_drl_system(reward_idx,
                         batches_amount=batches_amount,
                         save_model_after_each_batch=True,
                         vectorized_environments=vec_env,
+                        agent_policy=policy,
                         device=device)
             eval_part = pd.concat(batches[-4:])
 
@@ -69,6 +71,7 @@ def run_drl_system(reward_idx,
                 batches_amount=batches_amount,
                 save_model_after_each_batch=True,
                 vectorized_environments=vec_env,
+                agent_policy=policy,
                 device=device)
                 
     print("\n\nRUNNING THE EVALUATION PHASE:")
@@ -78,9 +81,13 @@ def run_drl_system(reward_idx,
              symbol=symbol,
              reward_func_idx=reward_idx,
              render_modulo=1,
+             agent_policy=policy,
              df_path=df)
     
-    export_to_onnx(res_path+"PPO_model.zip")
+    if policy == "MultiInputPolicy":
+        export_to_onnx_dict(res_path+"PPO_model.zip")
+    else:
+        export_to_onnx(res_path+"PPO_model.zip")
 
 if __name__ == "__main__":  
     inputs = get_user_input()
@@ -93,4 +100,5 @@ if __name__ == "__main__":
                     vec_env=inputs["VectEnvs"],
                     res_path=inputs["Folder"],
                     device=inputs["Device"],
+                    policy=inputs["Policy"],
                     eval_only=False)

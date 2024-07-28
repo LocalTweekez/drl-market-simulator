@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import drl_modules.obs_spaces, drl_modules.data_extract, drl_modules.create_metadata
 from drl_modules.data_extract import get_csv_path_pandas, extract_data, extract_data_windows
-from drl_modules.obs_spaces import get_obs_space
+from drl_modules.obs_spaces import get_obs_space_dict, get_obs_space_flattened
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import os
@@ -73,6 +73,7 @@ class TradingEnv(gym.Env):
     def __init__(self,
                  reward_func_idx: int,
                  symbol: str,
+                 agent_policy: str,
                  dataset_path: str | pd.DataFrame  = "",
                  batch_size: int = 10,
                  init_balance: int = 10000,
@@ -87,6 +88,7 @@ class TradingEnv(gym.Env):
         self.symbol = symbol
         self.fees = trading_fees
         self.reward_func_idx = reward_func_idx
+        self.agent_policy = agent_policy
 
         if type(dataset_path) == str:
             # Init and process dataset
@@ -103,7 +105,7 @@ class TradingEnv(gym.Env):
         self.action_space = spaces.Box(low=np.array([-1, 0]), high=np.array([1, 1]), dtype=np.float32)
         
         # Observation space
-        self.observation_space = get_obs_space(df=self.df, box_length=batch_size)
+        self.observation_space = get_obs_space_flattened(df=self.df, box_length=batch_size) if agent_policy != "MultiInputPolicy" else get_obs_space_dict(df=self.df, box_length=batch_size)
 
         # Environment data init
         dtype = [
@@ -415,15 +417,32 @@ class TradingEnv(gym.Env):
         return profit_loss
 
     def _get_observation(self):
-        obs = {
-            'open': self.trade_env['open'][self.t-self.batch_size : self.t],
-            'high': self.trade_env['high'][self.t-self.batch_size : self.t],
-            'low': self.trade_env['low'][self.t-self.batch_size : self.t],
-            'close': self.trade_env['close'][self.t-self.batch_size : self.t],
-            'volume': self.trade_env['tick_volume'][self.t-self.batch_size : self.t],
-            'position': self.trade_env['pType'][self.t-self.batch_size : self.t]  # Include the current position type
-        }
-        return obs
+        if self.agent_policy == "MultiInputPolicy":
+            return {
+                'open': self.trade_env['open'][self.t-self.batch_size : self.t],
+                'high': self.trade_env['high'][self.t-self.batch_size : self.t],
+                'low': self.trade_env['low'][self.t-self.batch_size : self.t],
+                'close': self.trade_env['close'][self.t-self.batch_size : self.t],
+                'volume': self.trade_env['tick_volume'][self.t-self.batch_size : self.t],
+                'position': self.trade_env['pType'][self.t-self.batch_size : self.t]  # Include the current position type
+            }
+        else:
+            open_prices = self.trade_env['open'][self.t - self.batch_size: self.t]
+            high_prices = self.trade_env['high'][self.t - self.batch_size: self.t]
+            low_prices = self.trade_env['low'][self.t - self.batch_size: self.t]
+            close_prices = self.trade_env['close'][self.t - self.batch_size: self.t]
+            volumes = self.trade_env['tick_volume'][self.t - self.batch_size: self.t]
+            positions = self.trade_env['pType'][self.t - self.batch_size: self.t]  # Include the current position type
+
+            # Flatten the observation
+            return np.concatenate([
+                open_prices,
+                high_prices,
+                low_prices,
+                close_prices,
+                volumes,
+                positions
+            ]).astype(np.float32)
 
     def _calculate_reward(self):
         reward = self.rewardfunc[self.reward_func_idx](self.trade_env, self.t)

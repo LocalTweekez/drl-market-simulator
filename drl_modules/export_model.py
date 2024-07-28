@@ -9,8 +9,26 @@ import onnxruntime as ort
 import numpy as np
 import tkinter as tk
 from tkinter.filedialog import askopenfilename
+from typing import Tuple
 
 class OnnxableSB3Policy(th.nn.Module):
+    def __init__(self, policy: BasePolicy):
+        super().__init__()
+        self.policy = policy
+
+    def forward(self, observation: th.Tensor) -> Tuple[th.Tensor, th.Tensor, th.Tensor]:
+        device = next(self.policy.parameters()).device
+        observation = observation.to(device=device)
+        # NOTE: Preprocessing is included, but postprocessing
+        # (clipping/inscaling actions) is not,
+        # If needed, you also need to transpose the images so that they are channel first
+        # use deterministic=False if you want to export the stochastic policy
+        # policy() returns `actions, values, log_prob` for PPO
+        return self.policy(observation, deterministic=False)
+
+
+
+class OnnxableSB3PolicyDict(th.nn.Module):
     def __init__(self, policy: BasePolicy):
         super().__init__()
         self.policy = policy
@@ -41,7 +59,46 @@ class OnnxableSB3Policy(th.nn.Module):
         actions = distribution.get_actions(deterministic=False)
         return actions
 
+
 def export_to_onnx(_model_path=""):
+    env = TradingEnv(0, "EURUSD", "datasets/EURUSD.csv")
+    if not _model_path:
+        root = tk.Tk()
+        root.withdraw()
+        model_path = askopenfilename(
+            filetypes=[("ZIP files", "*.zip")],
+            title="Select model zip file."
+        )
+    else:
+        model_path = _model_path
+    
+    model_directory = os.path.dirname(model_path) + "/"
+    model = PPO("MlpPolicy", env, device="cuda")
+    model = PPO.load(model_path, device="cuda")
+
+    onnx_policy = OnnxableSB3Policy(model.policy)
+    onnx_path = model_directory+"ONNX_model.onnx"
+
+    observation_size = model.observation_space.shape
+    dummy_input = th.randn(1, *observation_size)
+    th.onnx.export(
+        onnx_policy,
+        dummy_input,
+        onnx_path,
+        opset_version=17,
+        input_names=["input"],
+        output_names=['output'],
+    )
+
+    onnx_model = onnx.load(onnx_path)
+    onnx.checker.check_model(onnx_model)
+
+    observation = np.zeros((1, *observation_size)).astype(np.float32)
+    ort_sess = ort.InferenceSession(onnx_path)
+    actions, values, log_prob = ort_sess.run(None, {"input": observation})
+
+
+def export_to_onnx_dict(_model_path=""):
     # Initialize environment and model
     env = TradingEnv(0, "EURUSD", "datasets/EURUSD.csv")
 
@@ -59,7 +116,7 @@ def export_to_onnx(_model_path=""):
     model = PPO("MultiInputPolicy", env, device="cuda")
     model = PPO.load(model_path, device="cuda")
 
-    onnx_policy = OnnxableSB3Policy(model.policy)
+    onnx_policy = OnnxableSB3PolicyDict(model.policy)
     onnx_path = model_directory+"ONNX_model.onnx"
 
     # Extract observation space sizes

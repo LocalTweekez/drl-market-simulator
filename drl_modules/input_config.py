@@ -74,6 +74,11 @@ def get_user_input():
     folder_path += "/"
     print("Saving results in folder:", folder_path)
 
+    policies = ["MlpPolicy", "CnnPolicy", "MultiInputPolicy"]
+    for i, p in enumerate(policies):
+        print(f"\t\t{i}. {p}")
+    p_idx = int(input("\nEnter Policy index: "))
+
     return {
         "Symbol": symbol,
         "Batches": batches,
@@ -82,7 +87,8 @@ def get_user_input():
         "Steps": step_inp,
         "VectEnvs": vec_env,
         "Device": device,
-        "Folder": folder_path
+        "Folder": folder_path,
+        "Policy": policies[p_idx]
     }
 
 if __name__ == "__main__":
