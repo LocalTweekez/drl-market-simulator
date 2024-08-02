@@ -10,21 +10,119 @@ import numpy as np
 import tkinter as tk
 from tkinter.filedialog import askopenfilename
 from typing import Tuple
+from drl_modules.data_extract import extract_data
+import yaml
+
 
 class OnnxableSB3Policy(th.nn.Module):
-    def __init__(self, policy: BasePolicy):
+    def __init__(self, policy: BasePolicy, action_low: np.ndarray, action_high: np.ndarray):
         super().__init__()
         self.policy = policy
+        self.action_low = th.tensor(action_low, dtype=th.float32)
+        self.action_high = th.tensor(action_high, dtype=th.float32)
 
-    def forward(self, observation: th.Tensor) -> Tuple[th.Tensor, th.Tensor, th.Tensor]:
+    def forward(self, observation: th.Tensor) -> th.Tensor:
         device = next(self.policy.parameters()).device
         observation = observation.to(device=device)
-        # NOTE: Preprocessing is included, but postprocessing
-        # (clipping/inscaling actions) is not,
-        # If needed, you also need to transpose the images so that they are channel first
-        # use deterministic=False if you want to export the stochastic policy
-        # policy() returns `actions, values, log_prob` for PPO
-        return self.policy(observation, deterministic=False)
+        actions, _, _ = self.policy(observation, deterministic=False)
+        return actions
+
+def export_to_onnx(_model_path=""):
+    if not _model_path:
+        root = tk.Tk()
+        root.withdraw()
+        model_path = askopenfilename(
+            filetypes=[("ZIP files", "*.zip")],
+            title="Select model zip file."
+        )
+    else:
+        model_path = _model_path
+
+    data = None
+    method = os.path.dirname(model_path)+"/"
+    with open(method+"configuration.yaml", "r") as f:
+        data = yaml.safe_load(f)
+
+    env = TradingEnv(reward_func_idx=data["Reward"],
+                     symbol=data["Symbol"],
+                     agent_policy=data["Policy"],
+                     dataset_path=data["Dataset"])
+
+    model_directory = os.path.dirname(model_path) + "/"
+    model = PPO.load(model_path, env=env, device=data["Device"])
+
+    # Get the action space boundaries
+    action_low = model.action_space.low
+    action_high = model.action_space.high
+
+    onnx_policy = OnnxableSB3Policy(model.policy, action_low, action_high)
+    onnx_path = model_directory + "ONNX_model.onnx"
+
+    observation_size = model.observation_space.shape
+    dummy_input = th.randn(1, *observation_size)
+    th.onnx.export(
+        onnx_policy,
+        dummy_input,
+        onnx_path,
+        opset_version=17,
+        input_names=["input"],
+        output_names=['actions'],
+    )
+
+    onnx_model = onnx.load(onnx_path)
+    onnx.checker.check_model(onnx_model)
+    print(f"ONNX model exported to {onnx_path}")
+
+    # Validate the exported model
+    validate_onnx_model(onnx_path, env, model)
+
+
+def validate_pytorch_model(model, env):
+    obs, info = env.reset()
+    print("Initial PyTorch Observation:", obs)
+    done = False
+    while not done:
+        obs_tensor = th.tensor([obs], dtype=th.float32).to(model.device)
+        with th.no_grad():
+            actions, _ = model.policy(obs_tensor, deterministic=False)
+        print("PyTorch Actions:", actions.cpu().numpy())
+        obs, rewards, done, truncated, info = env.step(actions.cpu().numpy()[0])
+        print("Next PyTorch Observation:", obs)
+
+def validate_onnx_model(onnx_path, env, model):
+    ort_sess = ort.InferenceSession(onnx_path)
+
+    obs_base, info = env.reset()
+    print("Initial ONNX Observation:", obs_base)
+    obs = obs_base.astype(np.float32)
+    obs = np.expand_dims(obs, axis=0)
+    done = False
+
+    while not done:
+        actions = ort_sess.run(['actions'], {"input": obs})[0]
+        print("ONNX Actions:", actions)
+        model_act, _ = model.predict(obs_base)
+        print("Model Actions:", model_act)
+        obs_base, rewards, done, truncated, info = env.step(model_act)
+        print("Next ONNX Observation:", obs_base)
+        obs = obs_base.astype(np.float32)
+        obs = np.expand_dims(obs, axis=0)
+
+
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
 
 
 
@@ -60,8 +158,9 @@ class OnnxableSB3PolicyDict(th.nn.Module):
         return actions
 
 
-def export_to_onnx(_model_path=""):
-    env = TradingEnv(0, "EURUSD", "datasets/EURUSD.csv")
+def export_to_onnx_dict(_model_path=""):
+    # Initialize environment and model
+
     if not _model_path:
         root = tk.Tk()
         root.withdraw()
@@ -72,49 +171,17 @@ def export_to_onnx(_model_path=""):
     else:
         model_path = _model_path
     
-    model_directory = os.path.dirname(model_path) + "/"
-    model = PPO("MlpPolicy", env, device="cuda")
-    model = PPO.load(model_path, device="cuda")
-
-    onnx_policy = OnnxableSB3Policy(model.policy)
-    onnx_path = model_directory+"ONNX_model.onnx"
-
-    observation_size = model.observation_space.shape
-    dummy_input = th.randn(1, *observation_size)
-    th.onnx.export(
-        onnx_policy,
-        dummy_input,
-        onnx_path,
-        opset_version=17,
-        input_names=["input"],
-        output_names=['output'],
-    )
-
-    onnx_model = onnx.load(onnx_path)
-    onnx.checker.check_model(onnx_model)
-
-    observation = np.zeros((1, *observation_size)).astype(np.float32)
-    ort_sess = ort.InferenceSession(onnx_path)
-    actions, values, log_prob = ort_sess.run(None, {"input": observation})
-
-
-def export_to_onnx_dict(_model_path=""):
-    # Initialize environment and model
-    env = TradingEnv(0, "EURUSD", "datasets/EURUSD.csv")
-
-    if not _model_path:
-        root = tk.Tk()
-        root.withdraw()
-        model_path = askopenfilename(
-            filetypes=[("ZIP files", "*.zip")],
-            title="Select model zip file."
-        )
-    else:
-        model_path = _model_path
+    data = None
+    with open(method+"configuration.yaml", "r") as f:
+        data = yaml.safe_load(f)
+    env = TradingEnv(reward_func_idx=data["Reward"],
+                     symbol=data["Symbol"],
+                     agent_policy=data["Policy"],
+                     dataset_path=data["Dataset"],
+                     batch_size=data["Batches"])
 
     model_directory = os.path.dirname(model_path) + "/"
-    model = PPO("MultiInputPolicy", env, device="cuda")
-    model = PPO.load(model_path, device="cuda")
+    model = PPO.load(model_path, env=env, device="cuda")
 
     onnx_policy = OnnxableSB3PolicyDict(model.policy)
     onnx_path = model_directory+"ONNX_model.onnx"

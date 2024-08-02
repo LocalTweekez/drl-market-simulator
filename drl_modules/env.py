@@ -381,15 +381,15 @@ class TradingEnv(gym.Env):
             comment = f"({tradetype}) Position closed by execution"
 
         position = Position(self.trade_env["pType"][self.t], 
-        self.trade_env["pSLPrice"][self.t], 
-        self.trade_env["pTPPrice"][self.t],
-        self.timeOpen,
-        self.trade_env["time"][self.t],
-        self.trade_env["pOpenPrice"][self.t],
-        self.trade_env["close"][self.t-1],
-        self.trade_env["pProfit"][self.t],
-        self.symbol,
-        comment)
+                            self.trade_env["pSLPrice"][self.t], 
+                            self.trade_env["pTPPrice"][self.t],
+                            self.timeOpen,
+                            self.trade_env["time"][self.t],
+                            self.trade_env["pOpenPrice"][self.t],
+                            self.trade_env["close"][self.t-1],
+                            self.trade_env["pProfit"][self.t],
+                            self.symbol,
+                            comment)
         self.positions.append(position.getPositionInfo())
 
         # Reset position properties
@@ -481,7 +481,6 @@ class TradingEnv(gym.Env):
         print()
 
         return details
-
 
 
 def test():

@@ -1,0 +1,9 @@
+Batches: 0
+Dataset: /home/xwesiko/Github/drl_fintech/datasets/EURUSD.csv
+Device: cuda
+Folder: /home/xwesiko/Github/drl_fintech/results/autosave/A27_000_1000000_EURUSD/
+Policy: MlpPolicy
+Reward: 0
+Steps: 1000000
+Symbol: EURUSD
+VectEnvs: 0

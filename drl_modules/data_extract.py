@@ -25,11 +25,15 @@ def extract_data(csv_path=""):
 
     df = pd.read_csv(csvfile)
     
-    # Expected columns order
-    expected_columns = ['time', 'open', 'high', 'low', 'close', 'tick_volume', 'spread', 'real_volume']
+    # Columns to check for
+    required_columns = ['time', 'open', 'high', 'low', 'close', 'tick_volume']
     
-    # Check if columns are in the correct order
-    if not list(df.columns) == expected_columns:
+    # Check if required columns exist
+    if all(column in df.columns for column in required_columns):
+        # Extract only the required columns
+        df = df[required_columns]
+    else:
+        # Call convert_csv_format if the required columns are not found
         output_csv_path = "NEW_CSV.csv"
         convert_csv_format(csvfile, output_csv_path)
         df = pd.read_csv(output_csv_path)

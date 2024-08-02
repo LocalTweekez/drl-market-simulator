@@ -3,12 +3,24 @@ from drl_modules.rewards import RewardFunctions
 import os
 import tkinter as tk
 from tkinter.filedialog import askdirectory
+import yaml
 
 def get_path_from_input(path):
     folder = input("Enter name of the folder to save the results in: ")
     res_path = os.path.join(path, folder)
     os.makedirs(res_path, exist_ok=True)
     return res_path
+
+def get_user_sim_method():
+    choose_sim = input("Perform complete run with training? [y/n]")
+    if choose_sim == "n":
+        root = tk.Tk()
+        root.withdraw()
+        folder_path = askdirectory(
+            title="Select directory to save results in."
+        )
+        return folder_path+"/"
+    return ""
 
 def get_user_input():
     batches = int(input("Enter amount of batches (zero for single, minimum 4): "))
@@ -79,7 +91,8 @@ def get_user_input():
         print(f"\t\t{i}. {p}")
     p_idx = int(input("\nEnter Policy index: "))
 
-    return {
+    # Create the data dictionary
+    data = {
         "Symbol": symbol,
         "Batches": batches,
         "Reward": rw_idx,
@@ -90,6 +103,15 @@ def get_user_input():
         "Folder": folder_path,
         "Policy": policies[p_idx]
     }
+
+    # Write the data to a YAML file
+    yaml_path = os.path.join(folder_path, "configuration.yaml")
+    with open(yaml_path, 'w') as file:
+        yaml.dump(data, file)
+
+    print(f"Configuration saved to {yaml_path}")
+
+    return data
 
 if __name__ == "__main__":
     get_user_input()

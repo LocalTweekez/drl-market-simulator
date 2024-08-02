@@ -3,10 +3,11 @@ from drl_modules.env import TradingEnv
 from drl_modules.agent_render import render_loss_function
 from drl_modules.data_extract import extract_data, extract_batched_data
 from drl_modules.ppo import ppo_run, ppo_eval
-from drl_modules.input_config import get_user_input
+from drl_modules.input_config import get_user_input, get_user_sim_method
 from drl_modules.rewards import RewardFunctions
 import os
-from drl_modules.export_model import export_to_onnx_dict
+from drl_modules.export_model import export_to_onnx, export_to_onnx_dict
+import yaml
 
 def get_path_from_input(path="results/"):
     folder = input("Enter name of the folder to save the results in: ")
@@ -23,7 +24,8 @@ def run_drl_system(reward_idx,
                    res_path,
                    device,
                    policy,
-                   eval_only=False):
+                   eval_only=False,
+                   eval_episodes=100):
     start_part = 0
 
     df = extract_data(csv_path=df_path)
@@ -73,32 +75,52 @@ def run_drl_system(reward_idx,
                 vectorized_environments=vec_env,
                 agent_policy=policy,
                 device=device)
+
+        if policy == "MultiInputPolicy":
+            export_to_onnx_dict(res_path+"PPO_model.zip")
+        else:
+            export_to_onnx(res_path+"PPO_model.zip")
+
                 
     print("\n\nRUNNING THE EVALUATION PHASE:")
     ppo_eval(dir=res_path, 
              model_path=res_path+"PPO_model",
-             episodes=100, 
+             episodes=eval_episodes, 
              symbol=symbol,
              reward_func_idx=reward_idx,
              render_modulo=1,
              agent_policy=policy,
-             df_path=df)
+             df_path=df,
+             eval_only_setting=eval_only)
     
-    if policy == "MultiInputPolicy":
-        export_to_onnx_dict(res_path+"PPO_model.zip")
+if __name__ == "__main__":
+    method = get_user_sim_method()
+    if not method:
+        inputs = get_user_input()
+
+        run_drl_system(reward_idx=inputs["Reward"],
+                        symbol=inputs["Symbol"],
+                        batches_amount=inputs["Batches"],
+                        df_path=inputs["Dataset"],
+                        step_inp=inputs["Steps"],
+                        vec_env=inputs["VectEnvs"],
+                        res_path=inputs["Folder"],
+                        device=inputs["Device"],
+                        policy=inputs["Policy"],
+                        eval_only=False)
     else:
-        export_to_onnx(res_path+"PPO_model.zip")
-
-if __name__ == "__main__":  
-    inputs = get_user_input()
-
-    run_drl_system(reward_idx=inputs["Reward"],
-                    symbol=inputs["Symbol"],
-                    batches_amount=inputs["Batches"],
-                    df_path=inputs["Dataset"],
-                    step_inp=inputs["Steps"],
-                    vec_env=inputs["VectEnvs"],
-                    res_path=inputs["Folder"],
-                    device=inputs["Device"],
-                    policy=inputs["Policy"],
-                    eval_only=False)
+        data = None
+        with open(method+"configuration.yaml", "r") as f:
+            data = yaml.safe_load(f)
+            
+        run_drl_system(reward_idx=data["Reward"],
+                        symbol=data["Symbol"],
+                        batches_amount=data["Batches"],
+                        df_path=data["Dataset"],
+                        step_inp=data["Steps"],
+                        vec_env=data["VectEnvs"],
+                        res_path=data["Folder"],
+                        device=data["Device"],
+                        policy=data["Policy"],
+                        eval_only=True,
+                        eval_episodes=200)

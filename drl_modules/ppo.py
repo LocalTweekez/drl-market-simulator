@@ -52,24 +52,26 @@ def ppo_run(dir,
     
     # Init agent with logging functions
     new_logger = configure(tmp_path+"sb3_log/", ["stdout", "csv", "tensorboard"])
-    model = PPO(agent_policy, env, verbose=1, device=device)
-    model.set_logger(new_logger)
-
-    if batch_idx > 0 and batches_amount >= 4:
+    
+    model = None
+    if batches_amount >= 4:
         try:
-            model.load(parent_dir+"PPO_model", device=device)
+            model = PPO.load(parent_dir+"PPO_model", env=env, device=device)
         except FileNotFoundError:
             print("File not found, training a new file instead")
+            model = PPO(agent_policy, env, verbose=1, device=device)
+    else:
+        model = PPO(agent_policy, env, verbose=1, device=device)
+
+    model.set_logger(new_logger)
 
     log_callback = LoggingCallback(log_dir=tmp_path, dataset_size=base_env.df_size, remote_url=remote_url)
     eval_callback = EventCallback(log_callback)
 
     model.learn(total_timesteps=training_steps, callback=log_callback)
-    if batches_amount >= 4:
-        model.save(path=parent_dir+"PPO_model")
-    else:
-        model.save(path=tmp_path+"PPO_model")
-    print(f"Saved model in path {tmp_path}")
+    model.save(parent_dir+"PPO_model")
+
+    print(f"Saved model in path {parent_dir+'PPO_model'}")
 
     if save_model_after_each_batch:
         model.save(tmp_path+f"batch/PPO_model_batch_{batch_idx}")
@@ -86,7 +88,6 @@ def ppo_run(dir,
 
     base_env.render(save_directory=tmp_path)
 
-
 def ppo_eval(dir: str, 
              episodes: int, 
              reward_func_idx: int, 
@@ -95,7 +96,9 @@ def ppo_eval(dir: str,
              render_modulo: str = 10, 
              df_path: str | pd.DataFrame = "",
              device: str = "cpu",
-             agent_policy: str = "MultiInputPolicy"):
+             agent_policy: str = "MultiInputPolicy",
+             eval_only_setting: bool = False):
+
     env = TradingEnv(reward_func_idx=reward_func_idx, 
                      agent_policy=agent_policy,
                      symbol=symbol, 
@@ -104,8 +107,6 @@ def ppo_eval(dir: str,
     tmp_path = dir+"evaluation/"
     os.makedirs(tmp_path, exist_ok=True)
 
-    model = PPO(agent_policy, env, verbose=1)
-    
     if model_path == "":
         root = tk.Tk()
         root.withdraw()
@@ -114,16 +115,12 @@ def ppo_eval(dir: str,
             title="Select model zip file."
         )
 
-    try:
-        model.load(model_path, device=device)
-    except FileNotFoundError:
-        print("File not found, please select a proper model for evaluation.")
-        quit()
+    model = PPO.load(model_path, env=env, device=device)
 
     dtype = [('episode', int),
-                ('total_reward', float),
-                ('total_trades', int),
-                ('win_rate', float)]
+             ('total_reward', float),
+             ('total_trades', int),
+             ('win_rate', float)]
     return_data = np.zeros(episodes, dtype=dtype)
     total_rewards = []
     
@@ -154,7 +151,8 @@ def ppo_eval(dir: str,
             times_mean = np.mean(times)
             times.clear()
             print(f"(PPO) Episode: {e}, Total Reward: {total_rw}, Time duration per ep: {times_mean}")
-            env.render(save_directory=tmp_path + f"TradingEnv_EP={e}", figure_name="")
+            if eval_only_setting:
+                env.render(save_directory=tmp_path + f"TradingEnv_EP={e}", figure_name="")
 
     return_data = pd.DataFrame(return_data)
     return_data.to_csv(dir+"eval_results.csv")
@@ -196,6 +194,6 @@ if __name__ == "__main__":
              episodes=100, 
              reward_func_idx=0,
              render_modulo=1,
-             model_path="PPO_model",
+             model_path=res_path+"PPO_model.zip",
              df_path=eval_part,
              device="cuda")
