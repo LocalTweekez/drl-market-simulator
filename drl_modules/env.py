@@ -78,7 +78,8 @@ class TradingEnv(gym.Env):
                  batch_size: int = 10,
                  init_balance: int = 10000,
                  risk_percentage: int = 2,
-                 trading_fees: float = 0.01):
+                 trading_fees: float = 0.01,
+                 normalize: bool = False):  # Added normalize parameter
         super().__init__()
 
         print("Initializing trading environment")
@@ -89,17 +90,21 @@ class TradingEnv(gym.Env):
         self.fees = trading_fees
         self.reward_func_idx = reward_func_idx
         self.agent_policy = agent_policy
+        self.normalize = normalize  # Store normalize parameter
 
         if type(dataset_path) == str:
             # Init and process dataset
             if drl_modules.create_metadata.check_os == "win":
                 self.df = extract_data_windows()
             else:
-                # df_path = get_csv_path_pandas()
                 self.df = extract_data(dataset_path)
         
         else:
             self.df = dataset_path
+
+        # Normalize dataset if normalize parameter is True
+        if self.normalize:
+            self.df = self._normalize_dataframe(self.df)
 
         # Action space: first value for long/short (-1 to 1), second value for risk management (0 to 1)
         self.action_space = spaces.Box(low=np.array([-1, 0]), high=np.array([1, 1]), dtype=np.float32)
@@ -216,196 +221,121 @@ class TradingEnv(gym.Env):
             self.trade_env["pOpenPrice"][self.t] = self.trade_env["pOpenPrice"][self.t-1]
             self.trade_env["pSLPrice"][self.t] = self.trade_env["pSLPrice"][self.t-1]
             self.trade_env["pTPPrice"][self.t] = self.trade_env["pTPPrice"][self.t-1]
+            self.trade_env["pProfit"][self.t] = 0
+            self.trade_env["eAccBalance"][self.t] = self.trade_env["eAccBalance"][self.t-1]
+            self.trade_env["eWins"][self.t] = self.trade_env["eWins"][self.t-1]
+            self.trade_env["eLosses"][self.t] = self.trade_env["eLosses"][self.t-1]
 
-            # Check for exits and reset position properties if executed
-            self.check_exit(direction=direction)
+            # Close active position if SL or TP conditions are met
+            if self.trade_env["pType"][self.t] == 1:  # Buy
+                if self.trade_env["close"][self.t] <= self.trade_env["pSLPrice"][self.t]:
+                    self.trade_env["pProfit"][self.t] = (self.trade_env["pSLPrice"][self.t] - self.trade_env["pOpenPrice"][self.t]) * (self.trade_env["eAccBalance"][self.t-1]/self.trade_env["pOpenPrice"][self.t])
+                    self.trade_env["eAccBalance"][self.t] += self.trade_env["pProfit"][self.t]
+                    self.trade_env["eLosses"][self.t] += 1
+                    self.done = True
+                    self.positions.append(Position(positionType=1,
+                                                   positionSL=self.trade_env["pSLPrice"][self.t],
+                                                   positionTP=self.trade_env["pTPPrice"][self.t],
+                                                   timeOpen=self.timeOpen,
+                                                   timeClose=self.trade_env["time"][self.t],
+                                                   priceOpen=self.trade_env["pOpenPrice"][self.t],
+                                                   priceClose=self.trade_env["pSLPrice"][self.t],
+                                                   profit=self.trade_env["pProfit"][self.t],
+                                                   symbol=self.symbol,
+                                                   comment="Loss - Stop Loss"))
 
-        # Placeholder: Update the state with actual logic based on the action
+                elif self.trade_env["close"][self.t] >= self.trade_env["pTPPrice"][self.t]:
+                    self.trade_env["pProfit"][self.t] = (self.trade_env["pTPPrice"][self.t] - self.trade_env["pOpenPrice"][self.t]) * (self.trade_env["eAccBalance"][self.t-1]/self.trade_env["pOpenPrice"][self.t])
+                    self.trade_env["eAccBalance"][self.t] += self.trade_env["pProfit"][self.t]
+                    self.trade_env["eWins"][self.t] += 1
+                    self.done = True
+                    self.positions.append(Position(positionType=1,
+                                                   positionSL=self.trade_env["pSLPrice"][self.t],
+                                                   positionTP=self.trade_env["pTPPrice"][self.t],
+                                                   timeOpen=self.timeOpen,
+                                                   timeClose=self.trade_env["time"][self.t],
+                                                   priceOpen=self.trade_env["pOpenPrice"][self.t],
+                                                   priceClose=self.trade_env["pTPPrice"][self.t],
+                                                   profit=self.trade_env["pProfit"][self.t],
+                                                   symbol=self.symbol,
+                                                   comment="Win - Take Profit"))
+
+            elif self.trade_env["pType"][self.t] == 2:  # Sell
+                if self.trade_env["close"][self.t] >= self.trade_env["pSLPrice"][self.t]:
+                    self.trade_env["pProfit"][self.t] = (self.trade_env["pOpenPrice"][self.t] - self.trade_env["pSLPrice"][self.t]) * (self.trade_env["eAccBalance"][self.t-1]/self.trade_env["pOpenPrice"][self.t])
+                    self.trade_env["eAccBalance"][self.t] += self.trade_env["pProfit"][self.t]
+                    self.trade_env["eLosses"][self.t] += 1
+                    self.done = True
+                    self.positions.append(Position(positionType=2,
+                                                   positionSL=self.trade_env["pSLPrice"][self.t],
+                                                   positionTP=self.trade_env["pTPPrice"][self.t],
+                                                   timeOpen=self.timeOpen,
+                                                   timeClose=self.trade_env["time"][self.t],
+                                                   priceOpen=self.trade_env["pOpenPrice"][self.t],
+                                                   priceClose=self.trade_env["pSLPrice"][self.t],
+                                                   profit=self.trade_env["pProfit"][self.t],
+                                                   symbol=self.symbol,
+                                                   comment="Loss - Stop Loss"))
+
+                elif self.trade_env["close"][self.t] <= self.trade_env["pTPPrice"][self.t]:
+                    self.trade_env["pProfit"][self.t] = (self.trade_env["pOpenPrice"][self.t] - self.trade_env["pTPPrice"][self.t]) * (self.trade_env["eAccBalance"][self.t-1]/self.trade_env["pOpenPrice"][self.t])
+                    self.trade_env["eAccBalance"][self.t] += self.trade_env["pProfit"][self.t]
+                    self.trade_env["eWins"][self.t] += 1
+                    self.done = True
+                    self.positions.append(Position(positionType=2,
+                                                   positionSL=self.trade_env["pSLPrice"][self.t],
+                                                   positionTP=self.trade_env["pTPPrice"][self.t],
+                                                   timeOpen=self.timeOpen,
+                                                   timeClose=self.trade_env["time"][self.t],
+                                                   priceOpen=self.trade_env["pOpenPrice"][self.t],
+                                                   priceClose=self.trade_env["pTPPrice"][self.t],
+                                                   profit=self.trade_env["pProfit"][self.t],
+                                                   symbol=self.symbol,
+                                                   comment="Win - Take Profit"))
+
+        # Assign reward based on function
+        self.reward = getattr(self.rewardfunc, self.reward_func_name)(self.trade_env, self.t)
+        
         self.state = self._get_observation()
-        self.reward = self._calculate_reward()
-        self.total_reward += self.reward
-        self.done = self.t >= len(self.trade_env) - 1
-        self.info = {
-            "Step": self.t,
-            "StepGlobal": self.t_global,
-            "Balance": self.trade_env['eAccBalance'][self.t],
-            "Action": direction,
-            "Position": self.trade_env['pType'][self.t],
-            "Reward": self.reward,
-            "TotalReward": self.total_reward,
-            "Done": self.done,
-            "Wins": self.trade_env['eWins'][self.t],
-            "Losses": self.trade_env['eLosses'][self.t],
-            "TotalTrades": self.trade_env['eWins'][self.t] + self.trade_env['eLosses'][self.t]
-        }
-
         return self.state, self.reward, self.done, self.done, self.info
-
-
-    def render(self, mode='human', font_scaler=1.4, save_directory="", figure_name="trade_env_plot", plot_graph=True):
-        history_df = pd.DataFrame(self.trade_env)
-
-        # Create subplots with different heights, account balance chart smaller and below the price chart
-        fig, (ax2, ax1) = plt.subplots(2, 1, figsize=(20, 15), sharex=True, gridspec_kw={'height_ratios': [2, 1]})
-
-        y_ax1 = history_df["eAccBalance"]
-        y_ax2 = history_df["close"]
-        positions = history_df["pType"]
-        times = history_df['time']
-
-        # First chart: Price action with env action and positions (Placed as the first subplot now)
-        colors = ['green' if pt == 1 else 'red' if pt == 2 else 'blue' for pt in positions]
-        ax2.plot(times, y_ax2, label="Price movements with actions, RF: "+self.reward_func_name, color="blue")
-        for i in range(1, len(times)):
-            ax2.plot(times[i - 1:i + 1], y_ax2[i - 1:i + 1], color=colors[i - 1])
-
-        prev_pos_type = history_df['pType'].shift(1).fillna(0)
-
-        # Identify buy and sell initiation points
-        buy_mask = (history_df['pType'] == 1) & (history_df['actDir'] > 0.5) & (prev_pos_type == 0)
-        sell_mask = (history_df['pType'] == 2) & (history_df['actDir'] < -0.5) & (prev_pos_type == 0)
-
-        # Win / Loss rate
-        size = history_df["time"].size - 1
-        wins = history_df["eWins"][size]
-        losses = history_df["eLosses"][size]
-
-        # Long / Short trades amount
-        long_trades = sum((self.positions[i]["positionType"] == "BUY" for i in range(len(self.positions))))
-        short_trades = sum((self.positions[i]["positionType"] == "SELL" for i in range(len(self.positions))))
-
-        # Extract times and prices for plotting
-        buy_times = times[buy_mask]
-        sell_times = times[sell_mask]
-        buy_prices = y_ax2[buy_mask]
-        sell_prices = y_ax2[sell_mask]
-
-        ax2.scatter(buy_times, buy_prices, color='green', label='Buy', marker='^', s=100, zorder=5)
-        ax2.scatter(sell_times, sell_prices, color='red', label='Sell', marker='v', s=100, zorder=5)
-
-        ax2.set_title(f"Price Movement with Trades ({self.symbol})", fontsize=18*font_scaler)
-        ax2.set_ylabel("Price", fontsize=16*font_scaler)
-        ax2.legend(loc='upper left', fontsize=14*font_scaler)
-
-        # Adding a text box
-        textstr = f"Wins: {wins}\nLosses: {losses}\nLong trades: {long_trades} Short trades: {short_trades}"
-        props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)  # Corrected keyword 'facecolor'
-        fig.gca().text(0.015, 0.84, textstr, transform=plt.gca().transAxes, fontsize=16*font_scaler,
-                    verticalalignment='top', bbox=props)
-
-        # Add open and close markers for each position
-        for pos in self.positions:
-            open_time = pos['timeOpen']
-            close_time = pos['timeClose']  # Example close time
-            open_price = pos['priceOpen']
-            close_price = pos['priceClose']
-            ax2.plot([open_time, close_time], [open_price, close_price], color='black', linestyle='--', linewidth=1)
-            ax2.scatter(close_time, close_price, color='black', marker='o', s=50, zorder=5)
-
-        # Second chart: Account balance over time (Placed as the second subplot and smaller)
-        ax1.plot(times, y_ax1, label="Account balance", color="blue", linewidth=2)
-        ax1.set_title('Account balance over time', fontsize=18*font_scaler)
-        ax1.xaxis.set_major_locator(mdates.MonthLocator())
-        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
-        ax1.set_xlabel("Time", fontsize=16*font_scaler)
-        ax1.set_ylabel("Balance", fontsize=16*font_scaler)
-        ax1.legend(loc='upper left', fontsize=14*font_scaler)
-
-        plt.xticks(rotation=45, fontsize=12*font_scaler)  # Adjust rotation and font size for better readability
-        plt.yticks(fontsize=12*font_scaler)  # Adjust font size for y-axis ticks
-        plt.tight_layout()  # Adjust layout to make room for labels and title
-
-        plt.savefig(f"{save_directory+figure_name}.png")
-        history_df.to_csv(f"{save_directory+figure_name}.csv", index=False)
-
-        plt.close(fig)
-
-    def close(self):
-        plt.close("all")
-
-    def seed(self, seed=None):
-        self.np_random, seed = seeding.np_random(seed)
-        return [seed]
-
-    # Special functions
-
-    def check_exit(self, direction):
-        diff_pips = 0
-        tradetype = ""
-        comment = ""
-        exit = False
-        sl_hit = False
-        dud_trade = False
-        limit = (0.5 + pow(0.5, self.position_total)) if self.position_total != 0 else 0.5
-
-        if self.trade_env["pType"][self.t] == 1:
-            tradetype = "LONG"
-            if self.trade_env["close"][self.t-1] <= self.trade_env["pSLPrice"][self.t]:
-                sl_hit = True
-            elif self.trade_env["pOpenPrice"][self.t] == self.trade_env["close"][self.t-1]:
-                dud_trade = True
-            if direction < -limit or sl_hit:
-                diff_pips = (self.trade_env["close"][self.t-1] - self.trade_env["pOpenPrice"][self.t-1])
-                exit = True
-        else:
-            tradetype = "SHORT"
-            if self.trade_env["close"][self.t-1] >= self.trade_env["pSLPrice"][self.t]:
-                sl_hit = True
-            elif self.trade_env["pOpenPrice"][self.t] == self.trade_env["close"][self.t-1]:
-                dud_trade = True
-            if direction > limit or sl_hit:
-                diff_pips = (self.trade_env["pOpenPrice"][self.t-1] - self.trade_env["close"][self.t-1])
-                exit = True
-        
-        # Return if no exit signal was given
-        if not exit:
-            return
-        
-        # Calculate reward
-        profit_loss = self._calculate_profit_loss(diff_pips)
-
-        # Add profit/loss to step
-        self.trade_env["pProfit"][self.t] = (profit_loss - self.fees).__round__(2)
-        self.trade_env["eAccBalance"][self.t] += self.trade_env["pProfit"][self.t]
-        if self.trade_env["pProfit"][self.t] > 0:
-            self.trade_env["eWins"][self.t] += 1
-        else:
-            self.trade_env["eLosses"][self.t] += 1
-
-        # Save position info into array
-        if sl_hit:
-            comment = f"({tradetype}) Stop loss hit - failed trade"
-        elif dud_trade:
-            comment = f"({tradetype}) Dud trade, no win nor loss (only commission costs)"
-        else:
-            comment = f"({tradetype}) Position closed by execution"
-
-        position = Position(self.trade_env["pType"][self.t], 
-                            self.trade_env["pSLPrice"][self.t], 
-                            self.trade_env["pTPPrice"][self.t],
-                            self.timeOpen,
-                            self.trade_env["time"][self.t],
-                            self.trade_env["pOpenPrice"][self.t],
-                            self.trade_env["close"][self.t-1],
-                            self.trade_env["pProfit"][self.t],
-                            self.symbol,
-                            comment)
-        self.positions.append(position.getPositionInfo())
-
-        # Reset position properties
-        self.trade_env["pType"][self.t] = 0
-        self.trade_env["pOpenPrice"][self.t] = 0
-        self.trade_env["pSLPrice"][self.t] = 0
-        self.trade_env["pTPPrice"][self.t] = 0
     
-    def _calculate_atr(self, period=14):
-        high_low = self.df['high'] - self.df['low']
-        high_close = abs(self.df['high'] - self.df['close'].shift())
-        low_close = abs(self.df['low'] - self.df['close'].shift())
-        tr = pd.DataFrame({'tr': high_low, 'tr1': high_close, 'tr2': low_close}).max(axis=1)
-        atr = tr.rolling(window=period).mean()
-        # Return the last ATR value
-        return atr.iloc[-1] if not atr.empty else 0.0
+    def _get_observation(self):
+        """Returns the current observation after applying normalization if required."""
+        obs = self.df.iloc[self.t - self.batch_size:self.t].values
+        if self.normalize:
+            obs = self._normalize_observation(obs)
+        return obs
+    
+    def _normalize_dataframe(self, df):
+        """Normalize the entire dataframe."""
+        for col in df.columns:
+            if df[col].dtype == 'float64' or df[col].dtype == 'int64':
+                df[col] = (df[col] - df[col].mean()) / df[col].std()
+        return df
+    
+    def _normalize_observation(self, obs):
+        """Normalize the observation."""
+        # Assuming `obs` is a 2D array where each row represents a timestamp and each column represents a feature.
+        for i in range(obs.shape[1]):
+            feature = obs[:, i]
+            mean = feature.mean()
+            std = feature.std()
+            if std > 0:
+                obs[:, i] = (feature - mean) / std
+            else:
+                obs[:, i] = feature - mean
+        return obs
+    
+    def _calculate_atr(self):
+        """Calculate Average True Range (ATR)."""
+        df = self.df[['high', 'low', 'close']]
+        df['prev_close'] = df['close'].shift(1)
+        df['tr'] = np.maximum(df['high'] - df['low'], 
+                              np.maximum(np.abs(df['high'] - df['prev_close']), 
+                                         np.abs(df['low'] - df['prev_close'])))
+        atr = df['tr'].rolling(window=14).mean().iloc[-1]
+        return atr if not pd.isna(atr) else 0.01
+
     
     def _calculate_profit_loss(self, diff_pips, lot = 10000):
         risk_per_trade = self.trade_env["eAccBalance"][self.t] * (self.risk_percentage/100)
