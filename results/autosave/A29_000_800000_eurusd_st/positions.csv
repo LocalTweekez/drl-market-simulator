@@ -1,0 +1,168 @@
+id,timeOpen,timeClose,positionType,tradeResult,priceOpen,priceClose,positionSL,positionTP,profit,symbol,comment
+130062,2020-01-27,2020-01-31,SELL,WIN,1.10255,1.10099,1.1064,0.0,44.41,eurusd_st,(SHORT) Position closed by execution
+130063,2020-02-03,2020-02-06,BUY,LOSS,1.10943,1.10434,1.1056,0.0,-146.02,eurusd_st,(LONG) Stop loss hit - failed trade
+130064,2020-02-13,2020-02-18,SELL,WIN,1.08728,1.08301,1.0989,0.0,118.37,eurusd_st,(SHORT) Position closed by execution
+130065,2020-02-19,2020-03-03,BUY,WIN,1.07907,1.10293,1.0686,0.0,681.69,eurusd_st,(LONG) Position closed by execution
+130066,2020-03-04,2020-03-09,BUY,WIN,1.1171,1.12371,1.1129,0.0,205.5,eurusd_st,(LONG) Position closed by execution
+130067,2020-03-10,2020-03-25,SELL,WIN,1.14358,1.07257,1.1531,0.0,2147.72,eurusd_st,(SHORT) Position closed by execution
+130068,2020-03-26,2020-03-30,SELL,LOSS,1.08796,1.10291,1.0941,0.0,-556.55,eurusd_st,(SHORT) Stop loss hit - failed trade
+130069,2020-04-01,2020-04-03,SELL,WIN,1.10349,1.09616,1.1151,0.0,259.63,eurusd_st,(SHORT) Position closed by execution
+130070,2020-04-06,2020-04-20,BUY,WIN,1.08127,1.08386,1.0697,0.0,92.59,eurusd_st,(LONG) Position closed by execution
+130071,2020-04-21,2020-05-04,SELL,LOSS,1.08607,1.09507,1.0899,0.0,-327.46,eurusd_st,(SHORT) Stop loss hit - failed trade
+130072,2020-05-05,2020-05-07,BUY,LOSS,1.09065,1.0839,1.0868,0.0,-236.9,eurusd_st,(LONG) Stop loss hit - failed trade
+130073,2020-05-11,2020-05-27,BUY,WIN,1.08386,1.08956,1.0746,0.0,197.27,eurusd_st,(LONG) Position closed by execution
+130074,2020-05-29,2020-06-10,BUY,WIN,1.10757,1.12932,1.1037,0.0,792.76,eurusd_st,(LONG) Position closed by execution
+130075,2020-06-11,2020-06-22,SELL,WIN,1.13723,1.12049,1.1488,0.0,643.84,eurusd_st,(SHORT) Position closed by execution
+130076,2020-06-24,2020-06-30,SELL,WIN,1.13074,1.12179,1.1423,0.0,361.34,eurusd_st,(SHORT) Position closed by execution
+130077,2020-07-01,2020-07-20,BUY,WIN,1.12336,1.13834,1.1118,0.0,629.65,eurusd_st,(LONG) Position closed by execution
+130078,2020-07-22,2020-07-28,SELL,LOSS,1.15265,1.16549,1.1643,0.0,-576.96,eurusd_st,(SHORT) Stop loss hit - failed trade
+130079,2020-07-30,2020-08-07,BUY,WIN,1.17906,1.18629,1.1718,0.0,317.86,eurusd_st,(LONG) Position closed by execution
+130080,2020-08-10,2020-08-17,SELL,LOSS,1.17854,1.18131,1.1874,0.0,-123.97,eurusd_st,(SHORT) Position closed by execution
+130081,2020-08-18,2020-08-20,BUY,WIN,1.18698,1.19306,1.1831,0.0,272.46,eurusd_st,(LONG) Position closed by execution
+130082,2020-08-21,2020-08-26,BUY,LOSS,1.18599,1.17873,1.1789,0.0,-327.49,eurusd_st,(LONG) Stop loss hit - failed trade
+130083,2020-08-27,2020-09-01,SELL,LOSS,1.18298,1.19055,1.1868,0.0,-337.26,eurusd_st,(SHORT) Stop loss hit - failed trade
+130084,2020-09-04,2020-09-11,SELL,WIN,1.18512,1.18027,1.1933,0.0,209.2,eurusd_st,(SHORT) Position closed by execution
+130085,2020-09-14,2020-09-18,SELL,WIN,1.18459,1.18155,1.1962,0.0,133.21,eurusd_st,(SHORT) Position closed by execution
+130086,2020-09-21,2020-09-23,BUY,LOSS,1.18413,1.17707,1.1803,0.0,-311.09,eurusd_st,(LONG) Stop loss hit - failed trade
+130087,2020-09-24,2020-09-28,SELL,LOSS,1.16595,1.16708,1.1736,0.0,-48.32,eurusd_st,(SHORT) Position closed by execution
+130088,2020-09-30,2020-10-06,SELL,WIN,1.17426,1.17165,1.1859,0.0,111.62,eurusd_st,(SHORT) Position closed by execution
+130089,2020-10-08,2020-10-16,SELL,WIN,1.17628,1.17452,1.1869,0.0,76.05,eurusd_st,(SHORT) Position closed by execution
+130090,2020-10-19,2020-10-27,BUY,WIN,1.1716,1.18598,1.1677,0.0,630.83,eurusd_st,(LONG) Position closed by execution
+130091,2020-10-28,2020-11-02,BUY,LOSS,1.1787,1.1674,1.173,0.0,-509.49,eurusd_st,(LONG) Stop loss hit - failed trade
+130092,2020-11-03,2020-11-09,SELL,LOSS,1.16404,1.18267,1.1743,0.0,-821.92,eurusd_st,(SHORT) Stop loss hit - failed trade
+130093,2020-11-10,2020-11-13,SELL,WIN,1.18127,1.17771,1.1851,0.0,147.48,eurusd_st,(SHORT) Position closed by execution
+130094,2020-11-16,2020-11-23,BUY,WIN,1.18326,1.18745,1.1717,0.0,176.91,eurusd_st,(LONG) Position closed by execution
+130095,2020-11-24,2020-12-14,BUY,WIN,1.18399,1.21398,1.1724,0.0,1311.27,eurusd_st,(LONG) Position closed by execution
+130096,2020-12-16,2020-12-21,SELL,LOSS,1.21505,1.22684,1.2248,0.0,-570.02,eurusd_st,(SHORT) Stop loss hit - failed trade
+130097,2020-12-22,2020-12-24,BUY,LOSS,1.22424,1.21616,1.2204,0.0,-372.77,eurusd_st,(LONG) Stop loss hit - failed trade
+130098,2020-12-29,2021-01-04,BUY,WIN,1.2216,1.22961,1.21,0.0,364.11,eurusd_st,(LONG) Position closed by execution
+130099,2021-01-05,2021-01-07,SELL,LOSS,1.22473,1.22965,1.2286,0.0,-229.37,eurusd_st,(SHORT) Stop loss hit - failed trade
+130100,2021-01-13,2021-01-20,SELL,WIN,1.22062,1.20757,1.2308,0.0,588.08,eurusd_st,(SHORT) Position closed by execution
+130101,2021-01-21,2021-01-28,BUY,WIN,1.21046,1.21592,1.2066,0.0,257.84,eurusd_st,(LONG) Position closed by execution
+130102,2021-02-01,2021-02-03,BUY,LOSS,1.21353,1.20594,1.2097,0.0,-361.61,eurusd_st,(LONG) Stop loss hit - failed trade
+130103,2021-02-04,2021-02-12,SELL,LOSS,1.20351,1.21172,1.2127,0.0,-383.72,eurusd_st,(SHORT) Position closed by execution
+130104,2021-02-16,2021-02-24,SELL,LOSS,1.21274,1.21554,1.2208,0.0,-127.91,eurusd_st,(SHORT) Position closed by execution
+130105,2021-02-25,2021-03-01,SELL,LOSS,1.21665,1.21743,1.2249,0.0,-35.38,eurusd_st,(SHORT) Position closed by execution
+130106,2021-03-02,2021-03-04,SELL,LOSS,1.20488,1.20893,1.2165,0.0,-181.93,eurusd_st,(SHORT) Position closed by execution
+130107,2021-03-05,2021-03-22,SELL,WIN,1.19694,1.19135,1.2008,0.0,244.3,eurusd_st,(SHORT) Position closed by execution
+130108,2021-03-23,2021-03-25,BUY,LOSS,1.19332,1.1848,1.1894,0.0,-376.71,eurusd_st,(LONG) Stop loss hit - failed trade
+130109,2021-03-26,2021-04-02,SELL,WIN,1.17677,1.17298,1.1806,0.0,161.56,eurusd_st,(SHORT) Position closed by execution
+130110,2021-04-05,2021-04-13,BUY,WIN,1.17608,1.1901,1.1722,0.0,613.36,eurusd_st,(LONG) Position closed by execution
+130111,2021-04-14,2021-04-16,SELL,LOSS,1.19474,1.19784,1.2049,0.0,-142.4,eurusd_st,(SHORT) Position closed by execution
+130112,2021-04-19,2021-04-27,BUY,WIN,1.19809,1.20973,1.1942,0.0,534.78,eurusd_st,(LONG) Position closed by execution
+130113,2021-04-30,2021-05-07,SELL,WIN,1.21187,1.20036,1.2217,0.0,543.82,eurusd_st,(SHORT) Position closed by execution
+130114,2021-05-11,2021-05-14,BUY,LOSS,1.21282,1.20705,1.209,0.0,-283.95,eurusd_st,(LONG) Stop loss hit - failed trade
+130115,2021-05-17,2021-05-24,SELL,LOSS,1.21441,1.22269,1.2222,0.0,-405.31,eurusd_st,(SHORT) Stop loss hit - failed trade
+130116,2021-05-25,2021-05-28,SELL,WIN,1.2215,1.21922,1.2316,0.0,108.36,eurusd_st,(SHORT) Position closed by execution
+130117,2021-06-04,2021-06-10,BUY,WIN,1.21265,1.21726,1.2088,0.0,220.33,eurusd_st,(LONG) Position closed by execution
+130118,2021-06-14,2021-06-25,SELL,WIN,1.21063,1.19258,1.2197,0.0,857.5,eurusd_st,(SHORT) Position closed by execution
+130119,2021-06-29,2021-07-02,SELL,WIN,1.19242,1.1856,1.2017,0.0,340.03,eurusd_st,(SHORT) Position closed by execution
+130120,2021-07-05,2021-07-12,BUY,LOSS,1.18646,1.18449,1.1749,0.0,-100.19,eurusd_st,(LONG) Position closed by execution
+130121,2021-07-13,2021-07-15,BUY,LOSS,1.18606,1.17765,1.1822,0.0,-422.65,eurusd_st,(LONG) Stop loss hit - failed trade
+130122,2021-07-16,2021-07-27,BUY,LOSS,1.18118,1.17689,1.1725,0.0,-209.95,eurusd_st,(LONG) Position closed by execution
+130123,2021-07-29,2021-08-04,BUY,WIN,1.18441,1.18688,1.1779,0.0,120.3,eurusd_st,(LONG) Position closed by execution
+130124,2021-08-06,2021-08-10,BUY,LOSS,1.18327,1.17611,1.1794,0.0,-348.21,eurusd_st,(LONG) Stop loss hit - failed trade
+130125,2021-08-11,2021-08-30,BUY,WIN,1.17203,1.17515,1.1604,0.0,148.29,eurusd_st,(LONG) Position closed by execution
+130126,2021-09-03,2021-09-08,BUY,LOSS,1.18744,1.18701,1.1836,0.0,-20.85,eurusd_st,(LONG) Position closed by execution
+130127,2021-09-09,2021-09-15,SELL,WIN,1.1815,1.18103,1.1931,0.0,22.63,eurusd_st,(SHORT) Position closed by execution
+130128,2021-09-16,2021-09-21,SELL,WIN,1.18165,1.1725,1.1855,0.0,438.1,eurusd_st,(SHORT) Position closed by execution
+130129,2021-09-22,2021-10-01,SELL,WIN,1.17252,1.15969,1.1841,0.0,624.45,eurusd_st,(SHORT) Position closed by execution
+130130,2021-10-06,2021-10-18,SELL,WIN,1.15972,1.15959,1.1713,0.0,6.56,eurusd_st,(SHORT) Position closed by execution
+130131,2021-10-19,2021-10-26,BUY,WIN,1.16097,1.16437,1.1571,0.0,172.6,eurusd_st,(LONG) Position closed by execution
+130132,2021-10-28,2021-11-02,BUY,LOSS,1.16026,1.1562,1.1564,0.0,-206.78,eurusd_st,(LONG) Stop loss hit - failed trade
+130133,2021-11-04,2021-11-15,SELL,WIN,1.16131,1.14495,1.1683,0.0,815.05,eurusd_st,(SHORT) Position closed by execution
+130134,2021-11-17,2021-11-19,SELL,WIN,1.13194,1.13187,1.1435,0.0,3.6,eurusd_st,(SHORT) Position closed by execution
+130135,2021-11-22,2021-11-24,BUY,LOSS,1.12829,1.12364,1.1244,0.0,-238.42,eurusd_st,(LONG) Stop loss hit - failed trade
+130136,2021-11-30,2021-12-03,SELL,LOSS,1.12902,1.13193,1.1406,0.0,-148.28,eurusd_st,(SHORT) Position closed by execution
+130137,2021-12-07,2021-12-10,SELL,LOSS,1.12847,1.13417,1.1401,0.0,-288.53,eurusd_st,(SHORT) Position closed by execution
+130138,2021-12-13,2021-12-17,SELL,WIN,1.13162,1.12919,1.1431,0.0,120.4,eurusd_st,(SHORT) Position closed by execution
+130139,2021-12-20,2022-01-12,BUY,WIN,1.12372,1.13252,1.1199,0.0,440.45,eurusd_st,(LONG) Position closed by execution
+130140,2022-01-14,2022-02-03,SELL,WIN,1.14539,1.12718,1.1529,0.0,930.52,eurusd_st,(SHORT) Position closed by execution
+130141,2022-02-07,2022-02-15,SELL,WIN,1.14514,1.13477,1.1567,0.0,561.78,eurusd_st,(SHORT) Position closed by execution
+130142,2022-02-17,2022-02-25,SELL,WIN,1.13722,1.13051,1.1488,0.0,373.16,eurusd_st,(SHORT) Position closed by execution
+130143,2022-02-28,2022-03-18,SELL,WIN,1.12716,1.1031,1.1388,0.0,1331.23,eurusd_st,(SHORT) Position closed by execution
+130144,2022-03-24,2022-04-06,BUY,LOSS,1.10066,1.09715,1.0891,0.0,-206.43,eurusd_st,(LONG) Position closed by execution
+130145,2022-04-07,2022-04-12,SELL,WIN,1.08956,1.08747,1.1007,0.0,120.6,eurusd_st,(SHORT) Position closed by execution
+130146,2022-04-15,2022-04-20,BUY,LOSS,1.08286,1.0781,1.0713,0.0,-273.94,eurusd_st,(LONG) Position closed by execution
+130147,2022-04-21,2022-04-29,SELL,WIN,1.08539,1.05573,1.0893,0.0,1649.27,eurusd_st,(SHORT) Position closed by execution
+130148,2022-05-02,2022-05-09,SELL,WIN,1.0546,1.0541,1.0633,0.0,30.0,eurusd_st,(SHORT) Position closed by execution
+130149,2022-05-10,2022-05-13,BUY,LOSS,1.0557,1.05092,1.0518,0.0,-286.41,eurusd_st,(LONG) Stop loss hit - failed trade
+130150,2022-05-19,2022-05-23,SELL,LOSS,1.04609,1.05854,1.0512,0.0,-741.62,eurusd_st,(SHORT) Stop loss hit - failed trade
+130151,2022-05-24,2022-06-02,BUY,WIN,1.06881,1.07326,1.0649,0.0,259.59,eurusd_st,(LONG) Position closed by execution
+130152,2022-06-03,2022-06-07,BUY,LOSS,1.07463,1.07165,1.0708,0.0,-175.74,eurusd_st,(LONG) Position closed by execution
+130153,2022-06-09,2022-07-01,SELL,WIN,1.07157,1.04411,1.0832,0.0,1564.64,eurusd_st,(SHORT) Position closed by execution
+130154,2022-07-04,2022-07-06,BUY,LOSS,1.04261,1.04221,1.0387,0.0,-24.45,eurusd_st,(LONG) Position closed by execution
+130155,2022-07-07,2022-07-15,SELL,WIN,1.0181,1.00574,1.0297,0.0,727.88,eurusd_st,(SHORT) Position closed by execution
+130156,2022-07-18,2022-07-22,BUY,WIN,1.00854,1.01803,1.0047,0.0,583.88,eurusd_st,(LONG) Position closed by execution
+130157,2022-07-29,2022-08-04,BUY,LOSS,1.01963,1.01655,1.0093,0.0,-193.97,eurusd_st,(LONG) Position closed by execution
+130158,2022-08-09,2022-08-16,BUY,WIN,1.01943,1.0256,1.0156,0.0,388.82,eurusd_st,(LONG) Position closed by execution
+130159,2022-08-17,2022-08-23,BUY,LOSS,1.01702,1.00393,1.007,0.0,-820.71,eurusd_st,(LONG) Stop loss hit - failed trade
+130160,2022-08-24,2022-09-02,SELL,LOSS,0.99695,1.00545,1.0066,0.0,-515.6,eurusd_st,(SHORT) Position closed by execution
+130161,2022-09-09,2022-09-14,BUY,WIN,0.99983,1.01211,0.996,0.0,733.23,eurusd_st,(LONG) Position closed by execution
+130162,2022-09-19,2022-09-22,BUY,LOSS,1.00129,0.99711,0.9974,0.0,-253.8,eurusd_st,(LONG) Stop loss hit - failed trade
+130163,2022-09-23,2022-09-27,BUY,LOSS,0.98395,0.9688,0.978,0.0,-884.1,eurusd_st,(LONG) Stop loss hit - failed trade
+130164,2022-09-28,2022-10-04,BUY,WIN,0.95924,0.9799,0.9476,0.0,1173.15,eurusd_st,(LONG) Position closed by execution
+130165,2022-10-05,2022-10-11,SELL,WIN,0.99842,0.97381,1.0023,0.0,1461.47,eurusd_st,(SHORT) Position closed by execution
+130166,2022-10-12,2022-10-19,SELL,LOSS,0.97075,0.98408,0.9794,0.0,-849.55,eurusd_st,(SHORT) Stop loss hit - failed trade
+130167,2022-10-25,2022-10-31,BUY,WIN,0.98737,0.99634,0.9835,0.0,559.15,eurusd_st,(LONG) Position closed by execution
+130168,2022-11-01,2022-11-07,SELL,WIN,0.98827,0.97491,0.9999,0.0,833.73,eurusd_st,(SHORT) Position closed by execution
+130169,2022-11-08,2022-11-15,BUY,WIN,1.00217,1.0353,0.9983,0.0,2269.5,eurusd_st,(LONG) Position closed by execution
+130170,2022-11-16,2022-11-23,BUY,LOSS,1.03482,1.02406,1.031,0.0,-793.77,eurusd_st,(LONG) Stop loss hit - failed trade
+130171,2022-11-29,2022-12-02,BUY,WIN,1.03381,1.04055,1.0222,0.0,490.81,eurusd_st,(LONG) Position closed by execution
+130172,2022-12-05,2022-12-12,BUY,WIN,1.05407,1.05523,1.0462,0.0,87.21,eurusd_st,(LONG) Position closed by execution
+130173,2022-12-14,2022-12-20,BUY,LOSS,1.06319,1.05891,1.0593,0.0,-323.96,eurusd_st,(LONG) Stop loss hit - failed trade
+130174,2022-12-21,2022-12-30,SELL,WIN,1.06218,1.06115,1.0738,0.0,77.2,eurusd_st,(SHORT) Position closed by execution
+130175,2023-01-04,2023-01-12,BUY,WIN,1.0547,1.07334,1.0431,0.0,1417.3,eurusd_st,(LONG) Position closed by execution
+130176,2023-01-16,2023-01-19,SELL,WIN,1.08323,1.07876,1.0929,0.0,359.26,eurusd_st,(SHORT) Position closed by execution
+130177,2023-01-20,2023-01-25,BUY,WIN,1.08294,1.08715,1.0713,0.0,345.25,eurusd_st,(LONG) Position closed by execution
+130178,2023-01-26,2023-02-02,SELL,WIN,1.09147,1.08614,1.1031,0.0,441.86,eurusd_st,(SHORT) Position closed by execution
+130179,2023-02-07,2023-02-10,BUY,LOSS,1.07249,1.07129,1.0636,0.0,-99.6,eurusd_st,(LONG) Position closed by execution
+130180,2023-02-13,2023-02-17,SELL,LOSS,1.06782,1.06864,1.0794,0.0,-67.67,eurusd_st,(SHORT) Position closed by execution
+130181,2023-02-20,2023-02-22,SELL,WIN,1.06935,1.06853,1.081,0.0,67.49,eurusd_st,(SHORT) Position closed by execution
+130182,2023-02-23,2023-03-03,SELL,LOSS,1.06045,1.06694,1.0721,0.0,-534.66,eurusd_st,(SHORT) Position closed by execution
+130183,2023-03-06,2023-03-08,BUY,WIN,1.06328,1.0683,1.0594,0.0,406.66,eurusd_st,(LONG) Position closed by execution
+130184,2023-03-13,2023-03-17,BUY,LOSS,1.06381,1.05766,1.0599,0.0,-500.09,eurusd_st,(LONG) Stop loss hit - failed trade
+130185,2023-03-20,2023-03-24,BUY,WIN,1.06653,1.08574,1.0563,0.0,1576.54,eurusd_st,(LONG) Position closed by execution
+130186,2023-03-28,2023-04-07,BUY,WIN,1.07977,1.09056,1.0742,0.0,937.42,eurusd_st,(LONG) Position closed by execution
+130187,2023-04-10,2023-04-14,BUY,WIN,1.08984,1.09914,1.0782,0.0,839.11,eurusd_st,(LONG) Position closed by execution
+130188,2023-04-17,2023-04-21,SELL,WIN,1.09946,1.09558,1.1111,0.0,358.17,eurusd_st,(SHORT) Position closed by execution
+130189,2023-04-25,2023-05-01,SELL,WIN,1.10446,1.10284,1.1142,0.0,152.18,eurusd_st,(SHORT) Position closed by execution
+130190,2023-05-04,2023-05-16,SELL,WIN,1.106,1.08498,1.1176,0.0,1951.74,eurusd_st,(SHORT) Position closed by execution
+130191,2023-05-17,2023-05-26,SELL,WIN,1.08616,1.07505,1.0978,0.0,1082.42,eurusd_st,(SHORT) Position closed by execution
+130192,2023-05-29,2023-06-01,BUY,WIN,1.07258,1.07346,1.0627,0.0,88.24,eurusd_st,(LONG) Position closed by execution
+130193,2023-06-05,2023-06-09,SELL,WIN,1.0706,1.06982,1.0777,0.0,78.14,eurusd_st,(SHORT) Position closed by execution
+130194,2023-06-15,2023-06-22,BUY,WIN,1.08308,1.09178,1.077,0.0,891.49,eurusd_st,(LONG) Position closed by execution
+130195,2023-06-23,2023-06-27,BUY,LOSS,1.09551,1.08898,1.0916,0.0,-683.82,eurusd_st,(LONG) Stop loss hit - failed trade
+130196,2023-06-28,2023-07-04,BUY,LOSS,1.09599,1.09092,1.0844,0.0,-522.1,eurusd_st,(LONG) Position closed by execution
+130197,2023-07-07,2023-07-11,SELL,LOSS,1.08883,1.0968,1.1004,0.0,-813.35,eurusd_st,(SHORT) Position closed by execution
+130198,2023-07-12,2023-07-14,SELL,LOSS,1.10079,1.11292,1.1105,0.0,-1227.67,eurusd_st,(SHORT) Stop loss hit - failed trade
+130199,2023-07-17,2023-07-19,BUY,WIN,1.12301,1.12314,1.1114,0.0,12.8,eurusd_st,(LONG) Position closed by execution
+130200,2023-07-20,2023-07-24,SELL,WIN,1.11986,1.1129,1.1315,0.0,680.06,eurusd_st,(SHORT) Position closed by execution
+130201,2023-07-25,2023-07-31,SELL,WIN,1.10641,1.09765,1.1124,0.0,861.12,eurusd_st,(SHORT) Position closed by execution
+130202,2023-08-01,2023-08-14,SELL,WIN,1.09964,1.09805,1.1112,0.0,160.24,eurusd_st,(SHORT) Position closed by execution
+130203,2023-08-15,2023-08-17,BUY,LOSS,1.09052,1.09043,1.0867,0.0,-9.06,eurusd_st,(LONG) Position closed by execution
+130204,2023-08-18,2023-08-23,BUY,WIN,1.08717,1.08949,1.0756,0.0,232.97,eurusd_st,(LONG) Position closed by execution
+130205,2023-08-24,2023-08-30,SELL,WIN,1.08627,1.08182,1.0979,0.0,446.63,eurusd_st,(SHORT) Position closed by execution
+130206,2023-08-31,2023-09-15,SELL,WIN,1.09227,1.07283,1.1039,0.0,1959.03,eurusd_st,(SHORT) Position closed by execution
+130207,2023-09-22,2023-10-02,SELL,WIN,1.06604,1.0564,1.0776,0.0,1008.16,eurusd_st,(SHORT) Position closed by execution
+130208,2023-10-03,2023-10-11,BUY,WIN,1.04768,1.05657,1.0438,0.0,954.36,eurusd_st,(LONG) Position closed by execution
+130209,2023-10-12,2023-10-24,SELL,WIN,1.06182,1.05931,1.0709,0.0,276.71,eurusd_st,(SHORT) Position closed by execution
+130210,2023-10-25,2023-10-30,SELL,WIN,1.05886,1.05615,1.0705,0.0,299.92,eurusd_st,(SHORT) Position closed by execution
+130211,2023-11-01,2023-11-03,SELL,WIN,1.05752,1.05687,1.0653,0.0,72.51,eurusd_st,(SHORT) Position closed by execution
+130212,2023-11-06,2023-11-15,SELL,WIN,1.07292,1.06981,1.0829,0.0,351.84,eurusd_st,(SHORT) Position closed by execution
+130213,2023-11-16,2023-11-22,BUY,WIN,1.08461,1.09396,1.073,0.0,1090.99,eurusd_st,(LONG) Position closed by execution
+130214,2023-11-23,2023-11-29,SELL,LOSS,1.08882,1.09534,1.0976,0.0,-781.9,eurusd_st,(SHORT) Position closed by execution
+130215,2023-12-01,2023-12-05,BUY,LOSS,1.08866,1.08823,1.0771,0.0,-50.3,eurusd_st,(LONG) Position closed by execution
+130216,2023-12-06,2023-12-11,BUY,LOSS,1.07956,1.07934,1.0688,0.0,-25.5,eurusd_st,(LONG) Position closed by execution
+130217,2023-12-14,2023-12-18,SELL,LOSS,1.08741,1.09917,1.099,0.0,-1386.56,eurusd_st,(SHORT) Stop loss hit - failed trade
+130218,2023-12-19,2023-12-28,BUY,WIN,1.09228,1.10415,1.0884,0.0,1358.85,eurusd_st,(LONG) Position closed by execution
+130219,2023-12-29,2024-01-08,SELL,WIN,1.10609,1.09435,1.1109,0.0,1377.19,eurusd_st,(SHORT) Position closed by execution
+130220,2024-01-09,2024-01-11,BUY,LOSS,1.09496,1.09305,1.0911,0.0,-231.24,eurusd_st,(LONG) Position closed by execution
+130221,2024-01-15,2024-01-19,SELL,WIN,1.09497,1.08823,1.1066,0.0,807.96,eurusd_st,(SHORT) Position closed by execution
+130222,2024-01-23,2024-01-25,BUY,LOSS,1.0882,1.08542,1.0843,0.0,-338.71,eurusd_st,(LONG) Position closed by execution
+130223,2024-01-26,2024-02-01,BUY,LOSS,1.08455,1.08451,1.0807,0.0,-4.84,eurusd_st,(LONG) Position closed by execution
+130224,2024-02-02,2024-02-06,BUY,LOSS,1.08709,1.07858,1.0832,0.0,-1022.14,eurusd_st,(LONG) Stop loss hit - failed trade
+130225,2024-02-07,2024-02-12,SELL,LOSS,1.07539,1.07769,1.087,0.0,-269.48,eurusd_st,(SHORT) Position closed by execution
+130226,2024-02-14,2024-02-22,BUY,WIN,1.07084,1.08068,1.0592,0.0,1148.65,eurusd_st,(LONG) Position closed by execution
+130227,2024-02-23,2024-02-29,BUY,WIN,1.0822,1.08431,1.0783,0.0,253.92,eurusd_st,(LONG) Position closed by execution
+130228,2024-03-04,2024-03-07,BUY,WIN,1.08387,1.08545,1.08,0.0,191.46,eurusd_st,(LONG) Position closed by execution

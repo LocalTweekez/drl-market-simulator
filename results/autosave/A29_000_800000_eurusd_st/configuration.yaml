@@ -1,0 +1,9 @@
+Batches: 0
+Dataset: /home/xwesiko/Github/drl_fintech/datasets/eurusd_1000_st.csv
+Device: cpu
+Folder: /home/xwesiko/Github/drl_fintech/results/autosave/A29_000_800000_eurusd_st/
+Policy: MlpPolicy
+Reward: 0
+Steps: 800000
+Symbol: eurusd_st
+VectEnvs: 0

@@ -12,7 +12,8 @@ from tkinter.filedialog import askopenfilename
 from typing import Tuple
 from drl_modules.data_extract import extract_data
 import yaml
-
+import time
+import pandas as pd
 
 class OnnxableSB3Policy(th.nn.Module):
     def __init__(self, policy: BasePolicy, action_low: np.ndarray, action_high: np.ndarray):
@@ -24,8 +25,9 @@ class OnnxableSB3Policy(th.nn.Module):
     def forward(self, observation: th.Tensor) -> th.Tensor:
         device = next(self.policy.parameters()).device
         observation = observation.to(device=device)
-        actions, _, _ = self.policy(observation, deterministic=False)
-        return actions
+        actions, _, _ = self.policy(observation, deterministic=True)
+        clamped_actions = th.clamp(actions, self.action_low, self.action_high)
+        return clamped_actions
 
 def export_to_onnx(_model_path=""):
     if not _model_path:
@@ -39,8 +41,8 @@ def export_to_onnx(_model_path=""):
         model_path = _model_path
 
     data = None
-    method = os.path.dirname(model_path)+"/"
-    with open(method+"configuration.yaml", "r") as f:
+    method = os.path.dirname(model_path) + "/"
+    with open(method + "configuration.yaml", "r") as f:
         data = yaml.safe_load(f)
 
     env = TradingEnv(reward_func_idx=data["Reward"],
@@ -59,7 +61,11 @@ def export_to_onnx(_model_path=""):
     onnx_path = model_directory + "ONNX_model.onnx"
 
     observation_size = model.observation_space.shape
+
     dummy_input = th.randn(1, *observation_size)
+    dummy_input = env.reset()
+    dummy_input = th.tensor(dummy_input[0], dtype=th.float32).unsqueeze(0)  # Convert to torch tensor and add batch dimension
+
     th.onnx.export(
         onnx_policy,
         dummy_input,
@@ -76,7 +82,6 @@ def export_to_onnx(_model_path=""):
     # Validate the exported model
     validate_onnx_model(onnx_path, env, model)
 
-
 def validate_pytorch_model(model, env):
     obs, info = env.reset()
     print("Initial PyTorch Observation:", obs)
@@ -89,25 +94,57 @@ def validate_pytorch_model(model, env):
         obs, rewards, done, truncated, info = env.step(actions.cpu().numpy()[0])
         print("Next PyTorch Observation:", obs)
 
+def format_observation(observation):
+    formatted_values = [
+        f'{x:.4f}' if x < 1e5 else f'{x:.0f}'
+        for x in observation
+    ]
+    return ', '.join(formatted_values)
+
 def validate_onnx_model(onnx_path, env, model):
     ort_sess = ort.InferenceSession(onnx_path)
+    actions_df = pd.DataFrame(columns=["direction", "risk"])
 
     obs_base, info = env.reset()
-    print("Initial ONNX Observation:", obs_base)
     obs = obs_base.astype(np.float32)
     obs = np.expand_dims(obs, axis=0)
     done = False
+    print(obs)
 
-    while not done:
-        actions = ort_sess.run(['actions'], {"input": obs})[0]
-        print("ONNX Actions:", actions)
-        model_act, _ = model.predict(obs_base)
-        print("Model Actions:", model_act)
-        obs_base, rewards, done, truncated, info = env.step(model_act)
-        print("Next ONNX Observation:", obs_base)
-        obs = obs_base.astype(np.float32)
-        obs = np.expand_dims(obs, axis=0)
+    with open("misc/output_2.csv", "r") as file:
+        while not done:
+            obs_from_mt5 = file.readline().strip().split(',')
+            try:
+                floats = [float(value) for value in obs_from_mt5]
+            except ValueError:
+                floats = obs[0]
+            
+            actions = ort_sess.run(['actions'], {"input": [floats]})[0]
+            model_act, _ = model.predict(obs_base)
+            obs_base, rewards, done, truncated, info = env.step(actions[0])
+            obs = obs_base.astype(np.float32)
+            obs = np.expand_dims(obs, axis=0)
+            formatted_obs = format_observation(obs_base)
+            
 
+            #print(floats)
+            actions_df.loc[-1] = actions[0]
+            actions_df.index += 1
+            actions_df = actions_df.sort_index()
+            #print(info)
+            #print("\n")
+            
+            
+            """
+            print("Time: ", info["Time"])
+            print("ONNX Actions:", actions)
+            print("Next ONNX Observation:", format_observation(obs_base))
+            print("\n")
+            """
+
+    print(actions_df.head(10))
+    print(env.info)
+    actions_df.to_csv("misc/outputs_actions.csv")
 
 ####################################################################################
 ####################################################################################

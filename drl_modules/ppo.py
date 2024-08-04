@@ -13,6 +13,7 @@ from drl_modules.data_extract import extract_data, extract_batched_data
 
 # IGNORE FOR NOW
 remote_url = "https://your-server.com/api/logs"  # Replace with your actual server URL
+NORM = False
 
 def make_env(env_id, reward_idx, agent_policy, df_path, symbol):
     def _init():
@@ -37,7 +38,8 @@ def ppo_run(dir,
     base_env = TradingEnv(reward_func_idx=reward_func_idx, 
                           agent_policy=agent_policy,
                           dataset_path=df_path, 
-                          symbol=symbol)
+                          symbol=symbol,
+                          normalize=NORM)
     base_env._get_env_details()
     if vectorized_environments > 0:
         vec_env = make_vec_env(lambda: make_env(None, reward_func_idx, agent_policy, df_path, symbol)(), n_envs=vectorized_environments)
@@ -102,7 +104,8 @@ def ppo_eval(dir: str,
     env = TradingEnv(reward_func_idx=reward_func_idx, 
                      agent_policy=agent_policy,
                      symbol=symbol, 
-                     dataset_path=df_path)
+                     dataset_path=df_path,
+                     normalize=NORM)
     
     tmp_path = dir+"evaluation/"
     os.makedirs(tmp_path, exist_ok=True)
@@ -151,7 +154,7 @@ def ppo_eval(dir: str,
             times_mean = np.mean(times)
             times.clear()
             print(f"(PPO) Episode: {e}, Total Reward: {total_rw}, Time duration per ep: {times_mean}")
-            if eval_only_setting:
+            if not eval_only_setting:
                 env.render(save_directory=tmp_path + f"TradingEnv_EP={e}", figure_name="")
 
     return_data = pd.DataFrame(return_data)
