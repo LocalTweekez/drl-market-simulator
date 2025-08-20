@@ -1,6 +1,6 @@
 # DRL FinTech
 
-A framework for experimenting with deep reinforcement learning for algorithmic trading. It provides a gym-based trading environment, training/evaluation utilities built on Stable-Baselines3 PPO, and tools for exporting trained agents to ONNX.
+A framework for experimenting with deep reinforcement learning for algorithmic trading. It provides a gym-based trading environment, training/evaluation utilities built on Stable-Baselines3 algorithms (PPO, A2C and DQN), and tools for exporting trained agents to ONNX.
 
 ## Repository structure
 
@@ -25,7 +25,7 @@ The project targets Python 3.12 and uses Stable-Baselines3.
 
 ## Usage
 
-Run the interactive driver to train and evaluate a PPO agent:
+Run the interactive driver to train and evaluate a reinforcement learning agent:
 
 ```bash
 python main.py
@@ -40,9 +40,18 @@ You will be prompted for:
 - number of vectorized environments
 - compute device (`cpu` or `cuda`)
 - policy architecture (`MlpPolicy`, `CnnPolicy`, or `MultiInputPolicy`)
+- learning algorithm (`PPO`, `A2C`, or `DQN`)
 - output folder for results
 
-The script trains a PPO model and then evaluates it, saving logs, plots and the model under the chosen results directory. A `configuration.yaml` file is written alongside the outputs and can be reused to run evaluation-only sessions.
+The script trains the selected algorithm and then evaluates it, saving logs, plots and the model (e.g. `PPO_model.zip`) under the chosen results directory. A `configuration.yaml` file including the algorithm name is written alongside the outputs and can be reused to run evaluation-only sessions.
+
+Example configuration:
+
+```
+Algorithm: PPO
+Policy: MlpPolicy
+...
+```
 
 ## Exporting models
 

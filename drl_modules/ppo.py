@@ -1,5 +1,5 @@
 import os
-from stable_baselines3 import PPO
+from stable_baselines3 import PPO, A2C, DQN
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.logger import configure
 from drl_modules.env import TradingEnv
@@ -11,38 +11,51 @@ from tkinter.filedialog import askopenfilename
 from drl_modules.callbacks import LoggingCallback, EventCallback, plot_total_rewards
 from drl_modules.data_extract import extract_data, extract_batched_data
 
-# IGNORE FOR NOW
 remote_url = "https://your-server.com/api/logs"  # Replace with your actual server URL
 NORM = False
 
 def make_env(env_id, reward_idx, agent_policy, df_path, symbol):
     def _init():
-        return TradingEnv(reward_func_idx=reward_idx, agent_policy=agent_policy, dataset_path=df_path, symbol=symbol)
+        return TradingEnv(
+            reward_func_idx=reward_idx,
+            agent_policy=agent_policy,
+            dataset_path=df_path,
+            symbol=symbol,
+        )
+
     return _init
 
-def ppo_run(dir, 
-            reward_func_idx, 
-            symbol: str, 
-            step_amount: int = 0, 
-            df_path: str | pd.DataFrame = "", 
-            batch_idx: int = 0, 
-            batches_amount: int = 0,
-            save_model_after_each_batch: bool = False, 
-            vectorized_environments: int = 4,
-            device: str = "cpu",
-            agent_policy: str = "MultiInputPolicy"):
-    
+def algo_run(
+    algo_cls,
+    algo_name,
+    dir,
+    reward_func_idx,
+    symbol: str,
+    step_amount: int = 0,
+    df_path: str | pd.DataFrame = "",
+    batch_idx: int = 0,
+    batches_amount: int = 0,
+    save_model_after_each_batch: bool = False,
+    vectorized_environments: int = 4,
+    device: str = "cpu",
+    agent_policy: str = "MultiInputPolicy",
+):
     training_steps = step_amount
 
     # Init environment(s)
-    base_env = TradingEnv(reward_func_idx=reward_func_idx, 
-                          agent_policy=agent_policy,
-                          dataset_path=df_path, 
-                          symbol=symbol,
-                          normalize=NORM)
+    base_env = TradingEnv(
+        reward_func_idx=reward_func_idx,
+        agent_policy=agent_policy,
+        dataset_path=df_path,
+        symbol=symbol,
+        normalize=NORM,
+    )
     base_env._get_env_details()
     if vectorized_environments > 0:
-        vec_env = make_vec_env(lambda: make_env(None, reward_func_idx, agent_policy, df_path, symbol)(), n_envs=vectorized_environments)
+        vec_env = make_vec_env(
+            lambda: make_env(None, reward_func_idx, agent_policy, df_path, symbol)(),
+            n_envs=vectorized_environments,
+        )
         print("VECTORIZING ENVIRONMENTS (This could cause crashes!)")
 
     env = base_env if vectorized_environments == 0 else vec_env
@@ -51,32 +64,33 @@ def ppo_run(dir,
     parent_dir = os.path.dirname(dir) + "/"
     tmp_path = dir + f"part{batch_idx}/" if batches_amount > 0 else dir
     print("parent_dir: ", parent_dir)
-    
+
     # Init agent with logging functions
-    new_logger = configure(tmp_path+"sb3_log/", ["stdout", "csv", "tensorboard"])
-    
-    model = None
+    new_logger = configure(tmp_path + "sb3_log/", ["stdout", "csv", "tensorboard"])
+
     if batches_amount >= 4:
         try:
-            model = PPO.load(parent_dir+"PPO_model", env=env, device=device)
+            model = algo_cls.load(parent_dir + f"{algo_name}_model", env=env, device=device)
         except FileNotFoundError:
             print("File not found, training a new file instead")
-            model = PPO(agent_policy, env, verbose=1, device=device)
+            model = algo_cls(agent_policy, env, verbose=1, device=device)
     else:
-        model = PPO(agent_policy, env, verbose=1, device=device)
+        model = algo_cls(agent_policy, env, verbose=1, device=device)
 
     model.set_logger(new_logger)
 
-    log_callback = LoggingCallback(log_dir=tmp_path, dataset_size=base_env.df_size, remote_url=remote_url)
+    log_callback = LoggingCallback(
+        log_dir=tmp_path, dataset_size=base_env.df_size, remote_url=remote_url
+    )
     eval_callback = EventCallback(log_callback)
 
     model.learn(total_timesteps=training_steps, callback=log_callback)
-    model.save(parent_dir+"PPO_model")
+    model.save(parent_dir + f"{algo_name}_model")
 
-    print(f"Saved model in path {parent_dir+'PPO_model'}")
+    print(f"Saved model in path {parent_dir + algo_name + '_model'}")
 
     if save_model_after_each_batch:
-        model.save(tmp_path+f"batch/PPO_model_batch_{batch_idx}")
+        model.save(tmp_path + f"batch/{algo_name}_model_batch_{batch_idx}")
 
     obs, _ = base_env.reset()
 
@@ -90,24 +104,30 @@ def ppo_run(dir,
 
     base_env.render(save_directory=tmp_path)
 
-def ppo_eval(dir: str, 
-             episodes: int, 
-             reward_func_idx: int, 
-             symbol: str, 
-             model_path: str = "", 
-             render_modulo: str = 10, 
-             df_path: str | pd.DataFrame = "",
-             device: str = "cpu",
-             agent_policy: str = "MultiInputPolicy",
-             eval_only_setting: bool = False):
+def algo_eval(
+    algo_cls,
+    algo_name,
+    dir: str,
+    episodes: int,
+    reward_func_idx: int,
+    symbol: str,
+    model_path: str = "",
+    render_modulo: int = 10,
+    df_path: str | pd.DataFrame = "",
+    device: str = "cpu",
+    agent_policy: str = "MultiInputPolicy",
+    eval_only_setting: bool = False,
+):
 
-    env = TradingEnv(reward_func_idx=reward_func_idx, 
-                     agent_policy=agent_policy,
-                     symbol=symbol, 
-                     dataset_path=df_path,
-                     normalize=NORM)
-    
-    tmp_path = dir+"evaluation/"
+    env = TradingEnv(
+        reward_func_idx=reward_func_idx,
+        agent_policy=agent_policy,
+        symbol=symbol,
+        dataset_path=df_path,
+        normalize=NORM,
+    )
+
+    tmp_path = dir + "evaluation/"
     os.makedirs(tmp_path, exist_ok=True)
 
     if model_path == "":
@@ -115,24 +135,26 @@ def ppo_eval(dir: str,
         root.withdraw()
         model_path = askopenfilename(
             filetypes=[("ZIP files", "*.zip")],
-            title="Select model zip file."
+            title="Select model zip file.",
         )
 
-    model = PPO.load(model_path, env=env, device=device)
+    model = algo_cls.load(model_path, env=env, device=device)
 
-    dtype = [('episode', int),
-             ('total_reward', float),
-             ('total_trades', int),
-             ('win_rate', float)]
+    dtype = [
+        ("episode", int),
+        ("total_reward", float),
+        ("total_trades", int),
+        ("win_rate", float),
+    ]
     return_data = np.zeros(episodes, dtype=dtype)
     total_rewards = []
-    
+
     for e in range(episodes):
         obs, _ = env.reset()
         total_rw = 0
         times = []
         start_time = time.time()
-        
+
         while True:
             action, _states = model.predict(obs)
             obs, rewards, dones, truncated, info = env.step(action=action)
@@ -147,56 +169,40 @@ def ppo_eval(dir: str,
         return_data["episode"][e] = e
         return_data["total_reward"][e] = total_rw
         return_data["total_trades"][e] = info.get("TotalTrades")
-        return_data["win_rate"][e] = info.get("Wins") / info.get("TotalTrades") * 100 if info.get(
-            "TotalTrades") != 0 else 0  # in percent
+        return_data["win_rate"][e] = (
+            info.get("Wins") / info.get("TotalTrades") * 100
+            if info.get("TotalTrades") != 0
+            else 0
+        )
 
         if e % render_modulo == 0:
             times_mean = np.mean(times)
             times.clear()
-            print(f"(PPO) Episode: {e}, Total Reward: {total_rw}, Time duration per ep: {times_mean}")
+            print(
+                f"({algo_name}) Episode: {e}, Total Reward: {total_rw}, Time duration per ep: {times_mean}"
+            )
             if not eval_only_setting:
-                env.render(save_directory=tmp_path + f"TradingEnv_EP={e}", figure_name="")
+                env.render(
+                    save_directory=tmp_path + f"TradingEnv_EP={e}", figure_name=""
+                )
 
     return_data = pd.DataFrame(return_data)
-    return_data.to_csv(dir+"eval_results.csv")
+    return_data.to_csv(dir + "eval_results.csv")
 
-if __name__ == "__main__":
-    path = "../results/"
-    batch_divider = 1
-    start_part = 0
+def ppo_run(*args, **kwargs):
+    return algo_run(PPO, "PPO", *args, **kwargs)
 
-    df = extract_data()
-    batches = extract_batched_data(df, batch_divider=batch_divider)
-    res_path = get_path_from_input()
-    
-    step_inp = int(input("Enter amount of steps: "))
-    
-    last_found_part = -1
-    for i in range(batch_divider):
-        if os.path.exists(res_path+f"part{i}"):
-            last_found_part = i
-        else:
-            break
+def ppo_eval(*args, **kwargs):
+    return algo_eval(PPO, "PPO", *args, **kwargs)
 
-    start_part = last_found_part + 1 if last_found_part != -1 else 0
-    print(f"Starting from part {start_part}")
-    
-    for i, part in enumerate(batches[start_part:], start=start_part):
-        print(f"Training on batch {i + 1}")
-        ppo_run(dir=res_path+f"part{i}/", 
-                reward_func_idx=0, 
-                step_amount=step_inp, 
-                df_path=part,
-                batch_idx=i,
-                save_model_after_each_batch=True,
-                vectorized_environments=6,
-                device="cuda")
-                
-    eval_part = pd.concat(batches[-4:])
-    ppo_eval(dir=res_path+f"evaluation/", 
-             episodes=100, 
-             reward_func_idx=0,
-             render_modulo=1,
-             model_path=res_path+"PPO_model.zip",
-             df_path=eval_part,
-             device="cuda")
+def a2c_run(*args, **kwargs):
+    return algo_run(A2C, "A2C", *args, **kwargs)
+
+def a2c_eval(*args, **kwargs):
+    return algo_eval(A2C, "A2C", *args, **kwargs)
+
+def dqn_run(*args, **kwargs):
+    return algo_run(DQN, "DQN", *args, **kwargs)
+
+def dqn_eval(*args, **kwargs):
+    return algo_eval(DQN, "DQN", *args, **kwargs)
