@@ -1,18 +1,23 @@
 import os
-from stable_baselines3 import PPO, A2C, DQN
-from stable_baselines3.common.env_util import make_vec_env
-from stable_baselines3.common.logger import configure
-from drl_modules.env import TradingEnv
-import pandas as pd
-import numpy as np
 import time
 import tkinter as tk
 from tkinter.filedialog import askopenfilename
-from drl_modules.callbacks import LoggingCallback, EventCallback, plot_total_rewards
+
+import numpy as np
+import pandas as pd
+from stable_baselines3 import A2C
+from stable_baselines3.common.env_util import make_vec_env
+from stable_baselines3.common.logger import configure
+
+from drl_modules.callbacks import EventCallback, LoggingCallback
+from drl_modules.env import TradingEnv
 from drl_modules.data_extract import extract_data, extract_batched_data
+from drl_modules.export_model import export_to_onnx, export_to_onnx_dict
+
 
 remote_url = "https://your-server.com/api/logs"  # Replace with your actual server URL
 NORM = False
+
 
 def make_env(env_id, reward_idx, agent_policy, df_path, symbol):
     def _init():
@@ -25,9 +30,8 @@ def make_env(env_id, reward_idx, agent_policy, df_path, symbol):
 
     return _init
 
-def algo_run(
-    algo_cls,
-    algo_name,
+
+def a2c_run(
     dir,
     reward_func_idx,
     symbol: str,
@@ -40,9 +44,10 @@ def algo_run(
     device: str = "cpu",
     agent_policy: str = "MultiInputPolicy",
 ):
+    """Train an A2C agent and optionally export to ONNX."""
+
     training_steps = step_amount
 
-    # Init environment(s)
     base_env = TradingEnv(
         reward_func_idx=reward_func_idx,
         agent_policy=agent_policy,
@@ -51,6 +56,7 @@ def algo_run(
         normalize=NORM,
     )
     base_env._get_env_details()
+
     if vectorized_environments > 0:
         vec_env = make_vec_env(
             lambda: make_env(None, reward_func_idx, agent_policy, df_path, symbol)(),
@@ -60,22 +66,21 @@ def algo_run(
 
     env = base_env if vectorized_environments == 0 else vec_env
 
-    # Set directories
     parent_dir = os.path.dirname(dir) + "/"
     tmp_path = dir + f"part{batch_idx}/" if batches_amount > 0 else dir
     print("parent_dir: ", parent_dir)
 
-    # Init agent with logging functions
     new_logger = configure(tmp_path + "sb3_log/", ["stdout", "csv", "tensorboard"])
 
+    model = None
     if batches_amount >= 4:
         try:
-            model = algo_cls.load(parent_dir + f"{algo_name}_model", env=env, device=device)
+            model = A2C.load(parent_dir + "A2C_model", env=env, device=device)
         except FileNotFoundError:
             print("File not found, training a new file instead")
-            model = algo_cls(agent_policy, env, verbose=1, device=device)
+            model = A2C(agent_policy, env, verbose=1, device=device)
     else:
-        model = algo_cls(agent_policy, env, verbose=1, device=device)
+        model = A2C(agent_policy, env, verbose=1, device=device)
 
     model.set_logger(new_logger)
 
@@ -85,12 +90,19 @@ def algo_run(
     eval_callback = EventCallback(log_callback)
 
     model.learn(total_timesteps=training_steps, callback=log_callback)
-    model.save(parent_dir + f"{algo_name}_model")
+    model.save(parent_dir + "A2C_model")
 
-    print(f"Saved model in path {parent_dir + algo_name + '_model'}")
+    print(f"Saved model in path {parent_dir+'A2C_model'}")
+
+    # Export to ONNX
+    model_zip_path = parent_dir + "A2C_model.zip"
+    if agent_policy == "MultiInputPolicy":
+        export_to_onnx_dict(model_zip_path, algorithm="A2C")
+    else:
+        export_to_onnx(model_zip_path, algorithm="A2C")
 
     if save_model_after_each_batch:
-        model.save(tmp_path + f"batch/{algo_name}_model_batch_{batch_idx}")
+        model.save(tmp_path + f"batch/A2C_model_batch_{batch_idx}")
 
     obs, _ = base_env.reset()
 
@@ -104,21 +116,19 @@ def algo_run(
 
     base_env.render(save_directory=tmp_path)
 
-def algo_eval(
-    algo_cls,
-    algo_name,
+
+def a2c_eval(
     dir: str,
     episodes: int,
     reward_func_idx: int,
     symbol: str,
     model_path: str = "",
-    render_modulo: int = 10,
+    render_modulo: str = 10,
     df_path: str | pd.DataFrame = "",
     device: str = "cpu",
     agent_policy: str = "MultiInputPolicy",
     eval_only_setting: bool = False,
 ):
-
     env = TradingEnv(
         reward_func_idx=reward_func_idx,
         agent_policy=agent_policy,
@@ -138,7 +148,7 @@ def algo_eval(
             title="Select model zip file.",
         )
 
-    model = algo_cls.load(model_path, env=env, device=device)
+    model = A2C.load(model_path, env=env, device=device)
 
     dtype = [
         ("episode", int),
@@ -170,16 +180,14 @@ def algo_eval(
         return_data["total_reward"][e] = total_rw
         return_data["total_trades"][e] = info.get("TotalTrades")
         return_data["win_rate"][e] = (
-            info.get("Wins") / info.get("TotalTrades") * 100
-            if info.get("TotalTrades") != 0
-            else 0
+            info.get("Wins") / info.get("TotalTrades") * 100 if info.get("TotalTrades") != 0 else 0
         )
 
         if e % render_modulo == 0:
             times_mean = np.mean(times)
             times.clear()
             print(
-                f"({algo_name}) Episode: {e}, Total Reward: {total_rw}, Time duration per ep: {times_mean}"
+                f"(A2C) Episode: {e}, Total Reward: {total_rw}, Time duration per ep: {times_mean}"
             )
             if not eval_only_setting:
                 env.render(
@@ -189,20 +197,50 @@ def algo_eval(
     return_data = pd.DataFrame(return_data)
     return_data.to_csv(dir + "eval_results.csv")
 
-def ppo_run(*args, **kwargs):
-    return algo_run(PPO, "PPO", *args, **kwargs)
 
-def ppo_eval(*args, **kwargs):
-    return algo_eval(PPO, "PPO", *args, **kwargs)
+if __name__ == "__main__":
+    path = "../results/"
+    batch_divider = 1
+    start_part = 0
 
-def a2c_run(*args, **kwargs):
-    return algo_run(A2C, "A2C", *args, **kwargs)
+    df = extract_data()
+    batches = extract_batched_data(df, batch_divider=batch_divider)
 
-def a2c_eval(*args, **kwargs):
-    return algo_eval(A2C, "A2C", *args, **kwargs)
+    step_inp = int(input("Enter amount of steps: "))
 
-def dqn_run(*args, **kwargs):
-    return algo_run(DQN, "DQN", *args, **kwargs)
+    last_found_part = -1
+    for i in range(batch_divider):
+        if os.path.exists(path + f"part{i}"):
+            last_found_part = i
+        else:
+            break
 
-def dqn_eval(*args, **kwargs):
-    return algo_eval(DQN, "DQN", *args, **kwargs)
+    start_part = last_found_part + 1 if last_found_part != -1 else 0
+    print(f"Starting from part {start_part}")
+
+    for i, part in enumerate(batches[start_part:], start=start_part):
+        print(f"Training on batch {i + 1}")
+        a2c_run(
+            dir=path + f"part{i}/",
+            reward_func_idx=0,
+            symbol="",
+            step_amount=step_inp,
+            df_path=part,
+            batch_idx=i,
+            save_model_after_each_batch=True,
+            vectorized_environments=6,
+            device="cuda",
+        )
+
+    eval_part = pd.concat(batches[-4:])
+    a2c_eval(
+        dir=path + "evaluation/",
+        episodes=100,
+        reward_func_idx=0,
+        symbol="",
+        render_modulo=1,
+        model_path=path + "A2C_model.zip",
+        df_path=eval_part,
+        device="cuda",
+    )
+

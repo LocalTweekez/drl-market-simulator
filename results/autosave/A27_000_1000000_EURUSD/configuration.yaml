@@ -7,3 +7,4 @@ Reward: 0
 Steps: 1000000
 Symbol: EURUSD
 VectEnvs: 0
+Algorithm: PPO
