@@ -1,6 +1,6 @@
 # DRL FinTech
 
-A framework for experimenting with deep reinforcement learning for algorithmic trading. It provides a gym-based trading environment, training/evaluation utilities built on Stable-Baselines3 PPO, and tools for exporting trained agents to ONNX.
+A framework for experimenting with deep reinforcement learning for algorithmic trading. It provides a gym-based trading environment, training/evaluation utilities built on Stable-Baselines3 algorithms (PPO, A2C and DQN), and tools for exporting trained agents to ONNX.
 
 ## Repository structure
 
@@ -43,6 +43,47 @@ You will be prompted for:
 - output folder for results
 
 The script trains a PPO model and then evaluates it, saving logs, plots and the model under the chosen results directory. A `configuration.yaml` file is written alongside the outputs and can be reused to run evaluation-only sessions.
+
+## Algorithms
+
+The framework now exposes multiple Stable-Baselines3 agents:
+
+### A2C
+
+- **Prerequisites:** Works with the continuous action space used by the default trading environment.
+- **CLI example:**
+
+  ```bash
+  python main.py --algo a2c
+  ```
+
+- **configuration.yaml snippet:**
+
+  ```yaml
+  Algo: A2C
+  Policy: MlpPolicy
+  ```
+
+- **Considerations:** On-policy method that can converge more slowly than PPO and may require careful tuning of learning rate and entropy parameters.
+
+### DQN
+
+- **Prerequisites:** Requires a discrete action space; the environment must discretize actions before training.
+- **CLI example:**
+
+  ```bash
+  python main.py --algo dqn --discrete-actions
+  ```
+
+- **configuration.yaml snippet:**
+
+  ```yaml
+  Algo: DQN
+  ActionSpace: Discrete
+  Policy: MlpPolicy
+  ```
+
+- **Considerations:** Only handles discrete actions and can become slow or memory intensive as the action space grows.
 
 ## Exporting models
 
