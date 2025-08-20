@@ -1,4 +1,5 @@
 import os
+import glob
 import requests
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -118,6 +119,60 @@ def plot_total_rewards(csv_file_dir):
     plt.grid(True)
     plt.savefig(csv_file_dir + "iteration_total_reward.png")
     plt.close()
+
+
+def plot_loss_accuracy(run_dir: str) -> None:
+    """Plot training and validation loss/accuracy curves.
+
+    Parameters
+    ----------
+    run_dir: str
+        Directory containing training ``info_log.csv`` and optional
+        ``eval_results.csv`` produced by ``ppo_eval``.
+    """
+
+    train_files = sorted(glob.glob(os.path.join(run_dir, "part*/info_log.csv")))
+    if not train_files:
+        single = os.path.join(run_dir, "info_log.csv")
+        if os.path.exists(single):
+            train_files = [single]
+    if not train_files:
+        return
+
+    train_df = pd.concat([pd.read_csv(f) for f in train_files], ignore_index=True)
+
+    train_loss = -train_df["TotalReward"].tolist()
+    trades = train_df["TotalTrades"].replace(0, pd.NA)
+    train_acc = (train_df["Wins"] / trades).fillna(0).tolist()
+
+    eval_file = os.path.join(run_dir, "eval_results.csv")
+    val_loss = val_acc = None
+    if os.path.exists(eval_file):
+        val_df = pd.read_csv(eval_file)
+        val_loss = (-val_df["total_reward"]).tolist()
+        val_acc = (val_df["win_rate"] / 100).tolist()
+
+    fig, (ax_loss, ax_acc) = plt.subplots(1, 2, figsize=(12, 4))
+
+    ax_loss.plot(train_loss, label="train")
+    if val_loss is not None:
+        ax_loss.plot(val_loss, label="val")
+    ax_loss.set_title("Loss")
+    ax_loss.set_xlabel("Episode")
+    ax_loss.set_ylabel("Loss")
+    ax_loss.legend()
+
+    ax_acc.plot(train_acc, label="train")
+    if val_acc is not None:
+        ax_acc.plot(val_acc, label="val")
+    ax_acc.set_title("Accuracy")
+    ax_acc.set_xlabel("Episode")
+    ax_acc.set_ylabel("Accuracy")
+    ax_acc.legend()
+
+    fig.tight_layout()
+    fig.savefig(os.path.join(run_dir, "loss_accuracy.png"))
+    plt.close(fig)
 
 def main():
     log_dir = "path_to_log_dir"

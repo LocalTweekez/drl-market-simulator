@@ -3,6 +3,7 @@ from drl_modules.env import TradingEnv
 from drl_modules.agent_render import render_loss_function
 from drl_modules.data_extract import extract_data, extract_batched_data
 from drl_modules.ppo import ppo_run, ppo_eval
+from drl_modules.callbacks import plot_loss_accuracy
 from drl_modules.input_config import get_user_input, get_user_sim_method
 from drl_modules.rewards import RewardFunctions
 import os
@@ -83,15 +84,17 @@ def run_drl_system(reward_idx,
 
                 
     print("\n\nRUNNING THE EVALUATION PHASE:")
-    ppo_eval(dir=res_path, 
+    ppo_eval(dir=res_path,
              model_path=res_path+"PPO_model",
-             episodes=eval_episodes, 
+             episodes=eval_episodes,
              symbol=symbol,
              reward_func_idx=reward_idx,
              render_modulo=1,
              agent_policy=policy,
              df_path=df,
              eval_only_setting=eval_only)
+
+    plot_loss_accuracy(res_path)
     
 if __name__ == "__main__":
     method = get_user_sim_method()

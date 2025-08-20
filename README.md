@@ -1,6 +1,6 @@
 # DRL FinTech
 
-A framework for experimenting with deep reinforcement learning for algorithmic trading. It provides a gym-based trading environment, training/evaluation utilities built on Stable-Baselines3 PPO, and tools for exporting trained agents to ONNX.
+A framework for experimenting with deep reinforcement learning for algorithmic trading. It provides a gym-based trading environment, training/evaluation utilities built on Stable-Baselines3 algorithms (PPO, A2C and DQN), and tools for exporting trained agents to ONNX.
 
 ## Repository structure
 
@@ -44,6 +44,47 @@ You will be prompted for:
 
 The script trains a PPO model and then evaluates it, saving logs, plots and the model under the chosen results directory. A `configuration.yaml` file is written alongside the outputs and can be reused to run evaluation-only sessions.
 
+## Algorithms
+
+The framework now exposes multiple Stable-Baselines3 agents:
+
+### A2C
+
+- **Prerequisites:** Works with the continuous action space used by the default trading environment.
+- **CLI example:**
+
+  ```bash
+  python main.py --algo a2c
+  ```
+
+- **configuration.yaml snippet:**
+
+  ```yaml
+  Algo: A2C
+  Policy: MlpPolicy
+  ```
+
+- **Considerations:** On-policy method that can converge more slowly than PPO and may require careful tuning of learning rate and entropy parameters.
+
+### DQN
+
+- **Prerequisites:** Requires a discrete action space; the environment must discretize actions before training.
+- **CLI example:**
+
+  ```bash
+  python main.py --algo dqn --discrete-actions
+  ```
+
+- **configuration.yaml snippet:**
+
+  ```yaml
+  Algo: DQN
+  ActionSpace: Discrete
+  Policy: MlpPolicy
+  ```
+
+- **Considerations:** Only handles discrete actions and can become slow or memory intensive as the action space grows.
+
 ## Exporting models
 
 `drl_modules/export_model.py` converts a trained PPO policy to ONNX for inference outside Python. Both standard (flat) and dictionary-based observation spaces are supported.
@@ -63,7 +104,7 @@ If these headers are missing, `drl_modules.data_extract.convert_csv_format` atte
 
 ## Results and logs
 
-Training runs store models, TensorBoard logs, CSV trade histories and rendered plots under the results directory. Example output files can be found in `misc/`.
+Training runs store models, TensorBoard logs, CSV trade histories and rendered plots under the results directory. A summary figure `loss_accuracy.png` visualises training/validation loss and accuracy side by side. Example output files can be found in `misc/`.
 
 ## License
 

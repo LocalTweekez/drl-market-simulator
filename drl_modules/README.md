@@ -5,7 +5,7 @@ Core modules used by the DRL FinTech project. The package implements the trading
 ## Contents
 
 - `env.py` – Gymnasium environment representing a trading session.
-- `ppo.py` – helpers for training and evaluating PPO agents.
+- `ppo.py` – helpers for training and evaluating PPO agents. The environment can also be used with Stable-Baselines3 A2C and DQN agents (DQN requires a discrete action space).
 - `callbacks.py` – custom logging callbacks and plotting utilities.
 - `data_extract.py` – functions for loading CSV datasets and splitting them into batches.
 - `input_config.py` – interactive helpers for collecting run parameters and writing `configuration.yaml`.
