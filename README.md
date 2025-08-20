@@ -4,7 +4,7 @@ A framework for experimenting with deep reinforcement learning for algorithmic t
 
 ## Repository structure
 
-- `drl_modules/` – core package containing the environment, training helpers, reward functions and export utilities.
+- `drl_modules/` – core package containing the environment, training helpers, reward functions and export utilities. Both PPO and DQN helpers are available.
 - `datasets/` – sample market data CSV files.
 - `misc/` – assorted scripts and artifacts produced during experiments.
 - `results/` – default output directory for trained models, logs and plots.
@@ -25,7 +25,7 @@ The project targets Python 3.12 and uses Stable-Baselines3.
 
 ## Usage
 
-Run the interactive driver to train and evaluate a PPO agent:
+Run the interactive driver to train and evaluate a reinforcement learning agent:
 
 ```bash
 python main.py
@@ -40,9 +40,30 @@ You will be prompted for:
 - number of vectorized environments
 - compute device (`cpu` or `cuda`)
 - policy architecture (`MlpPolicy`, `CnnPolicy`, or `MultiInputPolicy`)
+- learning algorithm (`PPO`, `A2C`, or `DQN`)
 - output folder for results
 
-The script trains a PPO model and then evaluates it, saving logs, plots and the model under the chosen results directory. A `configuration.yaml` file is written alongside the outputs and can be reused to run evaluation-only sessions.
+The script trains the selected algorithm and then evaluates it, saving logs, plots and the model (e.g. `PPO_model.zip`) under the chosen results directory. A `configuration.yaml` file including the algorithm name is written alongside the outputs and can be reused to run evaluation-only sessions.
+
+Example configuration:
+
+```
+Algorithm: PPO
+Policy: MlpPolicy
+...
+```
+
+### Discrete actions and DQN
+
+`drl_modules/dqn.py` introduces a Deep Q-Network workflow that operates on a discrete action space. When constructing `TradingEnv` with `discrete_actions=True`, the action space becomes `Discrete(3)` with the following mapping:
+
+| Action | Meaning |
+|--------|---------|
+| 0      | Hold    |
+| 1      | Buy     |
+| 2      | Sell    |
+
+Risk management is held constant internally for these actions. This discrete mode is required for algorithms such as DQN.
 
 ## Algorithms
 

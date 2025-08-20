@@ -2,7 +2,7 @@ import os
 import gymnasium as gym
 import torch as th
 from drl_modules.env import TradingEnv
-from stable_baselines3 import PPO
+from stable_baselines3 import PPO, A2C
 from stable_baselines3.common.policies import BasePolicy
 import onnx
 import onnxruntime as ort
@@ -14,6 +14,11 @@ from drl_modules.data_extract import extract_data
 import yaml
 import time
 import pandas as pd
+
+ALGOS = {
+    "PPO": PPO,
+    "A2C": A2C,
+}
 
 class OnnxableSB3Policy(th.nn.Module):
     def __init__(self, policy: BasePolicy, action_low: np.ndarray, action_high: np.ndarray):
@@ -29,7 +34,7 @@ class OnnxableSB3Policy(th.nn.Module):
         clamped_actions = th.clamp(actions, self.action_low, self.action_high)
         return clamped_actions
 
-def export_to_onnx(_model_path=""):
+def export_to_onnx(_model_path: str = "", algorithm: str = "PPO"):
     if not _model_path:
         root = tk.Tk()
         root.withdraw()
@@ -51,7 +56,8 @@ def export_to_onnx(_model_path=""):
                      dataset_path=data["Dataset"])
 
     model_directory = os.path.dirname(model_path) + "/"
-    model = PPO.load(model_path, env=env, device=data["Device"])
+    model_cls = ALGOS.get(algorithm.upper(), PPO)
+    model = model_cls.load(model_path, env=env, device=data["Device"])
 
     # Get the action space boundaries
     action_low = model.action_space.low
@@ -195,7 +201,7 @@ class OnnxableSB3PolicyDict(th.nn.Module):
         return actions
 
 
-def export_to_onnx_dict(_model_path=""):
+def export_to_onnx_dict(_model_path: str = "", algorithm: str = "PPO"):
     # Initialize environment and model
 
     if not _model_path:
@@ -203,12 +209,13 @@ def export_to_onnx_dict(_model_path=""):
         root.withdraw()
         model_path = askopenfilename(
             filetypes=[("ZIP files", "*.zip")],
-            title="Select model zip file."
+            title="Select model zip file.",
         )
     else:
         model_path = _model_path
-    
+
     data = None
+    method = os.path.dirname(model_path) + "/"
     with open(method+"configuration.yaml", "r") as f:
         data = yaml.safe_load(f)
     env = TradingEnv(reward_func_idx=data["Reward"],
@@ -218,7 +225,8 @@ def export_to_onnx_dict(_model_path=""):
                      batch_size=data["Batches"])
 
     model_directory = os.path.dirname(model_path) + "/"
-    model = PPO.load(model_path, env=env, device="cuda")
+    model_cls = ALGOS.get(algorithm.upper(), PPO)
+    model = model_cls.load(model_path, env=env, device=data.get("Device", "cpu"))
 
     onnx_policy = OnnxableSB3PolicyDict(model.policy)
     onnx_path = model_directory+"ONNX_model.onnx"

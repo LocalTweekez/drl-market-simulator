@@ -91,6 +91,11 @@ def get_user_input():
         print(f"\t\t{i}. {p}")
     p_idx = int(input("\nEnter Policy index: "))
 
+    algorithms = ["PPO", "A2C", "DQN"]
+    for i, a in enumerate(algorithms):
+        print(f"\t\t{i}. {a}")
+    algo_idx = int(input("\nEnter Algorithm index: "))
+
     # Create the data dictionary
     data = {
         "Symbol": symbol,
@@ -101,7 +106,8 @@ def get_user_input():
         "VectEnvs": vec_env,
         "Device": device,
         "Folder": folder_path,
-        "Policy": policies[p_idx]
+        "Policy": policies[p_idx],
+        "Algorithm": algorithms[algo_idx]
     }
 
     # Write the data to a YAML file

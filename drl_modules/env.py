@@ -79,7 +79,8 @@ class TradingEnv(gym.Env):
                  init_balance: int = 10000,
                  risk_percentage: int = 2,
                  trading_fees: float = 0.01,
-                 normalize: bool = False):
+                 normalize: bool = False,
+                 discrete_actions: bool = False):
         super().__init__()
 
         print("Initializing trading environment")
@@ -91,6 +92,7 @@ class TradingEnv(gym.Env):
         self.reward_func_idx = reward_func_idx
         self.agent_policy = agent_policy
         self.normalize = normalize
+        self.discrete_actions = discrete_actions
 
         if type(dataset_path) == str:
             # Init and process dataset
@@ -108,8 +110,13 @@ class TradingEnv(gym.Env):
         if self.normalize:
             self.df = self._normalize_dataframe(self.df)
 
-        # Action space: first value for long/short (-1 to 1), second value for risk management (0 to 1)
-        self.action_space = spaces.Box(low=np.array([-1, 0]), high=np.array([1, 1]), dtype=np.float32)
+        # Action space
+        if self.discrete_actions:
+            # 0 = hold, 1 = buy, 2 = sell
+            self.action_space = spaces.Discrete(3)
+        else:
+            # first value for long/short (-1 to 1), second value for risk management (0 to 1)
+            self.action_space = spaces.Box(low=np.array([-1, 0]), high=np.array([1, 1]), dtype=np.float32)
         
         # Observation space
         self.observation_space = get_obs_space_flattened(df=self.df, box_length=batch_size) if agent_policy != "MultiInputPolicy" else get_obs_space_dict(df=self.df, box_length=batch_size)
@@ -183,8 +190,18 @@ class TradingEnv(gym.Env):
         self.t_global += 1
 
         # Extract actions
-        direction = action[0]  # Long/short decision (-1 to 1)
-        risk = action[1]       # Risk management (0 to 1)
+        if self.discrete_actions:
+            act = int(action)
+            if act == 1:
+                direction = 1.0  # buy
+            elif act == 2:
+                direction = -1.0  # sell
+            else:
+                direction = 0.0  # hold
+            risk = 0.0
+        else:
+            direction = action[0]  # Long/short decision (-1 to 1)
+            risk = action[1]       # Risk management (0 to 1)
         
         # Step variables
         price = self.trade_env["close"][self.t-1]
@@ -192,7 +209,7 @@ class TradingEnv(gym.Env):
         last_bal = self.trade_env["eAccBalance"][self.t-1]
         self.trade_env["pProfit"][self.t] = 0
         self.trade_env["actDir"][self.t] = direction
-        self.trade_env["actRisk"][self.t] = direction
+        self.trade_env["actRisk"][self.t] = risk
         self.trade_env["pType"][self.t] = last_pos
         self.trade_env["eAccBalance"][self.t] = last_bal
         self.trade_env["eWins"][self.t] = self.trade_env["eWins"][self.t-1]
