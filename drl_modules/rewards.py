@@ -36,11 +36,13 @@ class RewardFunctions:
         return np.clip(scaled_reward, -1, 1)
 
     def reward_main(self, history, idx):
+        """Raw percentage change in account balance between consecutive steps."""
         current_valuation = history["eAccBalance"][idx]
         previous_valuation = history["eAccBalance"][idx - 1]
         return (current_valuation - previous_valuation) / previous_valuation if previous_valuation != 0 else 0
-    
+
     def reward_normalized(self, history, idx):
+        """Percentage change in balance scaled to ``[-1, 1]`` using :func:`scale_reward`."""
         current_valuation = history["eAccBalance"][idx]
         previous_valuation = history["eAccBalance"][idx - 1]
         raw_reward = (current_valuation - previous_valuation) / previous_valuation if previous_valuation != 0 else 0
@@ -131,6 +133,7 @@ class RewardFunctions:
         return (current_total - previous_total) / previous_total if previous_total != 0 else 0
 
     def reward_simplistic_comp(self, history, idx):
+        """Simple momentum reward comparing balance to eight steps prior."""
         self.history_data = history
         if idx < 10:
             return 0
@@ -140,12 +143,14 @@ class RewardFunctions:
             return -1
 
     def reward_with_drawdown(self, history, idx):
+        """Balance change penalized by drawdown from the running peak."""
         previous_balance = history['eAccBalance'][:idx].max()
         current_balance = history['eAccBalance'][idx]
         drawdown = (previous_balance - current_balance) / previous_balance
         return (current_balance - previous_balance) / previous_balance - drawdown
 
     def reward_combined(self, history, idx, risk_free_rate=0.01, epsilon=1e-8):
+        """Combination of Sharpe ratio and max drawdown scaled into a single score."""
         # Calculate returns
         returns = (history['eAccBalance'][1:idx + 1] - history['eAccBalance'][:idx]) / history['eAccBalance'][:idx]
 
@@ -172,13 +177,15 @@ class RewardFunctions:
         normalized_reward = raw_reward - min(raw_reward, 0)  # Ensure the reward is at least zero
 
         return normalized_reward
-    
+
     def reward_winrate(self, history, idx, win_rate=0.65):
+        """Difference between current win rate and a target ``win_rate``."""
         wins = history["eWins"][idx]
         losses = history["eLosses"][idx]
         return ((wins / (wins + losses)) - win_rate) if wins + losses > 0 else 1
 
     def test_sellonly(self, history, idx):
+        """Toy reward that favors sell actions and penalizes buys."""
         if history["pType"][idx] == 2:
             return 1
         elif history["pType"][idx] == 1:
@@ -187,6 +194,7 @@ class RewardFunctions:
             return 0
 
     def reward_percentage_of_init(self, history, idx):
+        """Percentage change in balance relative to the initial valuation."""
         current_valuation = history["eAccBalance"][idx]
         initial_valuation = history["eAccBalance"][0]
         return (current_valuation - initial_valuation) / initial_valuation
