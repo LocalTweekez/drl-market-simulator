@@ -1,4 +1,4 @@
-# DRL FinTech
+# DRL Market Simulator
 
 A framework for experimenting with deep reinforcement learning for algorithmic trading. It provides a gym-based trading environment, training/evaluation utilities built on Stable-Baselines3 algorithms (PPO, A2C and DQN), and tools for exporting trained agents to ONNX.
 
