@@ -53,6 +53,11 @@ def get_user_input():
     device_idx = int(input("Enter device (0 - cuda, 1 - cpu): "))
     device = "cuda" if device_idx == 0 else "cpu" if device_idx == 1 else "auto"
 
+    algorithms = ["PPO", "A2C", "DQN"]
+    for i, a in enumerate(algorithms):
+        print(f"\t\t{i}. {a}")
+    algo_idx = int(input("\nEnter Algorithm index: "))
+
     res_path = input("Set results folder manually? [y/n]: ")
 
     if res_path == "y":
@@ -62,7 +67,7 @@ def get_user_input():
             title="Select directory to save results in."
         )
     else:
-        name_init = f"A0_{batches}{rw_idx}{vec_env}_{step_inp}_{symbol}"
+        name_init = f"A0_{algorithms[algo_idx]}_{batches}{rw_idx}{vec_env}_{step_inp}_{symbol}"
         res_path = os.path.join(parent_dir, "results", "autosave")
         os.makedirs(res_path, exist_ok=True)
 
@@ -79,7 +84,7 @@ def get_user_input():
                     except ValueError:
                         pass
             next_index = max_index + 1
-            name_init = f"A{next_index}_{batches}{rw_idx}{vec_env}_{step_inp}_{symbol}"
+            name_init = f"A{next_index}_{algorithms[algo_idx]}_{batches}{rw_idx}{vec_env}_{step_inp}_{symbol}"
         folder_path = os.path.join(res_path, name_init)
         os.makedirs(folder_path, exist_ok=True)
 
@@ -91,10 +96,6 @@ def get_user_input():
         print(f"\t\t{i}. {p}")
     p_idx = int(input("\nEnter Policy index: "))
 
-    algorithms = ["PPO", "A2C", "DQN"]
-    for i, a in enumerate(algorithms):
-        print(f"\t\t{i}. {a}")
-    algo_idx = int(input("\nEnter Algorithm index: "))
 
     # Create the data dictionary
     data = {

@@ -1,0 +1,10 @@
+Algorithm: A2C
+Batches: 0
+Dataset: c:\Github\drl_fintech\datasets\eurusd_1000_st.csv
+Device: cuda
+Folder: c:\Github\drl_fintech\results\autosave\A30_000_1000000_EURUSD/
+Policy: MlpPolicy
+Reward: 0
+Steps: 1000000
+Symbol: EURUSD
+VectEnvs: 0
