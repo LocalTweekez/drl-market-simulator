@@ -2,7 +2,6 @@
 
 A framework for experimenting with deep reinforcement learning for algorithmic trading. It provides a gym-based trading environment, training/evaluation utilities built on Stable-Baselines3 algorithms (PPO, A2C and DQN), and tools for exporting trained agents to ONNX.
 
-
 ## Repository structure
 
 - `drl_modules/` – core package containing the environment, training helpers, reward functions and export utilities. Both PPO and DQN helpers are available.
@@ -65,6 +64,47 @@ Policy: MlpPolicy
 | 2      | Sell    |
 
 Risk management is held constant internally for these actions. This discrete mode is required for algorithms such as DQN.
+
+## Algorithms
+
+The framework now exposes multiple Stable-Baselines3 agents:
+
+### A2C
+
+- **Prerequisites:** Works with the continuous action space used by the default trading environment.
+- **CLI example:**
+
+  ```bash
+  python main.py --algo a2c
+  ```
+
+- **configuration.yaml snippet:**
+
+  ```yaml
+  Algo: A2C
+  Policy: MlpPolicy
+  ```
+
+- **Considerations:** On-policy method that can converge more slowly than PPO and may require careful tuning of learning rate and entropy parameters.
+
+### DQN
+
+- **Prerequisites:** Requires a discrete action space; the environment must discretize actions before training.
+- **CLI example:**
+
+  ```bash
+  python main.py --algo dqn --discrete-actions
+  ```
+
+- **configuration.yaml snippet:**
+
+  ```yaml
+  Algo: DQN
+  ActionSpace: Discrete
+  Policy: MlpPolicy
+  ```
+
+- **Considerations:** Only handles discrete actions and can become slow or memory intensive as the action space grows.
 
 ## Exporting models
 
